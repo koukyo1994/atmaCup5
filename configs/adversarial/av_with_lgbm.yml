@@ -1,5 +1,5 @@
 preprocess:
-  - config/preprocess/remove_columns.yml
+  - configs/preprocess/remove_columns.yml
 
-split: config/split/kfold.yml
-model: config/model/lgbm_binary.yml
+split: configs/split/kfold.yml
+model: configs/model/lgbm_binary.yml

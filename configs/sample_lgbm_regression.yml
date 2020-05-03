@@ -12,6 +12,6 @@ pipeline:
     data_loading:
     features:
     preprocess:
-    av:
-    split:
-    model:
+    av: configs/adversarial/av_with_lgbm.yml
+    split: configs/split/kfold.yml
+    model: configs/model/lgbm_regression.yml
