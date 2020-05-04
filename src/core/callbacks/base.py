@@ -1,3 +1,6 @@
+from src.core.states import RunningState
+
+
 class Callback:
     def on_program_start(self):
         pass
@@ -11,50 +14,50 @@ class Callback:
     def on_pipeline_end(self):
         pass
 
-    def on_experiment_start(self):
+    def on_experiment_start(self, state: RunningState):
         pass
 
-    def on_experiment_end(self):
+    def on_experiment_end(self, state: RunningState):
         pass
 
-    def on_data_loading_start(self):
+    def on_data_loading_start(self, state: RunningState):
         pass
 
-    def on_data_loading_end(self):
+    def on_data_loading_end(self, state: RunningState):
         pass
 
-    def on_feature_extraction_start(self):
+    def on_feature_extraction_start(self, state: RunningState):
         pass
 
-    def on_feature_extraction_end(self):
+    def on_feature_extraction_end(self, state: RunningState):
         pass
 
-    def on_preprocess_start(self):
+    def on_preprocess_start(self, state: RunningState):
         pass
 
-    def on_preprocess_end(self):
+    def on_preprocess_end(self, state: RunningState):
         pass
 
-    def on_split_start(self):
+    def on_split_start(self, state: RunningState):
         pass
 
-    def on_split_end(self):
+    def on_split_end(self, state: RunningState):
         pass
 
-    def on_model_train_start(self):
+    def on_model_train_start(self, state: RunningState):
         pass
 
-    def on_model_train_end(self):
+    def on_model_train_end(self, state: RunningState):
         pass
 
-    def on_model_eval_start(self):
+    def on_model_eval_start(self, state: RunningState):
         pass
 
-    def on_model_eval_end(self):
+    def on_model_eval_end(self, state: RunningState):
         pass
 
-    def on_model_inference_start(self):
+    def on_model_inference_start(self, state: RunningState):
         pass
 
-    def on_model_inference_end(self):
+    def on_model_inference_end(self, state: RunningState):
         pass

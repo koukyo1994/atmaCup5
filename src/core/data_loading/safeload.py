@@ -44,17 +44,12 @@ def get_total_size(path: Path) -> int:
     return nbytes
 
 
-def get_normal_stats(config: dict):
-    method, kwargs = determine_file_open_method(config)
-
+def get_normal_stats(df: pd.DataFrame, config: dict):
     stats: Dict[str, Any] = {}
 
     data_dir = Path(config["dir"])
     data_path = data_dir / config["name"]
     stats_path = data_dir / config["stats"]
-
-    df = pd.__getattribute__(method)(data_path, **kwargs)
-    df = reduce_mem_usage(df, verbose=False)
 
     stats["line_count"] = len(df)
     stats["size"] = get_total_size(data_path)

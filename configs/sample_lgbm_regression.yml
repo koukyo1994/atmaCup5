@@ -9,6 +9,7 @@ log_dir: log
 pipeline:
   - lgbm_with_av:
     data_loading:
+      - configs/data_loading/train_sample.yml
     features:
     preprocess:
     av: configs/adversarial/av_with_lgbm.yml
