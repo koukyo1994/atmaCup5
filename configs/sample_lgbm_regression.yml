@@ -1,5 +1,4 @@
 dataset:
-  dir: input/
   feature_dir: features/
   params:
 
