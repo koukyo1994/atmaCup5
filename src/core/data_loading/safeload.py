@@ -14,8 +14,7 @@ def check_file_exist(input_dir: Path, file_name: str) -> bool:
 
 
 def determine_file_open_method(config: dict):
-    if config.get("format") == "auto":
-        file_format: str = config["name"].split(".")[-1]
+    file_format: str = config["name"].split(".")[-1]
 
     kwargs = {}
     if file_format in {"csv", "tsv"}:

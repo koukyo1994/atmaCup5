@@ -1,0 +1,4 @@
+dir: features
+name: train.ftr
+mode: normal
+role: train

@@ -1,10 +1,9 @@
-train:
-  dir: input/mercari-price-suggestion-challenge
-  name: train.tsv
-  stats: train.tsv.stats.json
-  format: auto
-  mode: normal
-  structure:
-    id_column: train_id
-    target: price
-  required: all
+dir: input/mercari-price-suggestion-challenge
+name: train.tsv
+stats: train.tsv.stats.json
+mode: normal
+structure:
+  id_column: train_id
+  target: price
+required: all
+role: train

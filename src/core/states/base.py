@@ -1,6 +1,6 @@
 import pandas as pd
 
-from typing import Dict
+from typing import Dict, Optional
 
 
 class RunningState:
@@ -9,3 +9,5 @@ class RunningState:
         self.dataframes: Dict[str, pd.DataFrame] = {}
 
         self.callbacks: Dict[str, list] = {}
+
+        self.data_stats: Dict[str, Optional[str]] = {}
