@@ -1,5 +1,4 @@
 from .arguments import get_parser
-from .config import load_config
 from .jsonutil import save_json
 from .logger import get_logger
 from .memory import reduce_mem_usage

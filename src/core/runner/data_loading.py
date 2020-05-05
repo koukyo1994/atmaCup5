@@ -12,4 +12,7 @@ class DataLoadingRunner(Runner):
 
         self.state = state
 
-        self.callbacks = [dlc.FileExistenceCheckCallback()]
+        self.callbacks = [
+            dlc.FileExistenceCheckCallback(),
+            dlc.CompressDataFrameCallback()
+        ]

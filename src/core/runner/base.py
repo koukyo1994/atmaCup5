@@ -1,19 +1,14 @@
 from typing import List
 
 from src.core.callbacks import Callback
-from src.core.config import load_config
 from src.core.states import RunningState
 
 
 class Runner:
     signature = "base"
 
-    def __init__(self, config_path: str):
-        config = load_config(config_path)
-
+    def __init__(self, config: dict):
         self.config = config
-
-        config["config_path"] = config_path
 
         self.state = RunningState(config)
 
@@ -30,3 +25,6 @@ class Runner:
 
         for callback in sorted(callbacks):
             callback.__getattribute__(method)(self.state)
+
+    def run(self):
+        raise NotImplementedError
