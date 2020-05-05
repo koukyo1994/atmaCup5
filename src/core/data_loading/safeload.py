@@ -22,7 +22,7 @@ def determine_file_open_method(config: dict):
     elif file_format == "parquet":
         method = "read_parquet"
     elif file_format in {"pickle", "pkl"}:
-        method = "read_pkl"
+        method = "read_pikle"
     elif file_format in {"feather", "ftr"}:
         method = "read_feather"
     else:

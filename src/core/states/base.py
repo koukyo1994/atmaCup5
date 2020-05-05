@@ -20,6 +20,7 @@ class RunningState:
             "%Y%m%d-%H:%M:%S") + ".log"
         self.logger = utils.get_logger(str(log_dir / log_name))
         self.dataframes: Dict[str, pd.DataFrame] = {}
+        self.dataframe_roles: Dict[str, str] = {}
 
         self.callbacks: Dict[str, list] = {}
 
