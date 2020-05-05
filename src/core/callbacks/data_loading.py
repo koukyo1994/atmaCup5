@@ -4,10 +4,12 @@ from typing import Any, Dict, List
 from src.core.data_loading import get_normal_stats
 from src.core.states import RunningState
 
-from .base import Callback
+from .base import Callback, CallbackOrder
 
 
 class CalcStatsCallback(Callback):
+    callback_order = CallbackOrder.LOWEST
+
     def on_data_loading_end(self, state: RunningState):
         data_loading_configs: List[
             Dict[str, Any]] = state.config["data_loading"]

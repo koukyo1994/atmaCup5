@@ -7,3 +7,5 @@ class RunningState:
     def __init__(self, config: dict):
         self.config = config
         self.dataframes: Dict[str, pd.DataFrame] = {}
+
+        self.callbacks: Dict[str, list] = {}
