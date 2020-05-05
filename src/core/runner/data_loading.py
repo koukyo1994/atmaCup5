@@ -1,3 +1,5 @@
+import src.core.callbacks.data_loading as dlc
+
 from . import Runner
 from src.core.states import RunningState
 
@@ -9,3 +11,5 @@ class DataLoadingRunner(Runner):
         super().__init__(config)
 
         self.state = state
+
+        self.callbacks = [dlc.FileExistenceCheckCallback()]

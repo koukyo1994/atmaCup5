@@ -6,8 +6,6 @@ import pandas as pd
 from pathlib import Path
 from typing import Dict, Any
 
-from src.utils import reduce_mem_usage
-
 
 def check_file_exist(input_dir: Path, file_name: str) -> bool:
     return (input_dir / file_name).exists()

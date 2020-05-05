@@ -1,9 +1,9 @@
+import src.utils as utils
 import src.core.data_loading as dl
 
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from src.core.data_loading import get_normal_stats
 from src.core.states import RunningState
 
 from .base import Callback, CallbackOrder
@@ -42,6 +42,17 @@ class FileExistenceCheckCallback(Callback):
         state.data_stats.update(stats)
 
 
+# on_data_loading_end
+class CompressDataFrameCallback(Callback):
+    callback_order = CallbackOrder.HIGHEST
+
+    def on_data_loading_end(self, state: RunningState):
+        data_frames = state.dataframes
+        for key in data_frames:
+            data_frames[key] = utils.reduce_mem_usage(
+                data_frames[key], verbose=True, logger=state.logger)
+
+
 class CalcStatsCallback(Callback):
     callback_order = CallbackOrder.LOWEST
 
@@ -59,4 +70,4 @@ class CalcStatsCallback(Callback):
 
             if not stats_path.exists(
             ) and mode == "normal" and required == "all":
-                get_normal_stats(state.dataframes[name], config)
+                dl.get_normal_stats(state.dataframes[name], config)
