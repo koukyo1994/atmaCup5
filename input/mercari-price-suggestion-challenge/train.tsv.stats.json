@@ -1,0 +1,24 @@
+{
+    "line_count": 1482535,
+    "size": 337809843,
+    "dtypes": {
+        "train_id": "int32",
+        "name": "object",
+        "item_condition_id": "int8",
+        "category_name": "object",
+        "brand_name": "object",
+        "price": "float16",
+        "shipping": "int8",
+        "item_description": "object"
+    },
+    "nuniques": {
+        "train_id": 1482535,
+        "name": 1225273,
+        "item_condition_id": 5,
+        "category_name": 1287,
+        "brand_name": 4809,
+        "price": 828,
+        "shipping": 2,
+        "item_description": 1281426
+    }
+}

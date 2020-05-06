@@ -3,6 +3,8 @@ import subprocess as sp
 
 import pandas as pd
 
+import src.utils as utils
+
 from pathlib import Path
 from typing import Dict, Any
 
@@ -66,12 +68,14 @@ def get_normal_stats(df: pd.DataFrame, config: dict):
 
     stats["line_count"] = len(df)
     stats["size"] = get_total_size(data_path)
-    stats["dtypes"] = {k: str(v) for k, v in df.dtypes.to_dict()}
+    stats["dtypes"] = {k: str(v) for k, v in df.dtypes.to_dict().items()}
     stats["nuniques"] = {c: df[c].nunique() for c in df.columns}
-    stats["id_columns"] = []
-    for k, v in stats["nuniques"].items():
-        if v == stats["line_count"]:
-            stats["id_columns"].append(k)
 
-    with open(stats_path, "w") as f:
-        json.dump(stats, f)
+    utils.save_json(stats, stats_path)
+
+
+def open_stats(path: str):
+    with open(path, "r") as f:
+        stats = json.load(f)
+
+    return stats

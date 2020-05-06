@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 
 
 class RunningState:
@@ -20,7 +20,7 @@ class RunningState:
 
         self.callbacks: Dict[str, list] = {}
 
-        self.data_stats: Dict[str, Optional[str]] = {}
+        self.data_stats: Dict[str, Optional[Union[str, dict]]] = {}
 
         self.target = ""
         self.id_columns: Dict[str, Optional[str]] = {}

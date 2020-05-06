@@ -102,4 +102,5 @@ class CalcStatsCallback(Callback):
 
             if not stats_path.exists(
             ) and mode == "normal" and required == "all":
-                dl.get_normal_stats(state.dataframes[name], config)
+                dl.get_normal_stats(state.dataframes[str(data_dir / name)],
+                                    config)

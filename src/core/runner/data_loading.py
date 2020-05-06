@@ -18,7 +18,8 @@ class DataLoadingRunner(SubRunner):
         self.callbacks = [
             dlc.FileExistenceCheckCallback(),
             dlc.CheckDataStructureCallback(),
-            dlc.CompressDataFrameCallback()
+            dlc.CompressDataFrameCallback(),
+            dlc.CalcStatsCallback()
         ]
 
     def run(self):
@@ -30,6 +31,20 @@ class DataLoadingRunner(SubRunner):
             if columns is not None:
                 kwargs["columns"] = columns
             file_path = Path(config["dir"]) / config["name"]
+
+            if self.state.data_stats[str(file_path)] is not None:
+                stats_path = self.state.data_stats[str(file_path)]
+                stats = dl.open_stats(stats_path)
+                dtypes = stats["dtypes"]
+                if columns is not None:
+                    dtypes_cols = {}
+                    for col in columns:
+                        dtypes_cols[col] = dtypes[col]
+                    if method == "read_csv" and config["mode"] == "normal":
+                        kwargs["dtype"] = dtypes_cols
+                else:
+                    kwargs["dtype"] = dtypes
+
             if method in {"read_parquet", "read_pickle", "read_feather"}:
                 df = pd.__getattribute__(method)(file_path, **kwargs)
                 self.state.dataframes[str(file_path)] = df

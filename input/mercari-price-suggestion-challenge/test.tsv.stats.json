@@ -1,0 +1,22 @@
+{
+    "line_count": 693359,
+    "size": 154222160,
+    "dtypes": {
+        "test_id": "int32",
+        "name": "object",
+        "item_condition_id": "int8",
+        "category_name": "object",
+        "brand_name": "object",
+        "shipping": "int8",
+        "item_description": "object"
+    },
+    "nuniques": {
+        "test_id": 693359,
+        "name": 601117,
+        "item_condition_id": 5,
+        "category_name": 1223,
+        "brand_name": 3900,
+        "shipping": 2,
+        "item_description": 609555
+    }
+}
