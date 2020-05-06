@@ -41,6 +41,22 @@ def get_total_size(path: Path) -> int:
     return nbytes
 
 
+def decide_required_columns(config: dict):
+    required = config.get("required")
+    if required is None:
+        return
+    elif required == "all":
+        return
+    elif isinstance(required, list):
+        file_format = config["name"].split(".")[-1]
+        if file_format in {"parquet", "pickle", "pkl"}:
+            return
+        elif file_format in ["csv", "tsv", "ftr", "feather"]:
+            return required
+    else:
+        raise NotImplementedError
+
+
 def get_normal_stats(df: pd.DataFrame, config: dict):
     stats: Dict[str, Any] = {}
 

@@ -25,6 +25,9 @@ class DataLoadingRunner(SubRunner):
 
         for config in self.state.config:
             method, kwargs = dl.determine_file_open_method(config)
+            columns = dl.decide_required_columns(config)
+            if columns is not None:
+                kwargs["columns"] = columns
             file_path = Path(config["dir"]) / config["name"]
             if method in {"read_parquet", "read_pickle", "read_feather"}:
                 df = pd.__getattribute__(method)(file_path, **kwargs)
