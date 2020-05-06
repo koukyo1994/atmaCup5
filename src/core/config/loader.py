@@ -7,8 +7,7 @@ from typing import Any, Dict, Optional, Union
 def _get_default() -> dict:
     cfg: Dict[str, Any] = dict()
 
-    cfg["dataset"] = dict()
-    cfg["dataset"]["params"] = dict()
+    cfg["feature_dir"] = "features/"
 
     cfg["output_dir"] = "output/"
     cfg["log_dir"] = "log/"

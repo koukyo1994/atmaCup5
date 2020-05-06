@@ -1,24 +1,20 @@
-import datetime as dt
+import logging
 
 import pandas as pd
-
-import src.utils as utils
 
 from pathlib import Path
 from typing import Dict, Optional
 
 
 class RunningState:
-    def __init__(self, config: dict):
+    def __init__(self, config: dict, logger: logging.Logger):
         self.config = config
 
-        log_dir = Path(config["log_dir"])
-        log_dir.mkdir(exist_ok=True, parents=True)
+        self.logger = logger
 
-        config_name = Path(config["config_path"]).name.replace(".yml", "")
-        log_name = config_name + "_" + dt.datetime.now().strftime(
-            "%Y%m%d-%H:%M:%S") + ".log"
-        self.logger = utils.get_logger(str(log_dir / log_name))
+        self.feature_dir = Path("features")
+        self.output_dir = Path("output")
+
         self.dataframes: Dict[str, pd.DataFrame] = {}
         self.dataframe_roles: Dict[str, str] = {}
 

@@ -5,17 +5,15 @@ import src.core.data_loading as dl
 
 from pathlib import Path
 
-from . import Runner
+from . import SubRunner
 from src.core.states import RunningState
 
 
-class DataLoadingRunner(Runner):
+class DataLoadingRunner(SubRunner):
     signature = "data_loading"
 
     def __init__(self, config: dict, state: RunningState):
-        super().__init__(config)
-
-        self.state = state
+        super().__init__(config, state)
 
         self.callbacks = [
             dlc.FileExistenceCheckCallback(),
@@ -25,7 +23,7 @@ class DataLoadingRunner(Runner):
     def run(self):
         self._run_callbacks(phase="start")
 
-        for config in self.state.config[self.signature]:
+        for config in self.state.config:
             method, kwargs = dl.determine_file_open_method(config)
             file_path = Path(config["dir"]) / config["name"]
             if method in {"read_parquet", "read_pickle", "read_feather"}:

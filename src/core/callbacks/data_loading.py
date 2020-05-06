@@ -13,8 +13,7 @@ class FileExistenceCheckCallback(Callback):
     callback_order = CallbackOrder.HIGHEST
 
     def on_data_loading_start(self, state: RunningState):
-        data_loading_configs: List[
-            Dict[str, Any]] = state.config["data_loading"]
+        data_loading_configs: List[Dict[str, Any]] = state.config
 
         no_exist = []
         stats: Dict[str, Optional[str]] = {}
@@ -47,18 +46,18 @@ class CompressDataFrameCallback(Callback):
     callback_order = CallbackOrder.HIGHEST
 
     def on_data_loading_end(self, state: RunningState):
-        data_frames = state.dataframes
-        for key in data_frames:
-            data_frames[key] = utils.reduce_mem_usage(
-                data_frames[key], verbose=True, logger=state.logger)
+        with utils.timer("Data Compressing", state.logger):
+            data_frames = state.dataframes
+            for key in data_frames:
+                data_frames[key] = utils.reduce_mem_usage(
+                    data_frames[key], verbose=True, logger=state.logger)
 
 
 class CalcStatsCallback(Callback):
     callback_order = CallbackOrder.LOWEST
 
     def on_data_loading_end(self, state: RunningState):
-        data_loading_configs: List[
-            Dict[str, Any]] = state.config["data_loading"]
+        data_loading_configs: List[Dict[str, Any]] = state.config
 
         for config in data_loading_configs:
             data_dir = Path(config["dir"])

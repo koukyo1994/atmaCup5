@@ -17,5 +17,5 @@ def get_logger(out_file=None):
         fh.setFormatter(formatter)
         fh.setLevel(logging.INFO)
         logger.addHandler(fh)
-    logger.info("lgger set up")
+    logger.info("logger set up")
     return logger
