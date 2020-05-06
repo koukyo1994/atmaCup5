@@ -1,0 +1,8 @@
+dir: input/mercari-price-suggestion-challenge
+name: test.tsv
+stats: test.tsv.stats.json
+mode: normal
+structure:
+  id_column: test_id
+required: all
+role: test

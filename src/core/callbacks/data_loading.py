@@ -9,6 +9,7 @@ from src.core.states import RunningState
 from .base import Callback, CallbackOrder
 
 
+# on_data_loading_start
 class FileExistenceCheckCallback(Callback):
     callback_order = CallbackOrder.HIGHEST
 
@@ -39,6 +40,38 @@ class FileExistenceCheckCallback(Callback):
             raise FileNotFoundError(msg)
 
         state.data_stats.update(stats)
+
+
+class CheckDataStructureCallback(Callback):
+    callback_order = CallbackOrder.HIGHEST
+
+    def on_data_loading_start(self, state: RunningState):
+        data_loading_configs = state.config
+
+        target = ""
+        id_columns: Dict[str, Optional[str]] = {}
+        connect_to: Dict[str, Optional[str]] = {}
+        connect_on: Dict[str, Optional[str]] = {}
+
+        for config in data_loading_configs:
+            structure = config["structure"]
+            data_dir = Path(config["dir"])
+            path = data_dir / config["name"]
+            if structure.get("target") is not None:
+                target = structure.get("target")
+            if structure.get("id_column") is not None:
+                id_columns[str(path)] = structure.get("id_column")
+            if structure.get("connect_to") is not None:
+                connect_to[str(path)] = structure.get("connect_to")
+            if structure.get("connect_on") is not None:
+                connect_on[str(path)] = structure.get("connect_on")
+        if target == "":
+            raise AssertionError("target not specified")
+
+        state.target = target
+        state.id_columns = id_columns
+        state.connect_to = connect_to
+        state.connect_on = connect_on
 
 
 # on_data_loading_end

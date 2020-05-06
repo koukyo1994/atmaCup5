@@ -1,3 +1,6 @@
 dir: features
 name: train.pkl
+structure:
+  id_column: train_id
+  target: price
 role: train

@@ -21,3 +21,8 @@ class RunningState:
         self.callbacks: Dict[str, list] = {}
 
         self.data_stats: Dict[str, Optional[str]] = {}
+
+        self.target = ""
+        self.id_columns: Dict[str, Optional[str]] = {}
+        self.connect_to: Dict[str, Optional[str]] = {}
+        self.connect_on: Dict[str, Optional[str]] = {}

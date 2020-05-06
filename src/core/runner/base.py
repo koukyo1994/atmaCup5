@@ -82,5 +82,9 @@ class Runner:
                     self.state.dataframes = state.dataframes
                     self.state.data_stats = state.data_stats
                     self.state.dataframe_roles = state.dataframe_roles
+                    self.state.target = state.target
+                    self.state.id_columns = state.id_columns
+                    self.state.connect_to = state.connect_to
+                    self.state.connect_on = state.connect_on
                 else:
                     pass

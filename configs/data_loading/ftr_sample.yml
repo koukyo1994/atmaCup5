@@ -1,4 +1,7 @@
 dir: features
 name: train.ftr
+structure:
+  id_column: train_id
+  target: price
 role: train
 required: all

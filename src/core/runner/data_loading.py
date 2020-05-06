@@ -17,6 +17,7 @@ class DataLoadingRunner(SubRunner):
 
         self.callbacks = [
             dlc.FileExistenceCheckCallback(),
+            dlc.CheckDataStructureCallback(),
             dlc.CompressDataFrameCallback()
         ]
 
