@@ -1,0 +1,8 @@
+dir: input/recruit-restaurant-visitor-forecasting
+name: air_reserve.csv
+stats: air_reserve.csv.stats.json
+mode: normal
+structure:
+  id_column: air_store_id
+required: all
+role: train

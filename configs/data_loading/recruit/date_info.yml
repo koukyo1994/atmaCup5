@@ -1,0 +1,9 @@
+dir: input/recruit-restaurant-visitor-forecasting
+name: date_info.csv
+stats: date_info.csv.stats.json
+mode: normal
+structure:
+  id_column: calendar_date
+  connect_to:
+required: all
+role: train
