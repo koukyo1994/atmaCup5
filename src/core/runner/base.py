@@ -26,7 +26,16 @@ class SubRunner:
         user_defined_callbacks = self.state.callbacks.get(self.signature)
         callbacks = self.callbacks
         if user_defined_callbacks is not None:
-            callbacks = callbacks + self.state.callbacks[self.signature]
+            preset_callback_names = [
+                callback.__name__ for callback in callbacks
+            ]
+            for callback in user_defined_callbacks:
+                if callback.__name__ in preset_callback_names:
+                    # overwrite
+                    index = preset_callback_names.index(callback.__name__)
+                    callbacks[index] = callback
+                else:
+                    callbacks.append(callback)
 
         for callback in sorted(callbacks):
             callback.__getattribute__(method)(self.state)

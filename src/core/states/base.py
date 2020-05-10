@@ -26,3 +26,5 @@ class RunningState:
         self.id_columns: Dict[str, Optional[str]] = {}
         self.connect_to: Dict[str, Optional[str]] = {}
         self.connect_on: Dict[str, Optional[str]] = {}
+
+        self.features: Dict[str, pd.DataFrame] = {}
