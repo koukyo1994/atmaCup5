@@ -11,6 +11,7 @@ class PreprocessRunner(SubRunner):
         super().__init__(config, state)
 
         self.callbacks = [
+            pp.TrainTestSameColumnsCallback(),
             pp.RemoveConstantCallback(),
             pp.RemoveDuplicatedCallback(),
             pp.RemoveCorrelatedCallback()

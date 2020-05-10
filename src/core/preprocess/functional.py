@@ -25,7 +25,7 @@ def find_duplicated_columns(df: pd.DataFrame) -> List[str]:
 def find_correlated_columns(df: pd.DataFrame, threshold=0.995) -> List[str]:
     to_remove: List[str] = []
     columns = df.columns.tolist()
-    for i in progress_bar(range(len(columns) - 1)):
+    for i in progress_bar(range(len(columns) - 1), leave=True):
         column_a = columns[i]
         for j in range(i + 1, len(columns)):
             column_b = columns[j]

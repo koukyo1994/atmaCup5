@@ -6,6 +6,31 @@ from .base import Callback, CallbackOrder
 
 
 # on_preprocess_start
+class TrainTestSameColumnsCallback(Callback):
+    callback_order = CallbackOrder.ASSERTION
+
+    def on_preprocess_start(self, state: RunningState):
+        train_features = state.features["train"]
+        test_features = state.features["test"]
+
+        train_columns = set(train_features.columns)
+        test_columns = set(test_features.columns)
+
+        in_train_not_in_test = train_columns - test_columns
+        in_test_not_in_train = test_columns - train_columns
+
+        if len(in_train_not_in_test) > 0 or len(in_test_not_in_train) > 0:
+            msg = "Find column inconsistency between train and test."
+            msg += "Train has these columns, but test doesn't: [\n"
+            for column in in_train_not_in_test:
+                msg += "    " + column + "\n"
+            msg += "]\n Test has these columns, but train doesn't: [\n"
+            for column in in_test_not_in_train:
+                msg += "    " + column + "\n"
+            msg += "]. aborting."
+            raise AssertionError(msg)
+
+
 class RemoveConstantCallback(Callback):
     callback_order = CallbackOrder.LOWEST
 
@@ -18,8 +43,15 @@ class RemoveConstantCallback(Callback):
 
         to_remove = list(set(to_remove_train).union(to_remove_test))
 
-        state.features["train"] = train_features.drop(to_remove, axis=1)
-        state.features["test"] = test_features.drop(to_remove, axis=1)
+        if len(to_remove) > 0:
+            state.features["train"] = train_features.drop(to_remove, axis=1)
+            state.features["test"] = test_features.drop(to_remove, axis=1)
+
+            msg = "Found constant columns: [\n"
+            for column in to_remove:
+                msg += "    " + column + "\n"
+            msg += "]."
+            state.logger.info(msg)
 
 
 class RemoveDuplicatedCallback(Callback):
@@ -34,8 +66,15 @@ class RemoveDuplicatedCallback(Callback):
 
         to_remove = list(set(to_remove_train).union(to_remove_test))
 
-        state.features["train"] = train_features.drop(to_remove, axis=1)
-        state.features["test"] = test_features.drop(to_remove, axis=1)
+        if len(to_remove) > 0:
+            state.features["train"] = train_features.drop(to_remove, axis=1)
+            state.features["test"] = test_features.drop(to_remove, axis=1)
+
+            msg = "Found duplicated columns: [\n"
+            for column in to_remove:
+                msg += "    " + column + "\n"
+            msg += "]."
+            state.logger.info(msg)
 
 
 class RemoveCorrelatedCallback(Callback):
@@ -55,5 +94,12 @@ class RemoveCorrelatedCallback(Callback):
 
         to_remove = list(set(to_remove_train).union(to_remove_test))
 
-        state.features["train"] = train_features.drop(to_remove, axis=1)
-        state.features["test"] = test_features.drop(to_remove, axis=1)
+        if len(to_remove) > 0:
+            state.features["train"] = train_features.drop(to_remove, axis=1)
+            state.features["test"] = test_features.drop(to_remove, axis=1)
+
+            msg = "Found highly correlated columns: [\n"
+            for column in to_remove:
+                msg += "    " + column + "\n"
+            msg += "]."
+            state.logger.info(msg)

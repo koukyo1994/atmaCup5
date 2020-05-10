@@ -11,7 +11,7 @@ from .base import Callback, CallbackOrder
 
 # on_data_loading_start
 class FileExistenceCheckCallback(Callback):
-    callback_order = CallbackOrder.HIGHEST
+    callback_order = CallbackOrder.ASSERTION
 
     def on_data_loading_start(self, state: RunningState):
         data_loading_configs: List[Dict[str, Any]] = state.config
@@ -43,7 +43,7 @@ class FileExistenceCheckCallback(Callback):
 
 
 class CheckDataStructureCallback(Callback):
-    callback_order = CallbackOrder.HIGHEST
+    callback_order = CallbackOrder.ASSERTION
 
     def on_data_loading_start(self, state: RunningState):
         data_loading_configs = state.config
