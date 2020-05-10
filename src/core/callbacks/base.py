@@ -22,6 +22,7 @@ class CallbackOrder(IntEnum):
 
 
 class Callback:
+    signature = "base"
     callback_order = CallbackOrder.HIGHEST
 
     def __lt__(self, callback):

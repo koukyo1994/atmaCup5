@@ -28,3 +28,4 @@ class RunningState:
         self.connect_on: Dict[str, Optional[str]] = {}
 
         self.features: Dict[str, pd.DataFrame] = {}
+        self.importances: Dict[str, Union[Dict[str, float], pd.DataFrame]] = {}

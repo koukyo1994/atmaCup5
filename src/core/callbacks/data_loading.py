@@ -11,6 +11,7 @@ from .base import Callback, CallbackOrder
 
 # on_data_loading_start
 class FileExistenceCheckCallback(Callback):
+    signature = "data_loading"
     callback_order = CallbackOrder.ASSERTION
 
     def on_data_loading_start(self, state: RunningState):
@@ -43,6 +44,7 @@ class FileExistenceCheckCallback(Callback):
 
 
 class CheckDataStructureCallback(Callback):
+    signature = "data_loading"
     callback_order = CallbackOrder.ASSERTION
 
     def on_data_loading_start(self, state: RunningState):
@@ -76,6 +78,7 @@ class CheckDataStructureCallback(Callback):
 
 # on_data_loading_end
 class CompressDataFrameCallback(Callback):
+    signature = "data_loading"
     callback_order = CallbackOrder.HIGHEST
 
     def on_data_loading_end(self, state: RunningState):
@@ -87,6 +90,7 @@ class CompressDataFrameCallback(Callback):
 
 
 class CalcStatsCallback(Callback):
+    signature = "data_loading"
     callback_order = CallbackOrder.LOWEST
 
     def on_data_loading_end(self, state: RunningState):
