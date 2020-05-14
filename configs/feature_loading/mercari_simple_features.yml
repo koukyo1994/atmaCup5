@@ -1,0 +1,5 @@
+features:
+  - name: Tfidf
+    path: features/Tfidf_item_description.mat
+  - name: item_condition_id
+    path: features/TargetEncode_item_condition_id.ftr

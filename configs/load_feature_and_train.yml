@@ -1,0 +1,21 @@
+feature_dir: features/
+
+output_dir: output/
+
+log_dir: log
+
+callbacks:
+  - SaveFeatureCallback
+
+pipeline:
+  - data_loading:
+      - configs/data_loading/train_sample.yml
+      - configs/data_loading/test_sample.yml
+    features:
+      - configs/features/tfidf_on_description.yml
+      - configs/features/target_encode_item_condition_id.yml
+
+  - feature_loading:
+      - configs/feature_loading/mercari_simple_features.yml
+    split: configs/split/kfold.yml
+    model: configs/model/lgbm_regression.yml

@@ -61,16 +61,22 @@ class Callback:
     def on_data_loading_end(self, state: RunningState):
         pass
 
-    def on_feature_extraction_start(self, state: RunningState):
+    def on_features_start(self, state: RunningState):
         pass
 
-    def on_feature_extraction_end(self, state: RunningState):
+    def on_features_end(self, state: RunningState):
         pass
 
     def on_preprocess_start(self, state: RunningState):
         pass
 
     def on_preprocess_end(self, state: RunningState):
+        pass
+
+    def on_feature_loading_start(self, state: RunningState):
+        pass
+
+    def on_feature_loading_end(self, state: RunningState):
         pass
 
     def on_split_start(self, state: RunningState):

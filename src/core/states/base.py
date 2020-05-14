@@ -5,6 +5,8 @@ import pandas as pd
 from pathlib import Path
 from typing import Dict, Optional, Union
 
+from scipy.sparse import csr_matrix
+
 
 class RunningState:
     def __init__(self, config: dict, logger: logging.Logger):
@@ -27,5 +29,5 @@ class RunningState:
         self.connect_to: Dict[str, Optional[str]] = {}
         self.connect_on: Dict[str, Optional[str]] = {}
 
-        self.features: Dict[str, pd.DataFrame] = {}
+        self.features: Dict[str, Union[pd.DataFrame, csr_matrix]] = {}
         self.importances: Dict[str, Union[Dict[str, float], pd.DataFrame]] = {}
