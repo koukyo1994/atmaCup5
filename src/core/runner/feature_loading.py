@@ -17,6 +17,7 @@ class FeatureLoadingRunner(SubRunner):
     def run(self):
         self._run_callbacks(phase="start")
 
+        # TODO: apply role
         feature_dir = self.state.feature_dir
         for config in self.state.config:
             features = config.get("features")
