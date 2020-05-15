@@ -1,9 +1,10 @@
 import logging
 
+import numpy as np
 import pandas as pd
 
 from pathlib import Path
-from typing import Dict, Optional, Union
+from typing import Dict, Optional, Union, Tuple, List
 
 from scipy.sparse import csr_matrix
 
@@ -31,3 +32,5 @@ class RunningState:
 
         self.features: Dict[str, Union[pd.DataFrame, csr_matrix]] = {}
         self.importances: Dict[str, Union[Dict[str, float], pd.DataFrame]] = {}
+
+        self.splits: List[Tuple[np.ndarray, np.ndarray]] = []
