@@ -5,13 +5,25 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 class Tfidf:
     def __init__(self, **kwargs):
-        self.vectorizer = TfidfVectorizer(**kwargs)
-        self.feature_names = []
+        self.vectorizers = {}
+        self.feature_names = {}
+        self.kwargs = kwargs
 
-    def fit_transform(self, X: pd.Series):
-        vectorized = self.vectorizer.fit_transform(X)
-        self.feature_names = self.vectorizer.get_feature_names()
-        return vectorized
+    def fit_transform(self, X: pd.DataFrame):
+        columns = X.columns
+        vectors = {}
+        for column in columns:
+            self.vectorizers[column] = TfidfVectorizer(**self.kwargs)
+            vectorized = self.vectorizers[column].fit_transform(X[column])
+            self.feature_names[column] = self.vectorizers[
+                column].get_feature_names()
 
-    def transform(self, X: pd.Series):
-        return self.vectorizer.transform(X)
+            vectors[column] = vectorized
+        return vectors
+
+    def transform(self, X: pd.DataFrame):
+        vectors = {}
+        for column, vectorizer in self.vectorizers.items():
+            vectorized = vectorizer.transform(X[column])
+            vectors[column] = vectorized
+        return vectors

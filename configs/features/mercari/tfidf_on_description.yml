@@ -4,3 +4,7 @@ input_dataframes:
 columns:
   - item_description
 method: Tfidf
+params:
+  max_features: 100000
+  token_pattern: \w+
+  ngram_range: (1, 2)

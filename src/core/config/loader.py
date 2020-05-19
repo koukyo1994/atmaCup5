@@ -30,6 +30,8 @@ def _merge_config(src: Optional[dict], dst: dict):
                 sub_config = load_config(v, require_default=False)
                 _merge_config(sub_config.copy(), sub_config)
                 dst[k] = sub_config
+            elif v.startswith("(") and v.endswith(")"):
+                dst[k] = eval(v)
             else:
                 dst[k] = v
         elif isinstance(v, list):
@@ -48,6 +50,11 @@ def _merge_config(src: Optional[dict], dst: dict):
                             dst[k].append(sub_config)
                         else:
                             dst[k][i] = sub_config
+                    elif elem.startswith("(") and elem.endswith(")"):
+                        if len(dst[k]) < i + 1:
+                            dst[k].append(eval(elem))
+                        else:
+                            dst[k][i] = eval(elem)
                     else:
                         if len(dst[k]) < i + 1:
                             dst[k].append(elem)

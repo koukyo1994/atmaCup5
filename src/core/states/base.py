@@ -30,7 +30,8 @@ class RunningState:
         self.connect_to: Dict[str, Optional[str]] = {}
         self.connect_on: Dict[str, Optional[str]] = {}
 
-        self.features: Dict[str, Union[pd.DataFrame, csr_matrix]] = {}
+        self.features: Dict[
+            str, Dict[str, Union[pd.DataFrame, Dict[str, csr_matrix]]]] = {}
         self.importances: Dict[str, Union[Dict[str, float], pd.DataFrame]] = {}
 
         self.splits: List[Tuple[np.ndarray, np.ndarray]] = []
