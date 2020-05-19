@@ -2,9 +2,9 @@ how: group_kfold
 callbacks:
   on_split_start:
     - AddColumn:
-      column_name: group
+        column_name: group
   on_split_end:
     - DeleteColumn:
-      column_name: group
+        column_name: group
 params:
   n_splits: 5

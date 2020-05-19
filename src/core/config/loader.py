@@ -37,6 +37,7 @@ def _merge_config(src: Optional[dict], dst: dict):
                 dst[k] = []
             for i, elem in enumerate(v):
                 if isinstance(elem, dict):
+                    dst[k] = dst[k].copy()
                     dst[k].append({})
                     _merge_config(elem, dst[k][i])
                 elif isinstance(elem, str):
@@ -81,5 +82,5 @@ def load_config(cfg_path: Optional[Union[str, Path]] = None,
 
 
 if __name__ == "__main__":
-    config = load_config("configs/sample_lgbm_regression.yml")
+    config = load_config("configs/load_feature_and_train.yml")
     print(config)

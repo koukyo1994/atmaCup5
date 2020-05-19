@@ -12,4 +12,8 @@ class FeaturesRunner(SubRunner):
 
     def run(self):
         self._run_callbacks(phase="start")
+
+        import pdb
+        pdb.set_trace()
+
         self._run_callbacks(phase="end")

@@ -95,5 +95,19 @@ class Runner:
                     self.state.id_columns = state.id_columns
                     self.state.connect_to = state.connect_to
                     self.state.connect_on = state.connect_on
+                elif key == "features":
+                    state = RunningState(value, logger=self.state.logger)
+                    state.dataframes = self.state.dataframes
+                    state.data_stats = self.state.data_stats
+                    state.dataframe_roles = self.state.dataframe_roles
+                    state.id_columns = self.state.id_columns
+                    state.connect_to = self.state.connect_to
+                    state.connect_on = self.state.connect_on
+
+                    from .features import FeaturesRunner
+
+                    runner = FeaturesRunner(value, state)
+                    runner.run()
+                    self.state.features = state.features
                 else:
                     pass

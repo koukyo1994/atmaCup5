@@ -1,0 +1,6 @@
+input_dataframes:
+  - input/mercari-price-suggestion-challenge/train.tsv
+  - input/mercari-price-suggestion-challenge/test.tsv
+columns:
+  - item_description
+method: Tfidf
