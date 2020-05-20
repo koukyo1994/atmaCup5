@@ -1,6 +1,6 @@
 input_dataframes:
-  - train.tsv
-  - test.tsv
+  - input/mercari-price-suggestion-challenge/train.tsv
+  - input/mercari-price-suggestion-challenge/test.tsv
 columns:
   - item_condition_id
 method: TargetEncoding

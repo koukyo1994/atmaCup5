@@ -11,7 +11,7 @@ from .base import Callback, CallbackOrder
 # on_features_end
 class FeatureSaving(Callback):
     signature = "features"
-    callbacks = CallbackOrder.LOWEST
+    callback_order = CallbackOrder.LOWEST
 
     def on_features_end(self, state: RunningState):
         feature_dir = state.feature_dir
