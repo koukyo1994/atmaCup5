@@ -133,5 +133,13 @@ class Runner:
                     runner = FeaturesRunner(value, state)
                     runner.run()
                     self.state.features = state.features
+                elif key == "split":
+                    state.features = self.state.features
+
+                    from .split import SplitRunner
+
+                    runner = SplitRunner(value, state)
+                    runner.run()
+                    self.state.split = state.split
                 else:
                     pass

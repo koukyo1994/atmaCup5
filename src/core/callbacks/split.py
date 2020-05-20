@@ -10,10 +10,16 @@ class CheckDataFrameCallback(Callback):
     calback_order = CallbackOrder.ASSERTION
 
     def on_split_start(self, state: RunningState):
-        if state.features.get("train") is None:
+        if state.features.get("main") is None:
+            msg = "main DataFrame does not exist. Aborting."
+            raise KeyError(msg)
+
+        if state.features["main"].get("train") is None:
             msg = "train DataFrame does not exist. Aborting."
             raise KeyError(msg)
 
-        if not isinstance(state.features.get("train"), pd.DataFrame):
-            msg = "feature 'train' must be DataFrame. Aborting."
-            raise ValueError(msg)
+        if not isinstance(state.features["main"]["train"], pd.DataFrame):
+            if not isinstance(state.features["main"]["train"], dict):
+                msg = "feature 'train' must be DataFrame"
+                msg += " or a dict contains sparse matrix. Aborting"
+                raise ValueError(msg)

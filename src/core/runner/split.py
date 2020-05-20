@@ -1,3 +1,5 @@
+import pandas as pd
+
 import src.core.callbacks.split as spc
 
 from . import SubRunner
@@ -16,8 +18,14 @@ class SplitRunner(SubRunner):
     def run(self):
         self._run_callbacks(phase="start")
 
-        df = self.state.features["train"]
-        splits = get_split(df, self.config)
+        main_features = self.state.features["main"]
+        if isinstance(main_features["train"], pd.DataFrame):
+            df = main_features["train"]
+            splits = get_split(df, self.config)
+        elif isinstance(main_features["train"], dict):
+            # sparse matrix
+            df = main_features["train"]["main"]
+            splits = get_split(df, self.config)
         self.state.splits = splits
 
         self._run_callbacks(phase="end")
