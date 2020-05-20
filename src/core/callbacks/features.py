@@ -3,13 +3,13 @@ import pandas as pd
 from scipy.io import savemat
 from scipy.sparse import csr_matrix
 
-from src.core.state import RunningState
+from src.core.states import RunningState
 
 from .base import Callback, CallbackOrder
 
 
 # on_features_end
-class FeatureSaving(Callback):
+class FeatureSavingCallback(Callback):
     signature = "features"
     callback_order = CallbackOrder.LOWEST
 
@@ -18,8 +18,9 @@ class FeatureSaving(Callback):
         features = state.features
 
         for name, feature in features.items():
-            if isinstance(feature, csr_matrix):
-                mdict = {name: feature}
-                savemat(feature_dir / f"{name}.mat", mdict)
-            elif isinstance(feature, pd.DataFrame):
-                feature.to_feather(feature_dir / f"{name}.ftr")
+            for phase in ["train", "test"]:
+                if isinstance(feature[phase], csr_matrix):
+                    mdict = {name: feature[phase]}
+                    savemat(feature_dir / f"{name}_{phase}.mat", mdict)
+                elif isinstance(feature[phase], pd.DataFrame):
+                    feature.to_feather(feature_dir / f"{name}_{phase}.ftr")

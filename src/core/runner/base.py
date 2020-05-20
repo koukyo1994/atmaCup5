@@ -2,11 +2,14 @@ import datetime as dt
 
 import src.utils as utils
 
+import src.core.callbacks as cl
+
 from pathlib import Path
 from typing import List
 
 from src.core.callbacks import Callback
 from src.core.states import RunningState
+from src.custom import callbacks as custom
 
 
 class SubRunner:
@@ -27,12 +30,13 @@ class SubRunner:
         callbacks = self.callbacks
         if user_defined_callbacks is not None:
             preset_callback_names = [
-                callback.__name__ for callback in callbacks
+                callback.__class__.__name__ for callback in callbacks
             ]
             for callback in user_defined_callbacks:
-                if callback.__name__ in preset_callback_names:
+                if callback.__class__.__name__ in preset_callback_names:
                     # overwrite
-                    index = preset_callback_names.index(callback.__name__)
+                    index = preset_callback_names.index(
+                        callback.__class__.__name__)
                     callbacks[index] = callback
                 else:
                     callbacks.append(callback)
@@ -59,9 +63,6 @@ class Runner:
 
         self.state = RunningState(config, logger)
 
-        # default callbacks
-        self.callbacks: List[Callback] = []
-
     def run(self):
         feature_dir = Path(self.config["feature_dir"])
         output_root_dir = Path(self.config["output_dir"])
@@ -75,6 +76,28 @@ class Runner:
             ".yml", "")
         output_dir = output_root_dir / config_name
 
+        callbacks = self.config["callbacks"]
+        for callback in callbacks:
+            callback_name = callback["name"]
+            callback_type = callback["type"]
+            callback_params = {} if callback.get(
+                "params") is None else callback["params"]
+
+            if callback_type == "custom":
+                cl_instance = custom.__getattribute__(callback_name)(
+                    **callback_params)
+                callback_type = cl_instance.signature
+                if callback_type not in self.state.callbacks.keys():
+                    self.state.callbacks[callback_type] = []
+
+                self.state.callbacks[callback_type].append(cl_instance)
+            else:
+                if callback_type not in self.state.callbacks.keys():
+                    self.state.callbacks[callback_type] = []
+                self.state.callbacks[callback_type].append(
+                    cl.__getattribute__(callback_type).__getattribute__(
+                        callback_name)(**callback_params))
+
         if output_dir.exists():
             output_dir = output_dir / self.init_time
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -82,8 +105,9 @@ class Runner:
 
         for pl in self.config["pipeline"]:
             for key, value in pl.items():
+                state = RunningState(value, logger=self.state.logger)
+                state.callbacks = self.state.callbacks
                 if key == "data_loading":
-                    state = RunningState(value, logger=self.state.logger)
                     from .data_loading import DataLoadingRunner
 
                     runner = DataLoadingRunner(value, state)
@@ -96,7 +120,6 @@ class Runner:
                     self.state.connect_to = state.connect_to
                     self.state.connect_on = state.connect_on
                 elif key == "features":
-                    state = RunningState(value, logger=self.state.logger)
                     state.dataframes = self.state.dataframes
                     state.data_stats = self.state.data_stats
                     state.dataframe_roles = self.state.dataframe_roles

@@ -1,6 +1,7 @@
 import pandas as pd
 
 import src.core.features.functional as F
+import src.utils as utils
 
 from . import SubRunner
 from src.core.states import RunningState
@@ -30,13 +31,15 @@ class FeaturesRunner(SubRunner):
                 else:
                     raise NotImplementedError
             kwargs = {} if conf.get("params") is None else conf.get("params")
-            import pdb
-            pdb.set_trace()
             transformer = F.__getattribute__(conf["method"])(**kwargs)
             columns = conf.get("columns")
 
-            train_feats = transformer.fit_transform(train_df[columns])
-            test_feats = transformer.transform(test_df[columns])
+            with utils.timer(conf["method"] + " on train...",
+                             self.state.logger):
+                train_feats = transformer.fit_transform(train_df[columns])
+            with utils.timer(conf["method"] + " on test...",
+                             self.state.logger):
+                test_feats = transformer.transform(test_df[columns])
 
             if len(columns) == 1:
                 feature_name = conf["method"] + "_" + conf["columns"][0]
