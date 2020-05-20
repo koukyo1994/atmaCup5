@@ -12,6 +12,21 @@ from src.core.states import RunningState
 from .base import Callback, CallbackOrder
 
 
+# on_features_start
+class AssignTargetCallback(Callback):
+    signature = "features"
+    callback_order = CallbackOrder.LOWEST
+
+    def on_features_start(self, state: RunningState):
+        dataframes = state.dataframes
+        for key, df in dataframes.items():
+            if state.target_name in df.columns:
+                state.logger.info(
+                    f"Found target `{state.target_name}` in {key}")
+                state.target = df[state.target_name].values
+                break
+
+
 # on_features_end
 class FeatureSavingCallback(Callback):
     signature = "features"

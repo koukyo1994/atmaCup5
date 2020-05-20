@@ -70,7 +70,7 @@ class CheckDataStructureCallback(Callback):
         if target == "":
             raise AssertionError("target not specified")
 
-        state.target = target
+        state.target_name = target
         state.id_columns = id_columns
         state.connect_to = connect_to
         state.connect_on = connect_on

@@ -25,7 +25,9 @@ class RunningState:
 
         self.data_stats: Dict[str, Optional[Union[str, dict]]] = {}
 
-        self.target = ""
+        self.target_name = ""
+        self.target: Optional[Union[pd.DataFrame, Union[pd.Series, np.
+                                                        ndarray]]] = None
         self.id_columns: Dict[str, Optional[str]] = {}
         self.connect_to: Dict[str, Optional[str]] = {}
         self.connect_on: Dict[str, Optional[str]] = {}

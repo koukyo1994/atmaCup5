@@ -1,5 +1,6 @@
 import pandas as pd
 
+import src.core.callbacks.features as clf
 import src.core.features.functional as F
 import src.utils as utils
 
@@ -13,7 +14,7 @@ class FeaturesRunner(SubRunner):
     def __init__(self, config: dict, state: RunningState):
         super().__init__(config, state)
 
-        self.callbacks = []
+        self.callbacks = [clf.AssignTargetCallback()]
 
     def run(self):
         self._run_callbacks(phase="start")
@@ -38,7 +39,7 @@ class FeaturesRunner(SubRunner):
                              self.state.logger):
                 if conf.get("target"):
                     train_feats = transformer.fit_transform(
-                        train_df[columns], train_df[self.state.target])
+                        train_df[columns], train_df[self.state.target_name])
                 else:
                     train_feats = transformer.fit_transform(train_df[columns])
             with utils.timer(conf["method"] + " on test...",

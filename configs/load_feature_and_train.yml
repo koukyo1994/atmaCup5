@@ -24,8 +24,5 @@ pipeline:
     features:
       - configs/features/mercari/tfidf_on_description.yml
       - configs/features/mercari/target_encode_item_condition_id.yml
-
-  - feature_loading:
-      - configs/feature_loading/mercari_simple_features.yml
     split: configs/split/kfold.yml
     model: configs/model/lgbm_regression.yml
