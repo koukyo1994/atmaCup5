@@ -2,6 +2,7 @@ import pandas as pd
 
 import src.core.callbacks.data_loading as dlc
 import src.core.data_loading as dl
+import src.utils as utils
 
 from pathlib import Path
 
@@ -45,19 +46,20 @@ class DataLoadingRunner(SubRunner):
                 else:
                     kwargs["dtype"] = dtypes
 
-            if method in {"read_parquet", "read_pickle", "read_feather"}:
-                df = pd.__getattribute__(method)(file_path, **kwargs)
-                self.state.dataframes[str(file_path)] = df
-            elif method == "read_csv":
-                if config["mode"] == "normal":
+            with utils.timer("Reading " + config["name"], self.state.logger):
+                if method in {"read_parquet", "read_pickle", "read_feather"}:
                     df = pd.__getattribute__(method)(file_path, **kwargs)
                     self.state.dataframes[str(file_path)] = df
-                elif config["mode"] == "large":
-                    raise NotImplementedError
+                elif method == "read_csv":
+                    if config["mode"] == "normal":
+                        df = pd.__getattribute__(method)(file_path, **kwargs)
+                        self.state.dataframes[str(file_path)] = df
+                    elif config["mode"] == "large":
+                        raise NotImplementedError
+                    else:
+                        pass
                 else:
-                    pass
-            else:
-                raise NotImplementedError
+                    raise NotImplementedError
             self.state.dataframe_roles[str(file_path)] = config["role"]
 
         self._run_callbacks(phase="end")

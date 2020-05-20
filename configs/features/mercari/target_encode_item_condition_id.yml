@@ -4,3 +4,4 @@ input_dataframes:
 columns:
   - item_condition_id
 method: TargetEncoding
+target: True

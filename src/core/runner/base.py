@@ -126,6 +126,7 @@ class Runner:
                     state.id_columns = self.state.id_columns
                     state.connect_to = self.state.connect_to
                     state.connect_on = self.state.connect_on
+                    state.target = self.state.target
 
                     from .features import FeaturesRunner
 

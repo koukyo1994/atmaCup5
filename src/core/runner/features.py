@@ -36,7 +36,11 @@ class FeaturesRunner(SubRunner):
 
             with utils.timer(conf["method"] + " on train...",
                              self.state.logger):
-                train_feats = transformer.fit_transform(train_df[columns])
+                if conf.get("target"):
+                    train_feats = transformer.fit_transform(
+                        train_df[columns], train_df[self.state.target])
+                else:
+                    train_feats = transformer.fit_transform(train_df[columns])
             with utils.timer(conf["method"] + " on test...",
                              self.state.logger):
                 test_feats = transformer.transform(test_df[columns])
