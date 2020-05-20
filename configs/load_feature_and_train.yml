@@ -7,6 +7,8 @@ log_dir: log
 callbacks:
   - name: FeatureSavingCallback
     type: features
+  - name: ConcatenateFeatureCallback
+    type: features
   - name: FillNACallback
     type: custom
     params:
