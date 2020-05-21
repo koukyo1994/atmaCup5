@@ -134,3 +134,4 @@ dmypy.json
 *.ftr
 *.mat
 *.npy
+catboost_info/

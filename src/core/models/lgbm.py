@@ -1,7 +1,11 @@
+import logging
+
 import lightgbm as lgb
 import numpy as np
 
 from typing import List, Tuple, Optional, Callable
+
+from lightgbm.callback import _format_eval_result
 
 from .base import TreeModel, Matrix
 
@@ -10,10 +14,12 @@ class LGBModel(TreeModel):
     def __init__(self,
                  mode: str,
                  feval: Optional[Callable[[np.ndarray, lgb.Dataset],
-                                          Tuple[str, float, bool]]] = None):
+                                          Tuple[str, float, bool]]] = None,
+                 callbacks: Optional[List[Callable]] = None):
         super().__init__(mode)
 
         self.feval = feval
+        self.callbacks = callbacks
 
     def fit(self, X_train: Matrix, y_train: Matrix,
             valid_sets: List[Tuple[Matrix, Matrix]],
@@ -30,6 +36,9 @@ class LGBModel(TreeModel):
 
         if self.feval is not None:
             train_params["feval"] = self.feval
+
+        if self.callbacks is not None:
+            train_params["callbacks"] = self.callbacks
 
         model = lgb.train(
             params=model_params,
@@ -57,3 +66,18 @@ class LGBModel(TreeModel):
             msg = "LGBModel has not been trained yet."
             msg += "Call `.fit()` method first."
             raise AttributeError(msg)
+
+
+# callbacks
+def log_evaluation(logger: logging.Logger, period=100, show_stdv=True):
+    def _callback(env):
+        if period > 0 and env.evaluation_result_list and (
+                env.iteration + 1) % period == 0:
+            result = "\t".join([
+                _format_eval_result(x, show_stdv)
+                for x in env.evaluation_result_list
+            ])
+            logger.info(f"[{env.iteration + 1}]\t{result}")
+
+    _callback.order = 10  # type: ignore
+    return _callback
