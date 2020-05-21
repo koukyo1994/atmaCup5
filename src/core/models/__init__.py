@@ -13,6 +13,8 @@ def get_model(config: dict, logger: logging.Logger):
         if config.get("callbacks") is not None:
             callback_configs = config["callbacks"]
             for callback_conf in callback_configs:
+                if len(callback_conf) == 0:
+                    continue
                 callback_name = callback_conf.get("name")
                 callback_params = callback_conf.get("params")
                 if "logger" in callback_params.keys():

@@ -1,7 +1,0 @@
-features:
-  - name: Tfidf
-    path: features/Tfidf_item_description.mat
-    role: train
-  - name: item_condition_id
-    path: features/TargetEncode_item_condition_id.ftr
-    role: train

@@ -1,0 +1,10 @@
+features:
+  - name: main
+    path: main_train.mat
+    role: train
+  - name: main
+    path: main_test.mat
+    role: test
+  - name: target
+    path: main_target.npy
+    role: target

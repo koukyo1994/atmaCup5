@@ -25,11 +25,11 @@ class LGBModel(TreeModel):
             valid_sets: List[Tuple[Matrix, Matrix]],
             valid_names: Optional[List[str]], model_params: dict,
             train_params: dict):
-        d_train = lgb.Dataset(X_train, labels=y_train)
+        d_train = lgb.Dataset(X_train, label=y_train)
 
         lgb_valid_sets: List[lgb.Dataset] = []
         for X, y in valid_sets:
-            lgb_valid_sets.append(lgb.Dataset(X, labels=y))
+            lgb_valid_sets.append(lgb.Dataset(X, label=y))
 
         if valid_names is None:
             valid_names = ["valid_" + str(i) for i in range(len(valid_sets))]

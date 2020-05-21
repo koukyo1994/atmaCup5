@@ -1,5 +1,6 @@
 import gc
 
+import numpy as np
 import pandas as pd
 
 import src.utils as utils
@@ -51,6 +52,10 @@ class FeatureSavingCallback(Callback):
                             feature_dir / f"{name}_{phase}.ftr")
                 else:
                     raise NotImplementedError
+
+        target = state.target
+        with utils.timer("Saving main_target.npy", state.logger):
+            np.save(feature_dir / "main_target.npy", target)
 
 
 class ConcatenateFeatureCallback(Callback):

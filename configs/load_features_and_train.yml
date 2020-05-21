@@ -1,0 +1,13 @@
+feature_dir: features/
+
+output_dir: output/
+
+log_dir: log
+
+callbacks:
+
+pipeline:
+  - feature_loading:
+      - configs/feature_loading/mercari/simple_features.yml
+    split: configs/split/kfold.yml
+    model: configs/model/lgbm_regression.yml

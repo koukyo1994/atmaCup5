@@ -39,13 +39,13 @@ def _merge_config(src: Optional[dict], dst: dict):
                 dst[k] = []
             for i, elem in enumerate(v):
                 if isinstance(elem, dict):
-                    dst[k] = dst[k].copy()
-                    dst[k].append({})
-                    _merge_config(elem, dst[k][i])
+                    if len(dst[k]) - 1 < i:
+                        dst[k] = dst[k].copy()
+                        dst[k].append({})
+                        _merge_config(elem, dst[k][i])
                 elif isinstance(elem, str):
                     if elem.endswith(".yml"):
                         sub_config = load_config(elem, require_default=False)
-                        _merge_config(sub_config.copy(), sub_config)
                         if len(dst[k]) < i + 1:
                             dst[k].append(sub_config)
                         else:
@@ -89,5 +89,5 @@ def load_config(cfg_path: Optional[Union[str, Path]] = None,
 
 
 if __name__ == "__main__":
-    config = load_config("configs/load_feature_and_train.yml")
+    config = load_config("configs/load_features_and_train.yml")
     print(config)

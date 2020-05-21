@@ -79,26 +79,27 @@ class Runner:
         output_dir = output_root_dir / config_name
 
         callbacks = self.config["callbacks"]
-        for callback in callbacks:
-            callback_name = callback["name"]
-            callback_type = callback["type"]
-            callback_params = {} if callback.get(
-                "params") is None else callback["params"]
+        if callbacks is not None:
+            for callback in callbacks:
+                callback_name = callback["name"]
+                callback_type = callback["type"]
+                callback_params = {} if callback.get(
+                    "params") is None else callback["params"]
 
-            if callback_type == "custom":
-                cl_instance = custom.__getattribute__(callback_name)(
-                    **callback_params)
-                callback_type = cl_instance.signature
-                if callback_type not in self.state.callbacks.keys():
-                    self.state.callbacks[callback_type] = []
+                if callback_type == "custom":
+                    cl_instance = custom.__getattribute__(callback_name)(
+                        **callback_params)
+                    callback_type = cl_instance.signature
+                    if callback_type not in self.state.callbacks.keys():
+                        self.state.callbacks[callback_type] = []
 
-                self.state.callbacks[callback_type].append(cl_instance)
-            else:
-                if callback_type not in self.state.callbacks.keys():
-                    self.state.callbacks[callback_type] = []
-                self.state.callbacks[callback_type].append(
-                    cl.__getattribute__(callback_type).__getattribute__(
-                        callback_name)(**callback_params))
+                    self.state.callbacks[callback_type].append(cl_instance)
+                else:
+                    if callback_type not in self.state.callbacks.keys():
+                        self.state.callbacks[callback_type] = []
+                    self.state.callbacks[callback_type].append(
+                        cl.__getattribute__(callback_type).__getattribute__(
+                            callback_name)(**callback_params))
 
         if output_dir.exists():
             output_dir = output_dir / self.init_time
@@ -134,6 +135,17 @@ class Runner:
 
                     runner = FeaturesRunner(value, state)
                     runner.run()
+                    self.state.features = state.features
+                    self.state.target = state.target
+                elif key == "feature_loading":
+                    state.feature_dir = self.state.feature_dir
+                    state.features = self.state.features
+
+                    from .feature_loading import FeatureLoadingRunner
+
+                    runner = FeatureLoadingRunner(value, state)
+                    runner.run()
+
                     self.state.features = state.features
                     self.state.target = state.target
                 elif key == "split":
