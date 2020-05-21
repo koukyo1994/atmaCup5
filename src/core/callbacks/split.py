@@ -1,5 +1,7 @@
 import pandas as pd
 
+from scipy.sparse import csr_matrix
+
 from src.core.states import RunningState
 from .base import Callback, CallbackOrder
 
@@ -19,7 +21,7 @@ class CheckDataFrameCallback(Callback):
             raise KeyError(msg)
 
         if not isinstance(state.features["main"]["train"], pd.DataFrame):
-            if not isinstance(state.features["main"]["train"], dict):
+            if not isinstance(state.features["main"]["train"], csr_matrix):
                 msg = "feature 'train' must be DataFrame"
-                msg += " or a dict contains sparse matrix. Aborting"
+                msg += " or a sparse matrix (csr). Aborting."
                 raise ValueError(msg)

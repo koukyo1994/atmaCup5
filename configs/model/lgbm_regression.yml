@@ -21,3 +21,11 @@ train_params:
   num_boost_round: 10000
   early_stopping_rounds: 100
   verbose_eval: 100
+
+callbacks:
+  - name: log_evaluation
+    params:
+      logger:
+      period: 100
+
+feval:

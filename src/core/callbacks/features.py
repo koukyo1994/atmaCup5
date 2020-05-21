@@ -38,7 +38,8 @@ class FeatureSavingCallback(Callback):
 
         for name, feature in features.items():
             for phase in ["train", "test"]:
-                if isinstance(feature[phase], dict):
+                if isinstance(feature[phase], dict) or isinstance(
+                        feature[phase], csr_matrix):
                     mdict = {name: feature[phase]}
                     with utils.timer("Saving " + f"{name}_{phase}.mat",
                                      state.logger):
@@ -78,7 +79,7 @@ class ConcatenateFeatureCallback(Callback):
                             sparse_dict = f[phase]
                             for sp_mat in sparse_dict.values():
                                 sparse_matrices.append(sp_mat)
-                    main_feature[phase] = {"main": hstack(sparse_matrices)}
+                    main_feature[phase] = hstack(sparse_matrices).tocsr()
             else:
                 for phase in ["train", "test"]:
                     dfs = []

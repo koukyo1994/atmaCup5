@@ -5,7 +5,7 @@ import src.utils as utils
 import src.core.callbacks as cl
 
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from src.core.callbacks import Callback
 from src.core.states import RunningState
@@ -20,13 +20,15 @@ class SubRunner:
         self.state = state
         self.callbacks: List[Callback] = []
 
-    def _run_callbacks(self, phase="start"):
+    def _run_callbacks(self, phase="start", signature: Optional[str] = None):
         assert phase in ["start", "end"]
 
-        method = "on_" + self.signature + "_" + phase
+        signature = self.signature if signature is None else signature
+
+        method = "on_" + signature + "_" + phase
 
         # add user defined callbacks
-        user_defined_callbacks = self.state.callbacks.get(self.signature)
+        user_defined_callbacks = self.state.callbacks.get(signature)
         callbacks = self.callbacks
         if user_defined_callbacks is not None:
             preset_callback_names = [
@@ -133,6 +135,7 @@ class Runner:
                     runner = FeaturesRunner(value, state)
                     runner.run()
                     self.state.features = state.features
+                    self.state.target = state.target
                 elif key == "split":
                     state.features = self.state.features
 
@@ -140,6 +143,15 @@ class Runner:
 
                     runner = SplitRunner(value, state)
                     runner.run()
-                    self.state.split = state.split
+                    self.state.splits = state.splits
+                elif key == "model":
+                    state.features = self.state.features
+                    state.target = self.state.target
+                    state.splits = self.state.splits
+
+                    from .model import ModelRunner
+
+                    runner = ModelRunner(value, state)
+                    runner.run()
                 else:
                     pass
