@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 from pathlib import Path
-from typing import Dict, Optional, Union, Tuple, List
+from typing import Any, Dict, Optional, Union, Tuple, List
 
 from scipy.sparse import csr_matrix
 
@@ -37,3 +37,5 @@ class RunningState:
         self.importances: Dict[str, Union[Dict[str, float], pd.DataFrame]] = {}
 
         self.splits: List[Tuple[np.ndarray, np.ndarray]] = []
+
+        self.misc: Dict[str, Any] = {}

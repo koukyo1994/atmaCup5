@@ -9,3 +9,25 @@ callbacks:
     type: features
     params:
       prefix: Mercari_full
+  - name: ConcatenateFeatureCallback
+    type: features
+  - name: FillNACallback
+    type: custom
+    params:
+      columns:
+        - name
+        - item_description
+        - category_name
+        - brand_name
+      values:
+        name: ""
+        item_description: ""
+        category_name: missing
+        brand_name: missing
+  - name: QueryTrainRecordsCallback
+    type: custom
+    params:
+      query: "price > 0"
+      df_naem: input/mercari-price-suggestion-challenge/train.tsv
+  - name: LogTransformOnTargetCallback
+    type: custom

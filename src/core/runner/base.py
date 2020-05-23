@@ -110,6 +110,7 @@ class Runner:
             for key, value in pl.items():
                 state = RunningState(value, logger=self.state.logger)
                 state.callbacks = self.state.callbacks
+                state.misc = self.state.misc
                 if key == "data_loading":
                     from .data_loading import DataLoadingRunner
 
@@ -167,3 +168,5 @@ class Runner:
                     runner.run()
                 else:
                     pass
+
+                self.state.misc = state.misc

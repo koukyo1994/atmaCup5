@@ -6,6 +6,9 @@ from src.core.states import RunningState
 class CallbackOrder(IntEnum):
     HIGHEST = auto()
     ASSERTION = auto()
+    HIGHER = auto()
+    MIDDLE = auto()
+    LOWER = auto()
     LOWEST = auto()
 
     def __lt__(self, enum: IntEnum):  # type: ignore
