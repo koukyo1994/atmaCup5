@@ -67,7 +67,7 @@ class FeatureSavingCallback(Callback):
 
         target = state.target
         with utils.timer("Saving main_target.npy", state.logger):
-            np.save(feature_dir / "main_target.npy", target)
+            np.save(feature_dir / f"{self.prefix}main_target.npy", target)
 
 
 class ConcatenateFeatureCallback(Callback):
