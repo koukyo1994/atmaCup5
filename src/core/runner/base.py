@@ -58,8 +58,10 @@ class Runner:
         log_dir.mkdir(exist_ok=True, parents=True)
 
         config_name = Path(config["config_path"]).name.replace(".yml", "")
+        log_dir = log_dir / config_name
+        log_dir.mkdir(parents=True, exist_ok=True)
         self.init_time = dt.datetime.now().strftime("%Y%m%d-%H:%M:%S")
-        log_name = config_name + "_" + self.init_time + ".log"
+        log_name = self.init_time + ".log"
 
         logger = utils.get_logger(str(log_dir / log_name))
 
@@ -77,6 +79,11 @@ class Runner:
         config_name = self.config["config_path"].split("/")[-1].replace(
             ".yml", "")
         output_dir = output_root_dir / config_name
+
+        if output_dir.exists():
+            output_dir = output_dir / self.init_time
+        output_dir.mkdir(parents=True, exist_ok=True)
+        self.state.output_dir = output_dir
 
         callbacks = self.config["callbacks"]
         if callbacks is not None:
@@ -103,11 +110,6 @@ class Runner:
                     self.state.callbacks[callback_type].append(
                         cl.__getattribute__(callback_type).__getattribute__(
                             callback_name)(**callback_params))
-
-        if output_dir.exists():
-            output_dir = output_dir / self.init_time
-        output_dir.mkdir(parents=True, exist_ok=True)
-        self.state.output_dir = output_dir
 
         for pl in self.config["pipeline"]:
             for key, value in pl.items():
