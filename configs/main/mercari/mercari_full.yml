@@ -12,7 +12,7 @@ callbacks:
   - name: ConcatenateFeatureCallback
     type: features
   - name: FillNACallback
-    type: custom
+    type: custom.mercari
     params:
       columns:
         - name
@@ -25,14 +25,14 @@ callbacks:
         category_name: ""
         brand_name: ""
   - name: QueryTrainRecordsCallback
-    type: custom
+    type: custom.mercari
     params:
       query: "price > 0"
       df_name: input/mercari-price-suggestion-challenge/train.tsv
   - name: LogTransformOnTargetCallback
-    type: custom
+    type: custom.mercari
   - name: MercariPreProcessCallback
-    type: custom
+    type: custom.mercari
     params:
       df_names:
         - input/mercari-price-suggestion-challenge/train.tsv

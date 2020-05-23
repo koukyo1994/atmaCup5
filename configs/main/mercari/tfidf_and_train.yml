@@ -10,7 +10,7 @@ callbacks:
   - name: ConcatenateFeatureCallback
     type: features
   - name: FillNACallback
-    type: custom
+    type: custom.mercari
     params:
       columns:
         - item_description

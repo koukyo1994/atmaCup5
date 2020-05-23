@@ -3,13 +3,13 @@ import datetime as dt
 import src.utils as utils
 
 import src.core.callbacks as cl
+import src.custom as custom
 
 from pathlib import Path
 from typing import List, Optional
 
 from src.core.callbacks import Callback
 from src.core.states import RunningState
-from src.custom import callbacks as custom
 
 
 class SubRunner:
@@ -86,9 +86,12 @@ class Runner:
                 callback_params = {} if callback.get(
                     "params") is None else callback["params"]
 
-                if callback_type == "custom":
-                    cl_instance = custom.__getattribute__(callback_name)(
-                        **callback_params)
+                if "custom" in callback_type:
+                    submodule = callback_type.split(".")[1]
+                    cl_instance = custom.__getattribute__(
+                        submodule).__getattribute__(
+                            "callbacks").__getattribute__(callback_name)(
+                                **callback_params)
                     callback_type = cl_instance.signature
                     if callback_type not in self.state.callbacks.keys():
                         self.state.callbacks[callback_type] = []
