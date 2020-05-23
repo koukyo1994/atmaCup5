@@ -105,3 +105,9 @@ class Callback:
 
     def on_model_inference_end(self, state: RunningState):
         pass
+
+    def on_train_fold_start(self, state: RunningState):
+        pass
+
+    def on_train_fold_end(self, state: RunningState):
+        pass

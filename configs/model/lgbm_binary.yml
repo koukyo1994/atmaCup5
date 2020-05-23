@@ -1,4 +1,5 @@
 name: lgbm
+identifier: av
 model_params:
   objective: binary
   metric: auc

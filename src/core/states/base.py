@@ -38,4 +38,7 @@ class RunningState:
 
         self.splits: List[Tuple[np.ndarray, np.ndarray]] = []
 
+        self.models: Dict[str, Dict[str, Any]] = {}
+        self.metrics: Dict[str, Dict[str, float]] = {}
+
         self.misc: Dict[str, Any] = {}

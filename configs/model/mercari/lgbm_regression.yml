@@ -1,4 +1,5 @@
 name: lgbm
+identifier: sample
 model_params:
   objective: regression
   learning_rate: 0.6

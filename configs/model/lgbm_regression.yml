@@ -1,4 +1,5 @@
 name: lgbm
+identifier: basic
 model_params:
   objective: regression
   boosting: gbdt

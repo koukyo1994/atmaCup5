@@ -22,6 +22,8 @@ class ModelRunner(SubRunner):
         model_params = config["model_params"]
         train_params = config["train_params"]
 
+        self.state.models[config["name"] + "_" + config["identifier"]] = {}
+
         for i, (trn_idx, val_idx) in enumerate(self.state.splits):
             self._run_callbacks(phase="start", signature="train_fold")
             fold_signature = f"Fold{i+1}"
@@ -42,6 +44,8 @@ class ModelRunner(SubRunner):
                              self.state.logger):
                 model.fit(X_train, y_train, valid_sets, valid_names,
                           model_params, train_params)
+                self.state.models[config["name"] + "_" +
+                                  config["identifier"]][fold_signature] = model
             self._run_callbacks(phase="end", signature="train_fold")
 
         self._run_callbacks(phase="end")
