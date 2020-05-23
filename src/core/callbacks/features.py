@@ -5,6 +5,8 @@ import pandas as pd
 
 import src.utils as utils
 
+from typing import Optional
+
 from scipy.io import savemat
 from scipy.sparse import csr_matrix, hstack
 
@@ -33,6 +35,12 @@ class FeatureSavingCallback(Callback):
     signature = "features"
     callback_order = CallbackOrder.LOWEST
 
+    def __init__(self, prefix: Optional[str] = None):
+        if prefix is None:
+            self.prefix = ""
+        else:
+            self.prefix = prefix + "_"
+
     def on_features_end(self, state: RunningState):
         feature_dir = state.feature_dir
         features = state.features
@@ -42,14 +50,18 @@ class FeatureSavingCallback(Callback):
                 if isinstance(feature[phase], dict) or isinstance(
                         feature[phase], csr_matrix):
                     mdict = {name: feature[phase]}
-                    with utils.timer("Saving " + f"{name}_{phase}.mat",
-                                     state.logger):
-                        savemat(feature_dir / f"{name}_{phase}.mat", mdict)
+                    with utils.timer(
+                            "Saving " + f"{self.prefix}{name}_{phase}.mat",
+                            state.logger):
+                        savemat(
+                            feature_dir / f"{self.prefix}{name}_{phase}.mat",
+                            mdict)
                 elif isinstance(feature[phase], pd.DataFrame):
-                    with utils.timer("Saving " + f"{name}_{phase}.ftr",
-                                     state.logger):
+                    with utils.timer(
+                            "Saving " + f"{self.prefix}{name}_{phase}.ftr",
+                            state.logger):
                         feature[phase].to_feather(
-                            feature_dir / f"{name}_{phase}.ftr")
+                            feature_dir / f"{self.prefix}{name}_{phase}.ftr")
                 else:
                     raise NotImplementedError
 

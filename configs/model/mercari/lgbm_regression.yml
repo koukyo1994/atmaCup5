@@ -1,0 +1,26 @@
+name: lgbm
+model_params:
+  objective: regression
+  learning_rate: 0.6
+  max_depth: 4
+  num_leaves: 31
+  verbose: -1
+  metric: RMSE
+  data_random_seed: 111
+  bagging_fraction: 0.6
+  bagging_freq: 5
+  feature_fraction: 0.6
+  nthread: -1
+  min_data_in_leaf: 100
+  max_bin: 31
+
+train_params:
+  num_boost_round: 10000
+  early_stopping_rounds: 100
+  verbose_eval: 100
+
+callbacks:
+  - name: log_evaluation
+    params:
+      logger:
+      period: 100
