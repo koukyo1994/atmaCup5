@@ -8,6 +8,11 @@ class Tfidf:
     def __init__(self, **kwargs):
         self.vectorizers = {}
         self.feature_names = {}
+
+        for key, value in kwargs.items():
+            if isinstance(value, str):
+                if value.startswith("(") and value.endswith(")"):
+                    kwargs[key] = eval(value)
         self.kwargs = kwargs
 
     def fit_transform(self, X: pd.DataFrame):
@@ -48,3 +53,14 @@ class TargetEncoding:
         for column, encoder in self.encoders.items():
             encoded[column] = encoder.transform(X[column])
         return encoded
+
+
+class ApplyNothing:
+    def __init__(self, **kwargs):
+        pass
+
+    def fit_transform(self, X: pd.DataFrame):
+        return self.transform(X)
+
+    def transform(self, X: pd.DataFrame):
+        return X

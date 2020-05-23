@@ -89,5 +89,5 @@ def load_config(cfg_path: Optional[Union[str, Path]] = None,
 
 
 if __name__ == "__main__":
-    config = load_config("configs/load_features_and_train.yml")
+    config = load_config("configs/main/mercari/tfidf_and_train.yml")
     print(config)

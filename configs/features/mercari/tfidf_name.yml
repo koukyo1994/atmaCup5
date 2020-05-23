@@ -1,0 +1,9 @@
+input_dataframes:
+  - input/mercari-price-suggestion-challenge/train.tsv
+  - input/mercari-price-suggestion-challenge/test.tsv
+columns:
+  - name
+method: Tfidf
+params:
+  max_features: 100000
+  token_pattern: \w+

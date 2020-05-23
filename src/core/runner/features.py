@@ -23,37 +23,41 @@ class FeaturesRunner(SubRunner):
         test_df = pd.DataFrame()
 
         for conf in self.config:
-            input_dfs = conf["input_dataframes"]
-            for df_name in input_dfs:
-                if self.state.dataframe_roles.get(df_name) == "train":
-                    train_df = self.state.dataframes[df_name]
-                elif self.state.dataframe_roles.get(df_name) == "test":
-                    test_df = self.state.dataframes[df_name]
+            with utils.timer(f"Process {conf['columns']}", self.state.logger):
+                input_dfs = conf["input_dataframes"]
+                for df_name in input_dfs:
+                    if self.state.dataframe_roles.get(df_name) == "train":
+                        train_df = self.state.dataframes[df_name]
+                    elif self.state.dataframe_roles.get(df_name) == "test":
+                        test_df = self.state.dataframes[df_name]
+                    else:
+                        raise NotImplementedError
+                kwargs = {} if conf.get("params") is None else conf.get(
+                    "params")
+                transformer = F.__getattribute__(conf["method"])(**kwargs)
+                columns = conf.get("columns")
+
+                with utils.timer(conf["method"] + " on train...",
+                                 self.state.logger):
+                    if conf.get("target"):
+                        train_feats = transformer.fit_transform(
+                            train_df[columns],
+                            train_df[self.state.target_name])
+                    else:
+                        train_feats = transformer.fit_transform(
+                            train_df[columns])
+                with utils.timer(conf["method"] + " on test...",
+                                 self.state.logger):
+                    test_feats = transformer.transform(test_df[columns])
+
+                if len(columns) == 1:
+                    feature_name = conf["method"] + "_" + conf["columns"][0]
                 else:
-                    raise NotImplementedError
-            kwargs = {} if conf.get("params") is None else conf.get("params")
-            transformer = F.__getattribute__(conf["method"])(**kwargs)
-            columns = conf.get("columns")
+                    feature_name = conf["method"]
 
-            with utils.timer(conf["method"] + " on train...",
-                             self.state.logger):
-                if conf.get("target"):
-                    train_feats = transformer.fit_transform(
-                        train_df[columns], train_df[self.state.target_name])
-                else:
-                    train_feats = transformer.fit_transform(train_df[columns])
-            with utils.timer(conf["method"] + " on test...",
-                             self.state.logger):
-                test_feats = transformer.transform(test_df[columns])
-
-            if len(columns) == 1:
-                feature_name = conf["method"] + "_" + conf["columns"][0]
-            else:
-                feature_name = conf["method"]
-
-            self.state.features[feature_name] = {
-                "train": train_feats,
-                "test": test_feats
-            }
+                self.state.features[feature_name] = {
+                    "train": train_feats,
+                    "test": test_feats
+                }
 
         self._run_callbacks(phase="end")

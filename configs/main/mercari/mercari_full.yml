@@ -22,12 +22,30 @@ callbacks:
       values:
         name: ""
         item_description: ""
-        category_name: missing
-        brand_name: missing
+        category_name: ""
+        brand_name: ""
   - name: QueryTrainRecordsCallback
     type: custom
     params:
       query: "price > 0"
-      df_naem: input/mercari-price-suggestion-challenge/train.tsv
+      df_name: input/mercari-price-suggestion-challenge/train.tsv
   - name: LogTransformOnTargetCallback
     type: custom
+  - name: MercariPreProcessCallback
+    type: custom
+    params:
+      df_names:
+        - input/mercari-price-suggestion-challenge/train.tsv
+        - input/mercari-price-suggestion-challenge/test.tsv
+
+pipeline:
+  - data_loading:
+      - configs/data_loading/mercari/train_sample.yml
+      - configs/data_loading/mercari/test_sample.yml
+    features:
+      - configs/features/mercari/tfidf_on_description.yml
+      - configs/features/mercari/tfidf_name.yml
+      - configs/features/mercari/target_encode_item_condition_id.yml
+      - configs/features/mercari/nothing_on_shipping.yml
+    split: configs/split/kfold.yml
+    model: configs/model/mercari/lgbm_regression.yml

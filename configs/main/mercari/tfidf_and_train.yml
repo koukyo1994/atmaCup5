@@ -19,8 +19,8 @@ callbacks:
 
 pipeline:
   - data_loading:
-      - configs/data_loading/train_sample.yml
-      - configs/data_loading/test_sample.yml
+      - configs/data_loading/mercari/train_sample.yml
+      - configs/data_loading/mercari/test_sample.yml
     features:
       - configs/features/mercari/tfidf_on_description.yml
       - configs/features/mercari/target_encode_item_condition_id.yml
