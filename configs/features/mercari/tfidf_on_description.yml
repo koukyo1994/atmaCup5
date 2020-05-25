@@ -4,6 +4,7 @@ input_dataframes:
 columns:
   - item_description
 method: Tfidf
+type: common
 params:
   max_features: 100000
   token_pattern: \w+

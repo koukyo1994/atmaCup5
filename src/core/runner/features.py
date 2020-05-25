@@ -1,5 +1,7 @@
 import pandas as pd
 
+import src.custom as custom
+
 import src.core.callbacks.features as clf
 import src.core.features.functional as F
 import src.utils as utils
@@ -34,7 +36,17 @@ class FeaturesRunner(SubRunner):
                         raise NotImplementedError
                 kwargs = {} if conf.get("params") is None else conf.get(
                     "params")
-                transformer = F.__getattribute__(conf["method"])(**kwargs)
+
+                method_type = conf["type"]
+
+                if method_type == "common":
+                    transformer = F.__getattribute__(conf["method"])(**kwargs)
+                else:
+                    submodule = method_type.split(".")[1]
+                    transformer = custom.__getattribute__(
+                        submodule).__getattribute__(
+                            "features").__getattribute__(
+                                conf["method"])(**kwargs)
                 columns = conf.get("columns")
 
                 with utils.timer(conf["method"] + " on train...",

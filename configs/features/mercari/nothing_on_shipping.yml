@@ -4,3 +4,4 @@ input_dataframes:
 columns:
   - shipping
 method: ApplyNothing
+type: common
