@@ -1,3 +1,5 @@
+import pandas as pd
+
 import src.utils as utils
 
 from . import SubRunner
@@ -17,6 +19,8 @@ class ModelRunner(SubRunner):
         self._run_callbacks(phase="start")
 
         X = self.state.features["main"]["train"]
+        if isinstance(X, pd.DataFrame):
+            X = X.values
         y = self.state.target
         config = self.config
         model_params = config["model_params"]

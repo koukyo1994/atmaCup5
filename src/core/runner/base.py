@@ -171,6 +171,13 @@ class Runner:
 
                     runner = ModelRunner(value, state)
                     runner.run()
+                elif key == "av":
+                    state.features = self.state.features
+
+                    from .av import AVRunner
+
+                    runner = AVRunner(value, state)
+                    runner.run()
                 else:
                     pass
 

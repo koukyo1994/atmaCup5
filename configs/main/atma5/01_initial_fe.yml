@@ -23,3 +23,5 @@ pipeline:
       - configs/features/atma5/label_encodes.yml
       - configs/features/atma5/apply_nothing.yml
       - configs/features/atma5/spectrum_basic_op.yml
+  - av: configs/adversarial/av_with_lgbm.yml
+  - split: configs/split/kfold.yml
