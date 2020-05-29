@@ -171,6 +171,8 @@ class Runner:
 
                     runner = ModelRunner(value, state)
                     runner.run()
+
+                    self.state.models = state.models
                 elif key == "av":
                     state.features = self.state.features
 
@@ -178,6 +180,17 @@ class Runner:
 
                     runner = AVRunner(value, state)
                     runner.run()
+                elif key == "prediction":
+                    state.splits = self.state.splits
+                    state.models = self.state.models
+                    state.features = self.state.features
+
+                    from .prediction import PredictionRunner
+
+                    runner = PredictionRunner(value, state)
+                    runner.run()
+
+                    self.state.predictions = state.predictions
                 else:
                     pass
 

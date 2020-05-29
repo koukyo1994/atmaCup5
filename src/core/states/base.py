@@ -41,4 +41,6 @@ class RunningState:
         self.models: Dict[str, Dict[str, Any]] = {}
         self.metrics: Dict[str, Dict[str, float]] = {}
 
+        self.predictions: Dict[str, np.ndarray] = {}
+
         self.misc: Dict[str, Any] = {}

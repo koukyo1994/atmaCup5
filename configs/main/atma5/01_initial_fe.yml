@@ -15,6 +15,11 @@ callbacks:
     type: custom.atma5
   - name: CalcOOFMetricCallback
     type: custom.atma5
+  - name: CreateSubmissionCallback
+    type: custom.atma5
+    params:
+      save_dir: submission
+      prefix: atma5_01_basic
 
 pipeline:
   - data_loading:
@@ -28,3 +33,4 @@ pipeline:
   - av: configs/adversarial/av_with_lgbm.yml
   - split: configs/split/kfold.yml
   - model: configs/model/atma5/vsb_1st_binary.yml
+  - prediction: configs/prediction/atma5/to_submission.yml

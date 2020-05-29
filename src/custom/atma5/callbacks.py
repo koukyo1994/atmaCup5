@@ -3,6 +3,7 @@ import pandas as pd
 
 import src.utils as utils
 
+from pathlib import Path
 from sklearn.metrics import average_precision_score
 
 from src.core.callbacks import Callback, CallbackOrder
@@ -49,3 +50,22 @@ class CalcOOFMetricCallback(Callback):
             oof[val_idx] = preds
         score = average_precision_score(y, oof)
         state.logger.info(f"OOF PR-AUC: {score:.5f}")
+
+
+class CreateSubmissionCallback(Callback):
+    signature = "model_inference"
+    callback_order = CallbackOrder.LOWER
+
+    def __init__(self, save_dir: str, prefix: str):
+        self.save_dir = Path(save_dir)
+        self.prefix = prefix
+
+    def on_model_inference_end(self, state: RunningState):
+        predictions = state.predictions
+
+        if len(predictions.keys()) == 1:
+            prediction = list(predictions.values())[0]
+
+            submission = pd.DataFrame({"target": prediction})
+            submission.to_csv(
+                self.save_dir / (self.prefix + ".csv"), index=False)
