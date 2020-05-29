@@ -1,0 +1,25 @@
+name: lgbm
+identifier: vsb_1st
+model_params:
+  objective: binary
+  boosting: gbdt
+  metric: binary_logloss
+  learning_rate: 0.01
+  num_leaves: 80
+  feature_fraction: 0.8
+  bagging_freq: 1
+  bagging_fraction: 0.8
+  seed: 23974
+
+train_params:
+  num_boost_round: 10000
+  early_stopping_rounds: 100
+  verbose_eval: 100
+
+callbacks:
+  - name: log_evaluation
+    params:
+      logger:
+      period: 100
+
+feval: pr_auc

@@ -94,12 +94,6 @@ class Callback:
     def on_model_train_end(self, state: RunningState):
         pass
 
-    def on_model_eval_start(self, state: RunningState):
-        pass
-
-    def on_model_eval_end(self, state: RunningState):
-        pass
-
     def on_model_inference_start(self, state: RunningState):
         pass
 

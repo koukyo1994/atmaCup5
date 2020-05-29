@@ -1,6 +1,6 @@
 import logging
 
-from .lgbm import LGBModel, log_evaluation
+from .lgbm import LGBModel, log_evaluation, pr_auc
 
 
 def get_model(config: dict, logger: logging.Logger):

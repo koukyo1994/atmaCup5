@@ -28,7 +28,7 @@ class AVRunner(SubRunner):
         with utils.timer("Adversarial Validation", self.state.logger):
             for key, value in self.config.items():
                 state = RunningState(value, logger=self.state.logger)
-                state.callbacks = self.state.callbacks
+                # state.callbacks = self.state.callbacks
                 state.misc = self.state.misc
 
                 if key == "split":

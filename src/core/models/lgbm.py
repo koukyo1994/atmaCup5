@@ -6,6 +6,7 @@ import numpy as np
 from typing import List, Tuple, Optional, Callable
 
 from lightgbm.callback import _format_eval_result
+from sklearn.metrics import average_precision_score
 
 from .base import TreeModel, Matrix
 
@@ -81,3 +82,10 @@ def log_evaluation(logger: logging.Logger, period=100, show_stdv=True):
 
     _callback.order = 10  # type: ignore
     return _callback
+
+
+# feval
+def pr_auc(preds, data):
+    y_true = data.get_label()
+    score = average_precision_score(y_true, preds)
+    return "pr_auc", score, True

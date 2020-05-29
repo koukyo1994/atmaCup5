@@ -13,6 +13,8 @@ callbacks:
     type: features
   - name: MergeFittingCallback
     type: custom.atma5
+  - name: CalcOOFMetricCallback
+    type: custom.atma5
 
 pipeline:
   - data_loading:
@@ -25,3 +27,4 @@ pipeline:
       - configs/features/atma5/spectrum_basic_op.yml
   - av: configs/adversarial/av_with_lgbm.yml
   - split: configs/split/kfold.yml
+  - model: configs/model/atma5/vsb_1st_binary.yml
