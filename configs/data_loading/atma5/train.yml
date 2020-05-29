@@ -1,0 +1,9 @@
+dir: input/atma5
+name: train.csv
+stats: train.csv.stats.json
+mode: normal
+structure:
+  id_column: spectrum_id
+  target: target
+required: all
+role: train

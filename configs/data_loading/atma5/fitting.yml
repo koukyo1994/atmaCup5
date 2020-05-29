@@ -1,0 +1,8 @@
+dir: input/atma5
+name: fitting.csv
+stats: fitting.csv.stats.json
+mode: normal
+structure:
+  id_column: spectrum_id
+required: all
+role: test
