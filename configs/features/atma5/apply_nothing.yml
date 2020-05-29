@@ -1,0 +1,9 @@
+input_dataframes:
+  - input/atma5/train.csv
+  - input/atma5/test.csv
+columns:
+  - layout_x
+  - layout_y
+  - pos_x
+method: ApplyNothing
+type: common

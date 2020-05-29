@@ -1,0 +1,7 @@
+input_dataframes:
+  - input/atma5/train.csv
+  - input/atma5/test.csv
+columns:
+  - spectrum_id
+method: ApplyNothingOnFitting
+type: custom.atma5

@@ -9,6 +9,8 @@ callbacks:
     type: features
     params:
       prefix: Atma5
+  - name: ConcatenateFeatureCallback
+    type: features
 
 pipeline:
   - data_loading:
@@ -17,3 +19,4 @@ pipeline:
       - configs/data_loading/atma5/test.yml
   - features:
       - configs/features/atma5/label_encodes.yml
+      - configs/features/atma5/apply_nothing.yml

@@ -60,6 +60,10 @@ class FeatureSavingCallback(Callback):
                     with utils.timer(
                             "Saving " + f"{self.prefix}{name}_{phase}.ftr",
                             state.logger):
+                        for col in feature[phase].columns:
+                            if feature[phase][col].dtype == "float16":
+                                feature[phase][col] = feature[phase][
+                                    col].astype("float32")
                         feature[phase].to_feather(
                             feature_dir / f"{self.prefix}{name}_{phase}.ftr")
                 else:
