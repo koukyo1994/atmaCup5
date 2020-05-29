@@ -1,0 +1,19 @@
+feature_dir: features/
+
+output_dir: output/
+
+log_dir: log
+
+callbacks:
+  - name: FeatureSavingCallback
+    type: features
+    params:
+      prefix: Atma5
+
+pipeline:
+  - data_loading:
+      - configs/data_loading/atma5/train.yml
+      - configs/data_loading/atma5/fitting.yml
+      - configs/data_loading/atma5/test.yml
+  - features:
+      - configs/features/atma5/label_encodes.yml
