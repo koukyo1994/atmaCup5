@@ -1,0 +1,24 @@
+{
+    "line_count": 6952,
+    "size": 625556,
+    "dtypes": {
+        "spectrum_id": "object",
+        "spectrum_filename": "object",
+        "chip_id": "object",
+        "exc_wl": "int16",
+        "layout_a": "int8",
+        "layout_x": "int8",
+        "layout_y": "int16",
+        "pos_x": "float16"
+    },
+    "nuniques": {
+        "spectrum_id": 6952,
+        "spectrum_filename": 6952,
+        "chip_id": 3,
+        "exc_wl": 2,
+        "layout_a": 4,
+        "layout_x": 48,
+        "layout_y": 192,
+        "pos_x": 1735
+    }
+}

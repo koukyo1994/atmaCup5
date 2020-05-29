@@ -1,0 +1,26 @@
+{
+    "line_count": 7436,
+    "size": 684606,
+    "dtypes": {
+        "spectrum_id": "object",
+        "spectrum_filename": "object",
+        "chip_id": "object",
+        "exc_wl": "int16",
+        "layout_a": "int8",
+        "layout_x": "int8",
+        "layout_y": "int16",
+        "pos_x": "float16",
+        "target": "int8"
+    },
+    "nuniques": {
+        "spectrum_id": 7436,
+        "spectrum_filename": 7436,
+        "chip_id": 6,
+        "exc_wl": 2,
+        "layout_a": 4,
+        "layout_x": 48,
+        "layout_y": 192,
+        "pos_x": 1848,
+        "target": 2
+    }
+}
