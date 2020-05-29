@@ -1,0 +1,9 @@
+input_dataframes:
+  - input/atma5/train.csv
+  - input/atma5/test.csv
+columns:
+  - chip_id
+  - exc_wl
+  - layout_a
+method: LabelEncoding
+type: common

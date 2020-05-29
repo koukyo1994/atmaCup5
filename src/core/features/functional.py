@@ -1,6 +1,7 @@
 import pandas as pd
 
 from category_encoders.target_encoder import TargetEncoder
+from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
@@ -64,3 +65,23 @@ class ApplyNothing:
 
     def transform(self, X: pd.DataFrame):
         return X
+
+
+class LabelEncoding:
+    def __init__(self, **kwargs):
+        self.encoders = {}
+        self.kwargs = kwargs
+
+    def fit_transform(self, X: pd.DataFrame):
+        columns = X.columns
+        encoded = pd.DataFrame(index=X.index, columns=X.columns)
+        for column in columns:
+            self.encoders[column] = LabelEncoder(**self.kwargs)
+            encoded[column] = self.encoders[column].fit_transform(X[column])
+        return encoded
+
+    def transform(self, X: pd.DataFrame):
+        encoded = pd.DataFrame(index=X.index, columns=X.columns)
+        for column, encoder in self.encoders.items():
+            encoded[column] = encoder.transform(X[column])
+        return encoded
