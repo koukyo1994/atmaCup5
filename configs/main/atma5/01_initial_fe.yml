@@ -11,6 +11,8 @@ callbacks:
       prefix: Atma5
   - name: ConcatenateFeatureCallback
     type: features
+  - name: MergeFittingCallback
+    type: custom.atma5
 
 pipeline:
   - data_loading:
