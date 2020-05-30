@@ -223,6 +223,16 @@ class Runner:
                     runner.run()
 
                     self.state.predictions = state.predictions
+                elif key == "preprocess":
+                    state.features = self.state.features
+                    state.importances = self.state.importances
+
+                    from .preprocess import PreprocessRunner
+
+                    runner = PreprocessRunner({}, state)
+                    runner.run()
+
+                    self.state.features = state.features
                 else:
                     pass
 

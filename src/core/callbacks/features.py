@@ -116,3 +116,20 @@ class ConcatenateFeatureCallback(Callback):
         for key in keys:
             del state.features[key]
             gc.collect()
+
+
+class SortColumnsCallback(Callback):
+    signature = "features"
+    callback_order = CallbackOrder.MIDDLE
+
+    def on_features_end(self, state: RunningState):
+        features = state.features
+
+        for key in features:
+            if isinstance(features[key]["train"], pd.DataFrame):
+                features[key]["train"] = features[key]["train"].sort_index(
+                    axis=1)
+                features[key]["test"] = features[key]["test"].sort_index(
+                    axis=1)
+
+        state.features = features

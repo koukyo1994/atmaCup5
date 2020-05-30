@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+import src.core.callbacks.feature_loading as cfl
 import src.utils as utils
 
 from scipy.io import loadmat
@@ -15,7 +16,7 @@ class FeatureLoadingRunner(SubRunner):
     def __init__(self, config: dict, state: RunningState):
         super().__init__(config, state)
 
-        self.callbacks = []
+        self.callbacks = [cfl.SortColumnsCallback()]
 
     def run(self):
         self._run_callbacks(phase="start")

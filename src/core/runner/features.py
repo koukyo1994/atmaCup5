@@ -16,7 +16,10 @@ class FeaturesRunner(SubRunner):
     def __init__(self, config: dict, state: RunningState):
         super().__init__(config, state)
 
-        self.callbacks = [clf.AssignTargetCallback()]
+        self.callbacks = [
+            clf.AssignTargetCallback(),
+            clf.SortColumnsCallback()
+        ]
 
     def run(self):
         self._run_callbacks(phase="start")

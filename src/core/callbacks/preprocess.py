@@ -16,8 +16,8 @@ class TrainTestSameColumnsCallback(Callback):
     callback_order = CallbackOrder.ASSERTION
 
     def on_preprocess_start(self, state: RunningState):
-        train_features = state.features["train"]
-        test_features = state.features["test"]
+        train_features = state.features["main"]["train"]
+        test_features = state.features["main"]["test"]
 
         train_columns = set(train_features.columns)
         test_columns = set(test_features.columns)
@@ -42,8 +42,8 @@ class RemoveConstantCallback(Callback):
     callback_order = CallbackOrder.LOWEST
 
     def on_preprocess_start(self, state: RunningState):
-        train_features = state.features["train"]
-        test_features = state.features["test"]
+        train_features = state.features["main"]["train"]
+        test_features = state.features["main"]["test"]
 
         to_remove_train = F.find_constant_columns(train_features)
         to_remove_test = F.find_constant_columns(test_features)
@@ -51,8 +51,10 @@ class RemoveConstantCallback(Callback):
         to_remove = list(set(to_remove_train).union(to_remove_test))
 
         if len(to_remove) > 0:
-            state.features["train"] = train_features.drop(to_remove, axis=1)
-            state.features["test"] = test_features.drop(to_remove, axis=1)
+            state.features["main"]["train"] = train_features.drop(
+                to_remove, axis=1)
+            state.features["main"]["test"] = test_features.drop(
+                to_remove, axis=1)
 
             msg = "Found constant columns: [\n"
             for column in to_remove:
@@ -66,8 +68,8 @@ class RemoveDuplicatedCallback(Callback):
     callback_order = CallbackOrder.LOWEST
 
     def on_preprocess_start(self, state: RunningState):
-        train_features = state.features["train"]
-        test_features = state.features["test"]
+        train_features = state.features["main"]["train"]
+        test_features = state.features["main"]["test"]
 
         to_remove_train = F.find_duplicated_columns(train_features)
         to_remove_test = F.find_duplicated_columns(test_features)
@@ -75,8 +77,10 @@ class RemoveDuplicatedCallback(Callback):
         to_remove = list(set(to_remove_train).union(to_remove_test))
 
         if len(to_remove) > 0:
-            state.features["train"] = train_features.drop(to_remove, axis=1)
-            state.features["test"] = test_features.drop(to_remove, axis=1)
+            state.features["main"]["train"] = train_features.drop(
+                to_remove, axis=1)
+            state.features["main"]["test"] = test_features.drop(
+                to_remove, axis=1)
 
             msg = "Found duplicated columns: [\n"
             for column in to_remove:
@@ -93,8 +97,8 @@ class RemoveCorrelatedCallback(Callback):
         self.threshold = threshold
 
     def on_preprocess_start(self, state: RunningState):
-        train_features = state.features["train"]
-        test_features = state.features["test"]
+        train_features = state.features["main"]["train"]
+        test_features = state.features["main"]["test"]
 
         to_remove_train = F.find_correlated_columns(
             train_features, threshold=self.threshold)
@@ -104,8 +108,10 @@ class RemoveCorrelatedCallback(Callback):
         to_remove = list(set(to_remove_train).union(to_remove_test))
 
         if len(to_remove) > 0:
-            state.features["train"] = train_features.drop(to_remove, axis=1)
-            state.features["test"] = test_features.drop(to_remove, axis=1)
+            state.features["main"]["train"] = train_features.drop(
+                to_remove, axis=1)
+            state.features["main"]["test"] = test_features.drop(
+                to_remove, axis=1)
 
             msg = "Found highly correlated columns: [\n"
             for column in to_remove:
@@ -136,24 +142,24 @@ class RemoveBasedOnImportanceCallback(Callback):
         self.remove_low = remove_low
 
     def on_preprocess_start(self, state: RunningState):
-        train_features = state.features["train"]
-        test_features = state.features["test"]
+        train_features = state.features["main"]["train"]
+        test_features = state.features["main"]["test"]
 
         importance = state.importances.get(self.importance_key)
         if importance is None:
-            msg = f"Importance dict/DataFrame {self.importance_key} doesn't exist."
-            raise ValueError(msg)
+            msg = f"Importance dict/DataFrame {self.importance_key} doesn't exist. Skipping."
+            state.logger.info(msg)
+            return
 
         if isinstance(importance, dict):
             keys, values = list(importance.keys()), list(importance.values())
             columns = list(np.array(keys)[np.argsort(values)])
         elif isinstance(importance, pd.DataFrame):
-            if "importance" not in importance.columns or "feature" not in importance.columns:
+            if "value" not in importance.columns or "feature" not in importance.columns:
                 raise KeyError(
                     "Feature-importance DataFrame must have `importance` and `feature` columns"
                 )
-            columns = importance.sort_values(
-                by="importance")["feature"].tolist()
+            columns = importance.sort_values(by="value")["feature"].tolist()
 
         missing_in_train = set(columns) - set(train_features.columns)
         missing_in_test = set(columns) - set(test_features.columns)
@@ -188,8 +194,10 @@ class RemoveBasedOnImportanceCallback(Callback):
             to_remove = reversed(columns)[:n_delete]  # type: ignore
 
         if len(to_remove) > 0:
-            state.features["train"] = train_features.drop(to_remove, axis=1)
-            state.features["test"] = test_features.drop(to_remove, axis=1)
+            state.features["main"]["train"] = train_features.drop(
+                to_remove, axis=1)
+            state.features["main"]["test"] = test_features.drop(
+                to_remove, axis=1)
 
             msg = f"Remove {'low' if self.remove_low else 'high'}"
             msg += f" {self.importance_key} importance columns: [\n"

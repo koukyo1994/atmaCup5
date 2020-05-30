@@ -6,3 +6,4 @@ from . import features
 from . import av
 from . import model
 from . import train_fold
+from . import feature_loading

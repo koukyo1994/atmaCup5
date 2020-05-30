@@ -13,8 +13,7 @@ class PreprocessRunner(SubRunner):
         self.callbacks = [
             pp.TrainTestSameColumnsCallback(),
             pp.RemoveConstantCallback(),
-            pp.RemoveDuplicatedCallback(),
-            pp.RemoveCorrelatedCallback()
+            pp.RemoveDuplicatedCallback()
         ]
 
     def run(self):
