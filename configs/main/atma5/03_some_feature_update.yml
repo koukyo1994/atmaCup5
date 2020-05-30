@@ -62,6 +62,7 @@ pipeline:
       - configs/features/atma5/label_encode_exc_wl.yml
       - configs/features/atma5/apply_nothing_update.yml
       - configs/features/atma5/spectrum_update.yml
+      - configs/features/atma5/tsfresh.yml
   - av: configs/adversarial/av_with_lgbm.yml
   - split: configs/split/stratified_kfold.yml
   - model: configs/model/atma5/vsb_1st_binary.yml

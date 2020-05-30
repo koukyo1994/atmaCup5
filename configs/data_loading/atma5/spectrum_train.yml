@@ -1,6 +1,6 @@
 dir: input/atma5
-name: spectrum_train.csv
-stats: spectrum_train.csv.stats.json
+name: train_spectrum.csv
+stats: train_spectrum.csv.stats.json
 mode: normal
 structure:
   id_column: spectrum_filename

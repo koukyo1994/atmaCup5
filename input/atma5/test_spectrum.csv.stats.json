@@ -1,0 +1,14 @@
+{
+    "line_count": 3555527,
+    "size": 144282117,
+    "dtypes": {
+        "wl": "float16",
+        "intensity": "float16",
+        "spectrum_filename": "object"
+    },
+    "nuniques": {
+        "wl": 532,
+        "intensity": 6575,
+        "spectrum_filename": 6952
+    }
+}

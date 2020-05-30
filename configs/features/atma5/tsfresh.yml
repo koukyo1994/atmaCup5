@@ -1,0 +1,14 @@
+input_dataframes:
+  - input/atma5/train_spectrum.csv
+  - input/atma5/test_spectrum.csv
+columns:
+  - spectrum_filename
+  - wl
+  - intensity
+method: TsfreshRelevantFeatures
+params:
+  column_id: spectrum_filename
+  column_sort: wl
+  n_jobs: 8
+type: custom.atma5
+target: True
