@@ -56,6 +56,8 @@ pipeline:
       - configs/data_loading/atma5/train.yml
       - configs/data_loading/atma5/fitting.yml
       - configs/data_loading/atma5/test.yml
+      - configs/data_loading/atma5/spectrum_train.yml
+      - configs/data_loading/atma5/spectrum_test.yml
   - features:
       - configs/features/atma5/label_encode_exc_wl.yml
       - configs/features/atma5/apply_nothing_update.yml
