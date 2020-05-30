@@ -9,6 +9,7 @@ from src.core.states import RunningState
 
 class AVRunner(SubRunner):
     signature = "av"
+    callback_group = "av"
 
     def __init__(self, config: dict, state: RunningState):
         super().__init__(config, state)
@@ -28,7 +29,7 @@ class AVRunner(SubRunner):
         with utils.timer("Adversarial Validation", self.state.logger):
             for key, value in self.config.items():
                 state = RunningState(value, logger=self.state.logger)
-                # state.callbacks = self.state.callbacks
+                state.callbacks = self.state.callbacks
                 state.misc = self.state.misc
 
                 if key == "split":
@@ -38,6 +39,7 @@ class AVRunner(SubRunner):
                     from .split import SplitRunner
 
                     runner = SplitRunner(value, state)
+                    runner.callback_group = "av"
                     runner.run()
                     self.state.splits = state.splits
                 elif key == "model":
@@ -49,6 +51,7 @@ class AVRunner(SubRunner):
                     from .model import ModelRunner
 
                     runner = ModelRunner(value, state)
+                    runner.callback_group = "av"
                     runner.run()
                 else:
                     pass

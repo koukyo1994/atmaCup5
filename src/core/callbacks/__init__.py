@@ -4,3 +4,4 @@ from . import preprocess
 from . import split
 from . import features
 from . import av
+from . import model

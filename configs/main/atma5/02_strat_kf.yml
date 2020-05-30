@@ -13,13 +13,16 @@ callbacks:
     type: features
   - name: MergeFittingCallback
     type: custom.atma5
-  - name: CalcOOFMetricCallback
-    type: custom.atma5
+  - name: OOFAPCallback
+    type: model
+  - name: OOFAUCCallback
+    type: model
+    group: av
   - name: CreateSubmissionCallback
     type: custom.atma5
     params:
       save_dir: submission
-      prefix: atma5_01_basic
+      prefix: atma5_02_stratified
   - name: PrepareForStratifiedKFoldCallback
     type: split
 

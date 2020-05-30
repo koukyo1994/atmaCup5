@@ -14,6 +14,7 @@ from src.core.states import RunningState
 
 class SubRunner:
     signature = "sub"
+    callback_group = "main"
 
     def __init__(self, config: dict, state: RunningState):
         self.config = config
@@ -28,7 +29,12 @@ class SubRunner:
         method = "on_" + signature + "_" + phase
 
         # add user defined callbacks
-        user_defined_callbacks = self.state.callbacks.get(signature)
+        callbacks_in_group = self.state.callbacks.get(self.callback_group)
+        if callbacks_in_group is None:
+            user_defined_callbacks = None
+        else:
+            user_defined_callbacks = self.state.callbacks[
+                self.callback_group].get(signature)
         callbacks = self.callbacks
         if user_defined_callbacks is not None:
             preset_callback_names = [
@@ -92,6 +98,11 @@ class Runner:
                 callback_type = callback["type"]
                 callback_params = {} if callback.get(
                     "params") is None else callback["params"]
+                callback_group = "main" if callback.get(
+                    "group") is None else callback["group"]
+
+                if callback_group not in self.state.callbacks.keys():
+                    self.state.callbacks[callback_group] = {}
 
                 if "custom" in callback_type:
                     submodule = callback_type.split(".")[1]
@@ -100,16 +111,26 @@ class Runner:
                             "callbacks").__getattribute__(callback_name)(
                                 **callback_params)
                     callback_type = cl_instance.signature
-                    if callback_type not in self.state.callbacks.keys():
-                        self.state.callbacks[callback_type] = []
+                    if callback_type not in self.state.callbacks[
+                            callback_group].keys():
+                        self.state.callbacks[callback_group][
+                            callback_type] = []
 
-                    self.state.callbacks[callback_type].append(cl_instance)
+                    self.state.callbacks[callback_group][callback_type].append(
+                        cl_instance)
                 else:
-                    if callback_type not in self.state.callbacks.keys():
-                        self.state.callbacks[callback_type] = []
-                    self.state.callbacks[callback_type].append(
-                        cl.__getattribute__(callback_type).__getattribute__(
-                            callback_name)(**callback_params))
+                    cl_instance = cl.__getattribute__(
+                        callback_type).__getattribute__(callback_name)(
+                            **callback_params)
+                    if callback_type != cl_instance.signature:
+                        callback_type = cl_instance.signature
+
+                    if callback_type not in self.state.callbacks[
+                            callback_group].keys():
+                        self.state.callbacks[callback_group][
+                            callback_type] = []
+                    self.state.callbacks[callback_group][callback_type].append(
+                        cl_instance)
 
         for pl in self.config["pipeline"]:
             for key, value in pl.items():

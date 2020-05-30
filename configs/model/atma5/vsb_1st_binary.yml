@@ -10,6 +10,7 @@ model_params:
   bagging_freq: 1
   bagging_fraction: 0.8
   seed: 23974
+  boost_from_average: False
 
 train_params:
   num_boost_round: 10000

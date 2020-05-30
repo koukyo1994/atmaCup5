@@ -21,7 +21,7 @@ class RunningState:
         self.dataframes: Dict[str, pd.DataFrame] = {}
         self.dataframe_roles: Dict[str, str] = {}
 
-        self.callbacks: Dict[str, list] = {}
+        self.callbacks: Dict[str, Dict[str, list]] = {}
 
         self.data_stats: Dict[str, Optional[Union[str, dict]]] = {}
 
