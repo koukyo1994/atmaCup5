@@ -31,6 +31,8 @@ class AVRunner(SubRunner):
                 state = RunningState(value, logger=self.state.logger)
                 state.callbacks = self.state.callbacks
                 state.misc = self.state.misc
+                state.output_dir = self.state.output_dir
+                state.feature_dir = self.state.feature_dir
 
                 if key == "split":
                     state.features["main"] = {}

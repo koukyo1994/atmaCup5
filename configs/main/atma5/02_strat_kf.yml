@@ -37,6 +37,19 @@ callbacks:
     group: av
   - name: StoreFeatureImportanceCallback
     type: model
+  - name: PlotFeatureImportanceCallback
+    type: model
+    group: av
+    params:
+      model_name: lgbm_av
+      title: Adversarial Validation
+      figname: feature_importance_av.png
+  - name: PlotFeatureImportanceCallback
+    type: model
+    params:
+      model_name: lgbm_vsb_1st
+      title: LightGBM
+      figname: feature_importance.png
 
 pipeline:
   - data_loading:

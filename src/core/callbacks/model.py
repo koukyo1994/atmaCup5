@@ -96,7 +96,7 @@ class OutputResultsCallback(Callback):
 
 class StoreFeatureImportanceCallback(Callback):
     signature = "model_train"
-    callback_order = CallbackOrder.LOWER
+    callback_order = CallbackOrder.HIGHER
 
     def on_model_train_end(self, state: RunningState):
         models = state.models
@@ -128,3 +128,24 @@ class StoreFeatureImportanceCallback(Callback):
                 importances[key] = feature_importance
 
         state.importances = importances
+
+
+class PlotFeatureImportanceCallback(Callback):
+    signature = "model_train"
+    callback_order = CallbackOrder.LOWER
+
+    def __init__(self, model_name: str, title: str, figname: str):
+        self.model_name = model_name
+        self.title = title
+        self.figname = figname
+
+    def on_model_train_end(self, state: RunningState):
+        importances = state.importances
+        output_dir = state.output_dir
+
+        save_path = output_dir / self.figname
+        if importances.get(self.model_name) is not None:
+            importance = importances.get(self.model_name)
+            state.logger.info(
+                f"Save Feature Importance plot to {str(save_path)}")
+            utils.plot_feature_importances(importance, self.title, save_path)
