@@ -1,0 +1,7 @@
+input_dataframes:
+  - input/atma5/train.csv
+  - input/atma5/test.csv
+columns:
+  - exc_wl
+method: LabelEncoding
+type: common

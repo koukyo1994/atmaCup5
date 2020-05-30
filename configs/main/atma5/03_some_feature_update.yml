@@ -1,0 +1,66 @@
+feature_dir: features/
+
+output_dir: output/
+
+log_dir: log
+
+callbacks:
+  - name: FeatureSavingCallback
+    type: features
+    params:
+      prefix: Atma5
+  - name: ConcatenateFeatureCallback
+    type: features
+  - name: MergeFittingCallback
+    type: custom.atma5
+  - name: OOFAPCallback
+    type: model
+  - name: OOFAUCCallback
+    type: model
+    group: av
+  - name: CreateSubmissionCallback
+    type: custom.atma5
+    params:
+      save_dir: submission
+      prefix: atma5_03_feature_update
+  - name: PrepareForStratifiedKFoldCallback
+    type: split
+  - name: FoldAUCCallback
+    type: train_fold
+    group: av
+  - name: FoldAPCallback
+    type: train_fold
+  - name: OutputResultsCallback
+    type: model
+  - name: StoreFeatureImportanceCallback
+    type: model
+    group: av
+  - name: StoreFeatureImportanceCallback
+    type: model
+  - name: PlotFeatureImportanceCallback
+    type: model
+    group: av
+    params:
+      model_name: lgbm_av
+      title: Adversarial Validation
+      figname: feature_importance_av.png
+  - name: PlotFeatureImportanceCallback
+    type: model
+    params:
+      model_name: lgbm_vsb_1st
+      title: LightGBM
+      figname: feature_importance.png
+
+pipeline:
+  - data_loading:
+      - configs/data_loading/atma5/train.yml
+      - configs/data_loading/atma5/fitting.yml
+      - configs/data_loading/atma5/test.yml
+  - features:
+      - configs/features/atma5/label_encode_exc_wl.yml
+      - configs/features/atma5/apply_nothing_update.yml
+      - configs/features/atma5/spectrum_update.yml
+  - av: configs/adversarial/av_with_lgbm.yml
+  - split: configs/split/stratified_kfold.yml
+  - model: configs/model/atma5/vsb_1st_binary.yml
+  - prediction: configs/prediction/atma5/to_submission.yml

@@ -1,0 +1,18 @@
+input_dataframes:
+  - input/atma5/train.csv
+  - input/atma5/test.csv
+columns:
+  - spectrum_filename
+method: BasicOperationsOnSpectrum
+params:
+  operations:
+    - max
+    - min
+    - std
+    - skew
+    - mean
+    - nunique
+    - kurt
+  prefix: spectrum
+
+type: custom.atma5
