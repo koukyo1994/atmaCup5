@@ -1,0 +1,11 @@
+input_dataframes:
+  - input/atma5/train_spectrum.csv
+  - input/atma5/test_spectrum.csv
+columns:
+  - spectrum_filename
+  - wl
+  - intensity
+method: SpectrumIntegral
+params:
+  how: simps
+type: custom.atma5

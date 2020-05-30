@@ -6,6 +6,7 @@ from typing import Dict, List, Union
 
 from fastprogress import progress_bar
 from scipy.interpolate import UnivariateSpline
+from scipy import integrate
 from tsfresh import extract_relevant_features, extract_features
 
 
@@ -33,6 +34,28 @@ class BasicOperationsOnSpectrum:
         df = pd.DataFrame(result_dict)
         df.columns = [prefix + c for c in df.columns]
         return df
+
+
+class SpectrumIntegral:
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def fit_transform(self, X: pd.DataFrame):
+        return self.transform(X)
+
+    def transform(self, X: pd.DataFrame):
+        unique_filenames = X["spectrum_filename"].unique()
+
+        integrals = []
+        for filename in progress_bar(unique_filenames):
+            spec = X.query(f"spectrum_filename == '{filename}'")
+
+            x = spec["wl"].values
+            y = spec["intensity"].values
+
+            method = self.kwargs["how"]
+            integrals.append(integrate.__getattribute__(method)(y, x))
+        return pd.DataFrame({"spectrum_integral": integrals})
 
 
 class SpectrumAdvancedFeatures:
