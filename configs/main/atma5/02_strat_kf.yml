@@ -25,6 +25,11 @@ callbacks:
       prefix: atma5_02_stratified
   - name: PrepareForStratifiedKFoldCallback
     type: split
+  - name: FoldAUCCallback
+    type: train_fold
+    group: av
+  - name: FoldAPCallback
+    type: train_fold
 
 pipeline:
   - data_loading:

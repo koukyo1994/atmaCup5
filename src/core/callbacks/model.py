@@ -3,15 +3,17 @@ import abc
 import numpy as np
 import pandas as pd
 
+from sklearn import metrics
+
 from src.core.callbacks import Callback, CallbackOrder
 from src.core.states import RunningState
 
-from sklearn import metrics
 
-
+# on_model_train_end
 class _OOFMetricCallback(Callback):
     signature = "model_train"
     callback_order = CallbackOrder.LOWER
+    metric_name = ""
 
     @abc.abstractmethod
     def _metric(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
@@ -45,10 +47,12 @@ class _OOFMetricCallback(Callback):
         if identifier not in state.metrics.keys():
             state.metrics[identifier] = {}
 
-        state.metrics[identifier]["oof"] = score
+        state.metrics[identifier][f"oof {self.metric_name}"] = score
 
 
 class OOFAUCCallback(_OOFMetricCallback):
+    metric_name = "auc"
+
     def _metric(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
         return metrics.roc_auc_score(y_true, y_pred)
 
@@ -57,6 +61,8 @@ class OOFAUCCallback(_OOFMetricCallback):
 
 
 class OOFAPCallback(_OOFMetricCallback):
+    metric_name = "pr-auc"
+
     def _metric(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
         return metrics.average_precision_score(y_true, y_pred)
 
