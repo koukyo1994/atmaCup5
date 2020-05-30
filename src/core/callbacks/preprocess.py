@@ -120,6 +120,36 @@ class RemoveCorrelatedCallback(Callback):
             state.logger.info(msg)
 
 
+class RemoveSpecifiedColumnsCallback(Callback):
+    signature = "preprocess"
+    callback_order = CallbackOrder.LOWEST
+
+    def __init__(self, columns: list):
+        self.columns = columns
+
+    def on_preprocess_start(self, state: RunningState):
+        train_features = state.features["main"]["train"]
+        test_features = state.features["main"]["test"]
+
+        feature_columns = train_features.columns
+        to_remove = []
+        for column in self.columns:
+            if column in feature_columns:
+                to_remove.append(column)
+
+        if len(to_remove) > 0:
+            state.features["main"]["train"] = train_features.drop(
+                to_remove, axis=1)
+            state.features["main"]["test"] = test_features.drop(
+                to_remove, axis=1)
+
+            msg = "Remove columns: [\n"
+            for column in to_remove:
+                msg += "    " + column + "\n"
+            msg += "]."
+            state.logger.info(msg)
+
+
 class RemoveBasedOnImportanceCallback(Callback):
     signature = "preprocess"
     callback_order = CallbackOrder.ASSERTION

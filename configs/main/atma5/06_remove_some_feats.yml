@@ -22,7 +22,7 @@ callbacks:
     type: custom.atma5
     params:
       save_dir: submission
-      prefix: atma5_04_tsfresh
+      prefix: atma5_06_remove
   - name: PrepareForStratifiedKFoldCallback
     type: split
   - name: FoldAUCCallback
@@ -50,22 +50,19 @@ callbacks:
       model_name: lgbm_vsb_1st
       title: LightGBM
       figname: feature_importance.png
-  - name: RemoveBasedOnImportanceCallback
+  - name: RemoveSpecifiedColumnsCallback
     type: preprocess
     params:
-      n_delete: 0.9
-      n_remains:
-      importance_key: lgbm_vsb_1st
-      remove_low: True
+      columns:
+        - spectrum_mean
+        - spectrum_nunique
+        - highest_peak_positions
 
 pipeline:
   - feature_loading:
       - configs/feature_loading/atma5/main_feature.yml
-  - av: configs/adversarial/av_with_lgbm.yml
   - preprocess:
+  - av: configs/adversarial/av_with_lgbm.yml
   - split: configs/split/stratified_kfold.yml
-  - model: configs/model/atma5/vsb_1st_binary.yml
-  - preprocess:
-  - av: configs/adversarial/av_with_lgbm.yml
   - model: configs/model/atma5/vsb_1st_binary.yml
   - prediction: configs/prediction/atma5/to_submission.yml

@@ -1,9 +1,11 @@
+import numpy as np
 import pandas as pd
 
 from pathlib import Path
 from typing import Dict, List, Union
 
 from fastprogress import progress_bar
+from scipy.interpolate import UnivariateSpline
 from tsfresh import extract_relevant_features, extract_features
 
 
@@ -31,6 +33,77 @@ class BasicOperationsOnSpectrum:
         df = pd.DataFrame(result_dict)
         df.columns = [prefix + c for c in df.columns]
         return df
+
+
+class SpectrumAdvancedFeatures:
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def fit_transform(self, X: pd.DataFrame):
+        return self.transform(X)
+
+    def transform(self, X: pd.DataFrame):
+        unique_filenames = X["spectrum_filename"].unique()
+
+        max_fwhm_inverse = []
+        mean_fwhm_inverse = []
+        num_peaks = []
+        highest_peak_fwhm_inverse = []
+        highest_peak_positions = []
+        for filename in progress_bar(unique_filenames):
+            spec = X.query(f"spectrum_filename == '{filename}'")
+
+            x = spec["wl"].values
+            y = spec["intensity"].values
+
+            highest_peak_pos = x[y.argmax()]
+            highest_peak_positions.append(highest_peak_pos)
+
+            spline = UnivariateSpline(x, y - np.max(y) / 2, s=0)
+            roots = spline.roots()
+            if len(roots) < 2:
+                max_fwhm_inverse.append(0)
+                mean_fwhm_inverse.append(0)
+                highest_peak_fwhm_inverse.append(0)
+
+                if len(roots) == 1:
+                    num_peaks.append(1)
+                else:
+                    num_peaks.append(0)
+                continue
+            inverse_fwhms = []
+            for i in range(len(roots) // 2):
+                left = roots[i * 2]
+                right = roots[i * 2 + 1]
+                inverse_fwhms.append(1.0 / (right - left))
+
+            max_fwhm_inverse.append(np.max(inverse_fwhms))
+            mean_fwhm_inverse.append(np.mean(inverse_fwhms))
+            num_peaks.append(len(roots) // 2)
+
+            try:
+                highest_peak_index = np.argwhere(
+                    roots < highest_peak_pos).max() // 2
+                highest_peak_fwhm_inverse.append(
+                    inverse_fwhms[highest_peak_index])
+            except IndexError:
+                highest_peak_fwhm_inverse.append(
+                    np.random.choice(inverse_fwhms))
+            except ValueError:
+                highest_peak_fwhm_inverse.append(
+                    np.random.choice(inverse_fwhms))
+        return pd.DataFrame({
+            "max_fwhm_inverse":
+            max_fwhm_inverse,
+            "mean_fwhm_inverse":
+            mean_fwhm_inverse,
+            "num_peaks":
+            num_peaks,
+            "highest_peak_fwhm_inverse":
+            highest_peak_fwhm_inverse,
+            "highest_peak_positions":
+            highest_peak_positions
+        })
 
 
 class TsfreshRelevantFeatures:
