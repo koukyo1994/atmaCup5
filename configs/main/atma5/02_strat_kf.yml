@@ -32,6 +32,11 @@ callbacks:
     type: train_fold
   - name: OutputResultsCallback
     type: model
+  - name: StoreFeatureImportanceCallback
+    type: model
+    group: av
+  - name: StoreFeatureImportanceCallback
+    type: model
 
 pipeline:
   - data_loading:

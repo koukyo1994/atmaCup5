@@ -78,10 +78,53 @@ class OutputResultsCallback(Callback):
 
     def on_model_train_end(self, state: RunningState):
         metrics = state.metrics
-        importances = state.importances
+        importances = state.importances.copy()
+
+        for key, value in importances.items():
+            if isinstance(value, pd.DataFrame):
+                importances[key] = value.set_index("feature").sort_values(
+                    by="value", ascending=False).to_dict()["value"]
 
         output_dir = state.output_dir
 
         result_dict = {"metrics": metrics, "importances": importances}
 
+        state.logger.info(
+            f"Create Output File {str(output_dir / 'output.json')}")
         utils.save_json(result_dict, output_dir / "output.json")
+
+
+class StoreFeatureImportanceCallback(Callback):
+    signature = "model_train"
+    callback_order = CallbackOrder.LOWER
+
+    def on_model_train_end(self, state: RunningState):
+        models = state.models
+        importances = state.importances
+
+        X = state.features["main"]["train"]
+        if isinstance(X, pd.DataFrame):
+            columns = X.columns.tolist()
+        else:
+            columns = [f"v{i}" for i in range(len(X[0]))]
+
+        model_keys = set(models.keys())
+        importance_keys = set(importances.keys())
+
+        not_stored = model_keys - importance_keys
+
+        for key in not_stored:
+            with utils.timer(f"Store Feature Importance of the models `{key}`",
+                             state.logger):
+                model_folds = models[key]
+                importances_array = np.zeros((len(columns)))
+                for model in model_folds.values():
+                    importances_array += model.get_feature_importance() / len(
+                        model_folds)
+
+                feature_importance = pd.DataFrame(
+                    sorted(zip(importances_array, columns)),
+                    columns=["value", "feature"])
+                importances[key] = feature_importance
+
+        state.importances = importances
