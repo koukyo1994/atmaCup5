@@ -1,0 +1,38 @@
+feature_dir: features/
+
+output_dir: output/
+
+log_dir: log
+
+callbacks:
+  - name: FeatureSavingCallback
+    type: features
+    params:
+      prefix: Atma5
+  - name: ConcatenateFeatureCallback
+    type: features
+  - name: MergeFittingCallback
+    type: custom.atma5
+  - name: CalcOOFMetricCallback
+    type: custom.atma5
+  - name: CreateSubmissionCallback
+    type: custom.atma5
+    params:
+      save_dir: submission
+      prefix: atma5_01_basic
+  - name: PrepareForStratifiedKFoldCallback
+    type: split
+
+pipeline:
+  - data_loading:
+      - configs/data_loading/atma5/train.yml
+      - configs/data_loading/atma5/fitting.yml
+      - configs/data_loading/atma5/test.yml
+  - features:
+      - configs/features/atma5/label_encodes.yml
+      - configs/features/atma5/apply_nothing.yml
+      - configs/features/atma5/spectrum_basic_op.yml
+  - av: configs/adversarial/av_with_lgbm.yml
+  - split: configs/split/stratified_kfold.yml
+  - model: configs/model/atma5/vsb_1st_binary.yml
+  - prediction: configs/prediction/atma5/to_submission.yml

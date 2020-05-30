@@ -38,6 +38,14 @@ def group_kfold(df: pd.DataFrame,
     return list(splitter.split(df, groups=group))
 
 
+def stratified_kfold(df: pd.DataFrame,
+                     config: dict) -> List[Tuple[np.ndarray, np.ndarray]]:
+    params = config["params"]
+    y = df["y"]
+    splitter = model_selection.StratifiedKFold(**params)
+    return list(splitter.split(df, y=y))
+
+
 def random_group_kfold(df: pd.DataFrame,
                        config: dict) -> List[Tuple[np.ndarray, np.ndarray]]:
     params = config["params"]

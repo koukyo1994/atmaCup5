@@ -156,6 +156,7 @@ class Runner:
                     self.state.target = state.target
                 elif key == "split":
                     state.features = self.state.features
+                    state.target = self.state.target
 
                     from .split import SplitRunner
 

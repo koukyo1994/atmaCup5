@@ -25,3 +25,20 @@ class CheckDataFrameCallback(Callback):
                 msg = "feature 'train' must be DataFrame"
                 msg += " or a sparse matrix (csr). Aborting."
                 raise ValueError(msg)
+
+
+class PrepareForStratifiedKFoldCallback(Callback):
+    signature = "split"
+    callback_order = CallbackOrder.MIDDLE
+
+    def on_split_start(self, state: RunningState):
+        train = state.features["main"]["train"]
+        target = state.target
+
+        train["y"] = target
+        state.features["main"]["train"] = train
+
+    def on_split_end(self, state: RunningState):
+        train = state.features["main"]["train"]
+        train = train.drop("y", axis=1)
+        state.features["main"]["train"] = train
