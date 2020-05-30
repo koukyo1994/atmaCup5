@@ -30,6 +30,8 @@ callbacks:
     group: av
   - name: FoldAPCallback
     type: train_fold
+  - name: OutputResultsCallback
+    type: model
 
 pipeline:
   - data_loading:

@@ -53,6 +53,9 @@ class AVRunner(SubRunner):
                     runner = ModelRunner(value, state)
                     runner.callback_group = "av"
                     runner.run()
+
+                    self.state.metrics = state.metrics
+                    self.state.importances = state.importances
                 else:
                     pass
         self.state.misc = state.misc

@@ -3,6 +3,8 @@ import abc
 import numpy as np
 import pandas as pd
 
+import src.utils as utils
+
 from sklearn import metrics
 
 from src.core.callbacks import Callback, CallbackOrder
@@ -68,3 +70,18 @@ class OOFAPCallback(_OOFMetricCallback):
 
     def _log_score(self, state: RunningState, score: float):
         state.logger.info(f"OOF PR-AUC: {score:.5f}")
+
+
+class OutputResultsCallback(Callback):
+    signature = "model_train"
+    callback_order = CallbackOrder.LOWEST
+
+    def on_model_train_end(self, state: RunningState):
+        metrics = state.metrics
+        importances = state.importances
+
+        output_dir = state.output_dir
+
+        result_dict = {"metrics": metrics, "importances": importances}
+
+        utils.save_json(result_dict, output_dir / "output.json")

@@ -137,6 +137,8 @@ class Runner:
                 state = RunningState(value, logger=self.state.logger)
                 state.callbacks = self.state.callbacks
                 state.misc = self.state.misc
+                state.output_dir = output_dir
+                state.feature_dir = feature_dir
                 if key == "data_loading":
                     from .data_loading import DataLoadingRunner
 
@@ -188,6 +190,9 @@ class Runner:
                     state.features = self.state.features
                     state.target = self.state.target
                     state.splits = self.state.splits
+                    state.metrics = self.state.metrics
+                    state.importances = self.state.importances
+                    state.models = self.state.models
 
                     from .model import ModelRunner
 
@@ -195,6 +200,8 @@ class Runner:
                     runner.run()
 
                     self.state.models = state.models
+                    self.state.metrics = state.metrics
+                    self.state.importances = state.importances
                 elif key == "av":
                     state.features = self.state.features
 
@@ -202,6 +209,9 @@ class Runner:
 
                     runner = AVRunner(value, state)
                     runner.run()
+
+                    self.state.metrics = state.metrics
+                    self.state.importances = state.importances
                 elif key == "prediction":
                     state.splits = self.state.splits
                     state.models = self.state.models
