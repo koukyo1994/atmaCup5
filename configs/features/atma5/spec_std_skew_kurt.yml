@@ -1,0 +1,9 @@
+input_dataframes:
+  - input/atma5/train.csv
+  - input/atma5/test.csv
+columns:
+  - spectrum_filename
+method: SpecStdSkewKurt
+params:
+  prefix: spectrum
+type: custom.atma5
