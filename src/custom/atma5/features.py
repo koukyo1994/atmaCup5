@@ -7,6 +7,7 @@ from typing import Dict, List, Union
 from fastprogress import progress_bar
 from scipy.interpolate import UnivariateSpline
 from scipy import integrate
+from scipy.stats import kurtosis
 from tsfresh import extract_relevant_features, extract_features
 
 
@@ -58,6 +59,102 @@ class SpectrumIntegral:
         return pd.DataFrame({"spectrum_integral": integrals})
 
 
+class SpectrumPeakFeatures:
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def fit_transform(self, X: pd.DataFrame):
+        return self.transform(X)
+
+    def transform(self, X: pd.DataFrame):
+        unique_filenames = X["spectrum_filename"].unique()
+        features = {}
+
+        diff_spans = self.kwargs["diff_span"]
+        for s in diff_spans:
+            features[f"max_steapness_span_{s}"] = np.zeros(
+                len(unique_filenames))
+            features[f"highest_peak_steapness_span_{s}"] = np.zeros(
+                len(unique_filenames))
+            features[f"max_kurtosis_span_{s}"] = np.zeros(
+                len(unique_filenames))
+            features[f"highest_peak_kurtosis_span_{s}"] = np.zeros(
+                len(unique_filenames))
+
+        for i, filename in enumerate(progress_bar(unique_filenames)):
+            spec = X.query(f"spectrum_filename == '{filename}'")
+
+            x = spec["wl"].values
+            y = spec["intensity"].values
+
+            spline = UnivariateSpline(x, y - np.max(y) * 0.4, s=0)
+            roots = spline.roots()
+            if len(roots) < 2:
+                continue
+
+            steapness_lists: Dict[int, list] = {s: [] for s in diff_spans}
+            kurtosis_lists: Dict[int, list] = {s: [] for s in diff_spans}
+            peak_heights = []
+            for j in range(len(roots) // 2):
+                left = roots[j * 2]
+                right = roots[j * 2 + 1]
+
+                span_indices = np.logical_and(x <= right, x >= left)
+                if span_indices.mean() == 0:
+                    peak_wl = (left + right) / 2.0
+                    abs_dist = np.abs(x - peak_wl)
+                    peak_index = np.argmin(abs_dist)
+                else:
+                    peak_index_in_span = y[span_indices].argmax()
+                    peak_wl = x[span_indices][peak_index_in_span]
+                    peak_index = x.tolist().index(peak_wl)
+
+                if peak_index == 0 or peak_index == (len(x) - 1):
+                    continue
+
+                peak_heights.append(y[peak_index])
+                for s in diff_spans:
+                    left_span_start = peak_index - s
+                    if left_span_start < 0:
+                        left_span_start = 0
+
+                    right_span_end = peak_index + s
+                    if right_span_end > len(x) - 1:
+                        right_span_end = len(x) - 1
+
+                    left_diff = (y[peak_index] - y[left_span_start]) / (
+                        x[peak_index] - x[left_span_start])
+                    right_diff = (y[peak_index] - y[right_span_end]) / (
+                        x[right_span_end] - x[peak_index])
+
+                    steapness_lists[s].append(max(left_diff, right_diff))
+
+                    kurt = kurtosis(y[left_span_start:right_span_end + 1])
+                    kurtosis_lists[s].append(kurt)
+
+            for s in diff_spans:
+                steapness = steapness_lists[s]
+                kurts = kurtosis_lists[s]
+
+                features[f"max_steapness_span_{s}"][i] = np.max(steapness)
+                features[f"max_kurtosis_span_{s}"][i] = np.max(kurts)
+
+                if len(peak_heights) == 0:
+                    features[f"highest_peak_steapness_span_{s}"][
+                        i] = np.random.choice(steapness)
+                    features[f"highest_peak_kurtosis_span_{s}"][
+                        i] = np.random.choice(kurts)
+                else:
+                    highest_peak_height = np.max(peak_heights)
+                    highest_peak_idx = peak_heights.index(highest_peak_height)
+                    features[f"highest_peak_steapness_span_{s}"][
+                        i] = steapness[highest_peak_idx]
+                    features[f"highest_peak_kurtosis_span_{s}"][i] = kurts[
+                        highest_peak_idx]
+
+        return pd.DataFrame(features)
+
+
 class ParametrizedFWHM:
     def __init__(self, **kwargs):
         self.kwargs = kwargs
@@ -93,7 +190,7 @@ class ParametrizedFWHM:
 
                 inverse_fwhms = []
                 inverse_hwhms = []
-                peak_wls = []
+                peak_heights = []
                 for j in range(len(roots) // 2):
                     left = roots[j * 2]
                     right = roots[j * 2 + 1]
@@ -104,11 +201,13 @@ class ParametrizedFWHM:
                                                   x >= roots[j * 2])
                     if span_indices.mean() == 0.0:
                         peak_wl = (left + right) / 2.0
+                        abs_dist = np.abs(x - peak_wl)
+                        peak_index = np.argmin(abs_dist)
                     else:
                         peak_index_in_span = y[span_indices].argmax()
                         peak_wl = x[span_indices][peak_index_in_span]
-
-                    peak_wls.append(peak_wl)
+                        peak_index = x.tolist().index(peak_wl)
+                    peak_heights.append(y[peak_index])
 
                     inverse_left_hwhm = 1.0 / (peak_wl + eps - left)
                     inverse_right_hwhm = 1.0 / (right + eps - peak_wl)
@@ -119,14 +218,14 @@ class ParametrizedFWHM:
                 features[f"max_inverse_fw_{w}"][i] = np.max(inverse_fwhms)
                 features[f"max_inverse_hw_{w}"][i] = np.max(inverse_hwhms)
 
-                if len(peak_wls) == 0:
+                if len(peak_heights) == 0:
                     features[f"highest_peak_inverse_fw_{w}"][
                         i] = np.random.choice(inverse_fwhms)
                     features[f"highest_peak_inverse_hw_{w}"][
                         i] = np.random.choice(inverse_hwhms)
                 else:
-                    highest_peak_wl = np.max(peak_wls)
-                    highest_peak_idx = peak_wls.index(highest_peak_wl)
+                    highest_peak_height = np.max(peak_heights)
+                    highest_peak_idx = peak_heights.index(highest_peak_height)
                     features[f"highest_peak_inverse_fw_{w}"][
                         i] = inverse_fwhms[highest_peak_idx]
                     features[f"highest_peak_inverse_hw_{w}"][

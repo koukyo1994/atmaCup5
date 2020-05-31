@@ -72,11 +72,6 @@ callbacks:
         - spectrum_nunique
         - highest_peak_positions
 
-  - name: UnderSamplingCallback
-    type: custom.atma5
-    params:
-      reduce_ratio: 0.1
-
 pipeline:
   - data_loading:
       - configs/data_loading/atma5/train.yml
@@ -87,6 +82,8 @@ pipeline:
   - features:
       - configs/features/atma5/max_threshed.yml
       - configs/features/atma5/spec_std_skew_kurt.yml
+      - configs/features/atma5/spectrum_raw_peaks.yml
+
   - feature_loading:
       - configs/feature_loading/atma5/load_fitting_params.yml
       - configs/feature_loading/atma5/load_parametrized_fwhm.yml
