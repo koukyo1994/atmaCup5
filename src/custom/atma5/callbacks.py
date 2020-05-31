@@ -76,3 +76,34 @@ class CreateSubmissionCallback(Callback):
             submission = pd.DataFrame({"target": prediction})
             submission.to_csv(
                 self.save_dir / (self.prefix + ".csv"), index=False)
+
+
+class UnderSamplingCallback(Callback):
+    signature = "model_train"
+    callback = CallbackOrder.LOWEST
+
+    def __init__(self, reduce_ratio=0.05):
+        self.reduce_ratio = reduce_ratio
+
+    def on_model_train_start(self, state: RunningState):
+        state.logger.info(
+            f"UnderSampling with reduce_ratio: {self.reduce_ratio}")
+
+        splits = state.splits
+        y = state.target
+
+        new_splits = []
+        for trn_idx, val_idx in splits:
+            n_samples = int(len(trn_idx) * (1 - self.reduce_ratio))
+
+            y_train = y[trn_idx]
+
+            y_train_0 = trn_idx[y_train == 0]
+            y_train_1 = trn_idx[y_train == 1]
+            new_trn_idx = np.random.choice(
+                y_train_0, size=n_samples, replace=False)
+
+            new_trn_idx = np.random.permutation(
+                np.concatenate([new_trn_idx, y_train_1]))
+            new_splits.append((new_trn_idx, val_idx))
+        state.splits = new_splits

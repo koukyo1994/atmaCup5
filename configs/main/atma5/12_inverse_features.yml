@@ -72,6 +72,11 @@ callbacks:
         - spectrum_nunique
         - highest_peak_positions
 
+  - name: UnderSamplingCallback
+    type: custom.atma5
+    params:
+      reduce_ratio: 0.1
+
 pipeline:
   - data_loading:
       - configs/data_loading/atma5/train.yml

@@ -29,8 +29,8 @@ class ModelRunner(SubRunner):
         self.state.models[config["name"] + "_" + config["identifier"]] = {}
 
         for i, (trn_idx, val_idx) in enumerate(self.state.splits):
-            self._run_callbacks(phase="start", signature="train_fold")
             self.state.misc["current_fold_id"] = i
+            self._run_callbacks(phase="start", signature="train_fold")
             fold_signature = f"Fold{i+1}"
 
             self.state.logger.info("=" * 25)
