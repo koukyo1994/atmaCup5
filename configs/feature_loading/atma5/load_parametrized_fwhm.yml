@@ -1,0 +1,7 @@
+features:
+  - name: ParametrizedFWHM
+    path: Atma5_10_ParametrizedFWHM_train.ftr
+    role: train
+  - name: ParametrizedFWHM
+    path: Atma5_10_ParametrizedFWHM_test.ftr
+    role: test

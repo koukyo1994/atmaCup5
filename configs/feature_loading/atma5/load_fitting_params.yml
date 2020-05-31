@@ -1,0 +1,10 @@
+features:
+  - name: ApplyNothing
+    path: Atma5_10_ApplyNothing_train.ftr
+    role: train
+  - name: ApplyNothing
+    path: Atma5_10_ApplyNothing_test.ftr
+    role: test
+  - name: target
+    path: Atma5_10_main_target.npy
+    role: target
