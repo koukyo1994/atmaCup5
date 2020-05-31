@@ -1,0 +1,10 @@
+features:
+  - name: ParametrizedFWHM
+    path: Atma5_13_ParametrizedFWHM_train.ftr
+    role: train
+  - name: ParametrizedFWHM
+    path: Atma5_13_ParametrizedFWHM_test.ftr
+    role: test
+  - name: target
+    path: Atma5_13_main_target.npy
+    role: target

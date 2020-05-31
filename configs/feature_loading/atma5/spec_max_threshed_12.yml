@@ -1,0 +1,7 @@
+features:
+  - name: SpecMaxThreshed
+    path: Atma5_12_SpecMaxThreshed_spectrum_filename_train.ftr
+    role: train
+  - name: SpecMaxThreshed
+    path: Atma5_12_SpecMaxThreshed_spectrum_filename_test.ftr
+    role: test
