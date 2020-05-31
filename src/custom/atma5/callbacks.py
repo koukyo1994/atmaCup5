@@ -5,6 +5,7 @@ import src.utils as utils
 
 from pathlib import Path
 from sklearn.metrics import average_precision_score
+from typing import Optional
 
 from src.core.callbacks import Callback, CallbackOrder
 from src.core.states import RunningState
@@ -56,12 +57,18 @@ class CreateSubmissionCallback(Callback):
     signature = "model_inference"
     callback_order = CallbackOrder.LOWER
 
-    def __init__(self, save_dir: str, prefix: str):
-        self.save_dir = Path(save_dir)
+    def __init__(self, save_dir: Optional[str], prefix: str):
+        if save_dir is not None:
+            self.save_dir = Path(save_dir)
+        else:
+            self.save_dir = None  # type: ignore
+
         self.prefix = prefix
 
     def on_model_inference_end(self, state: RunningState):
         predictions = state.predictions
+        if self.save_dir is None:
+            self.save_dir = state.output_dir
 
         if len(predictions.keys()) == 1:
             prediction = list(predictions.values())[0]

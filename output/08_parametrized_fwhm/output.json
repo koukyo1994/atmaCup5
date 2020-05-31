@@ -1,0 +1,60 @@
+{
+    "metrics": {
+        "lgbm_av": {
+            "Fold1 auc": 0.7227145618242016,
+            "Fold2 auc": 0.7292295723980644,
+            "Fold3 auc": 0.7464846722857722,
+            "Fold4 auc": 0.7183515938906264,
+            "Fold5 auc": 0.736476448399265,
+            "oof auc": 0.7302368299245235
+        },
+        "lgbm_vsb_1st": {
+            "Fold1 pr-auc": 0.7700151093814651,
+            "Fold2 pr-auc": 0.7538546656775432,
+            "Fold3 pr-auc": 0.803569414312959,
+            "Fold4 pr-auc": 0.7955350277571863,
+            "Fold5 pr-auc": 0.7488075841990288,
+            "oof pr-auc": 0.6694851722247347
+        }
+    },
+    "importances": {
+        "lgbm_av": {
+            "spectrum_max": 25821.96123320968,
+            "max_inverse_fw_0.5": 25560.75101352171,
+            "max_inverse_fw_0.66": 16663.31418219358,
+            "highest_peak_inverse_fw_0.5": 13997.482654641197,
+            "max_inverse_hw_0.5": 12751.181773052504,
+            "highest_peak_inverse_fw_0.66": 8788.709243909085,
+            "highest_peak_inverse_fw_0.75": 8751.905441666488,
+            "max_inverse_fw_0.8": 8386.896837458758,
+            "max_inverse_hw_0.66": 7921.958329607733,
+            "highest_peak_inverse_hw_0.8": 7789.246172834712,
+            "max_inverse_fw_0.75": 7734.622001002543,
+            "highest_peak_inverse_fw_0.8": 7719.722598290559,
+            "highest_peak_inverse_hw_0.5": 7715.918318428472,
+            "highest_peak_inverse_hw_0.66": 7277.184898392623,
+            "max_inverse_hw_0.8": 6880.278619663418,
+            "max_inverse_hw_0.75": 6422.2700080411505,
+            "highest_peak_inverse_hw_0.75": 6228.888463504799
+        },
+        "lgbm_vsb_1st": {
+            "spectrum_max": 12014.299950548932,
+            "highest_peak_inverse_fw_0.75": 3228.170047195258,
+            "highest_peak_inverse_fw_0.66": 2431.8679193655275,
+            "highest_peak_inverse_fw_0.8": 2327.536460980711,
+            "highest_peak_inverse_hw_0.5": 2164.1899726211705,
+            "max_inverse_hw_0.66": 1883.6105630611128,
+            "max_inverse_fw_0.8": 1836.9583035080136,
+            "max_inverse_fw_0.5": 1828.8456493037907,
+            "max_inverse_hw_0.5": 1636.4866401560398,
+            "max_inverse_hw_0.75": 1417.7999770186825,
+            "max_inverse_fw_0.66": 1294.9871551076594,
+            "highest_peak_inverse_hw_0.66": 1108.5707375770282,
+            "highest_peak_inverse_hw_0.8": 1094.248964562382,
+            "max_inverse_hw_0.8": 852.6299666323262,
+            "highest_peak_inverse_fw_0.5": 817.9570715641707,
+            "max_inverse_fw_0.75": 767.1659440569597,
+            "highest_peak_inverse_hw_0.75": 705.2993007172265
+        }
+    }
+}

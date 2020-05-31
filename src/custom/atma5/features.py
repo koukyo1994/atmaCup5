@@ -58,6 +58,83 @@ class SpectrumIntegral:
         return pd.DataFrame({"spectrum_integral": integrals})
 
 
+class ParametrizedFWHM:
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def fit_transform(self, X: pd.DataFrame):
+        return self.transform(X)
+
+    def transform(self, X: pd.DataFrame):
+        unique_filenames = X["spectrum_filename"].unique()
+        features = {}
+        eps = 1e-7
+
+        widths = self.kwargs["width"]
+        for w in widths:
+            features[f"max_inverse_fw_{w}"] = np.zeros(len(unique_filenames))
+            features[f"highest_peak_inverse_fw_{w}"] = np.zeros(
+                len(unique_filenames))
+            features[f"max_inverse_hw_{w}"] = np.zeros(len(unique_filenames))
+            features[f"highest_peak_inverse_hw_{w}"] = np.zeros(
+                len(unique_filenames))
+
+        for i, filename in enumerate(progress_bar(unique_filenames)):
+            spec = X.query(f"spectrum_filename == '{filename}'")
+
+            x = spec["wl"].values
+            y = spec["intensity"].values
+
+            for w in widths:
+                spline = UnivariateSpline(x, y - np.max(y) * w, s=0)
+                roots = spline.roots()
+                if len(roots) < 2:
+                    continue
+
+                inverse_fwhms = []
+                inverse_hwhms = []
+                peak_wls = []
+                for j in range(len(roots) // 2):
+                    left = roots[j * 2]
+                    right = roots[j * 2 + 1]
+
+                    inverse_fwhms.append(1.0 / (right - left))
+
+                    span_indices = np.logical_and(x <= roots[j * 2 + 1],
+                                                  x >= roots[j * 2])
+                    if span_indices.mean() == 0.0:
+                        peak_wl = (left + right) / 2.0
+                    else:
+                        peak_index_in_span = y[span_indices].argmax()
+                        peak_wl = x[span_indices][peak_index_in_span]
+
+                    peak_wls.append(peak_wl)
+
+                    inverse_left_hwhm = 1.0 / (peak_wl + eps - left)
+                    inverse_right_hwhm = 1.0 / (right + eps - peak_wl)
+
+                    inverse_hwhms.append(
+                        max(inverse_left_hwhm, inverse_right_hwhm))
+
+                features[f"max_inverse_fw_{w}"][i] = np.max(inverse_fwhms)
+                features[f"max_inverse_hw_{w}"][i] = np.max(inverse_hwhms)
+
+                if len(peak_wls) == 0:
+                    features[f"highest_peak_inverse_fw_{w}"][
+                        i] = np.random.choice(inverse_fwhms)
+                    features[f"highest_peak_inverse_hw_{w}"][
+                        i] = np.random.choice(inverse_hwhms)
+                else:
+                    highest_peak_wl = np.max(peak_wls)
+                    highest_peak_idx = peak_wls.index(highest_peak_wl)
+                    features[f"highest_peak_inverse_fw_{w}"][
+                        i] = inverse_fwhms[highest_peak_idx]
+                    features[f"highest_peak_inverse_hw_{w}"][
+                        i] = inverse_hwhms[highest_peak_idx]
+
+        return pd.DataFrame(features)
+
+
 class SpectrumAdvancedFeatures:
     def __init__(self, **kwargs):
         self.kwargs = kwargs
