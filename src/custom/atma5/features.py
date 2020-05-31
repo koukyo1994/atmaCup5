@@ -267,3 +267,26 @@ class TsfreshRelevantFeatures:
         features = extract_features(
             X, default_fc_parameters=self.parameters, **self.kwargs)
         return features.reset_index(drop=True)
+
+
+class InverseSpecMax:
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def fit_transform(self, X: pd.DataFrame):
+        return self.transform(X)
+
+    def transform(self, X: pd.DataFrame):
+        prefix = self.kwargs["prefix"] + "_"
+        numerator = self.kwargs["numerator"]
+        result_dict = {prefix + "inverse_max": np.zeros(len(X))}
+
+        base_dir = Path("input/atma5/spectrum")
+        for i, row in progress_bar(X.iterrows(), total=len(X)):
+            spectrum = pd.read_csv(
+                base_dir / row.spectrum_filename, sep="\t", header=None)
+            result_dict[prefix +
+                        "inverse_max"][i] = numerator / spectrum[1].max()
+        df = pd.DataFrame(result_dict)
+        df.columns = [prefix + c for c in df.columns]
+        return df

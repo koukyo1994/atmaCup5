@@ -1,0 +1,78 @@
+{
+    "metrics": {
+        "lgbm_av": {
+            "Fold1 auc": 0.8448151054851096,
+            "Fold2 auc": 0.838625508258982,
+            "Fold3 auc": 0.8461606568750826,
+            "Fold4 auc": 0.8249014375167577,
+            "Fold5 auc": 0.8466950382048553,
+            "oof auc": 0.8399880553411359
+        },
+        "lgbm_vsb_1st_tuned": {
+            "Fold1 pr-auc": 0.888023056358332,
+            "Fold2 pr-auc": 0.8160737828529491,
+            "Fold3 pr-auc": 0.8639494480329672,
+            "Fold4 pr-auc": 0.8460363711151903,
+            "Fold5 pr-auc": 0.8363010307552047,
+            "oof pr-auc": 0.8465710172144157
+        }
+    },
+    "importances": {
+        "lgbm_av": {
+            "params0": 65745.20726200257,
+            "params2": 40401.58027117052,
+            "rms": 36291.123587782015,
+            "params5": 27489.97538093581,
+            "spectrum_spectrum_inverse_max": 18685.245101225857,
+            "params6": 18298.05175871884,
+            "params4": 13611.723669707084,
+            "max_inverse_fw_0.5": 10477.394914109485,
+            "max_inverse_fw_0.66": 10231.068661345413,
+            "highest_peak_inverse_fw_0.66": 9654.549859309622,
+            "params1": 9639.76787799814,
+            "highest_peak_inverse_fw_0.5": 8809.693613939442,
+            "params3": 8801.227800403289,
+            "beta": 8765.498004245123,
+            "max_inverse_hw_0.5": 8455.93253427429,
+            "max_inverse_fw_0.8": 8250.550077358468,
+            "highest_peak_inverse_fw_0.8": 8204.585801632435,
+            "highest_peak_inverse_hw_0.8": 8169.299260019985,
+            "highest_peak_inverse_hw_0.5": 7817.946413833688,
+            "highest_peak_inverse_hw_0.66": 7682.212599548658,
+            "highest_peak_inverse_fw_0.75": 7642.322296136583,
+            "max_inverse_hw_0.8": 7338.023836310056,
+            "max_inverse_hw_0.66": 7325.153160697787,
+            "max_inverse_fw_0.75": 7141.6033567269515,
+            "highest_peak_inverse_hw_0.75": 6915.312191363301,
+            "max_inverse_hw_0.75": 6840.301383528624
+        },
+        "lgbm_vsb_1st_tuned": {
+            "spectrum_spectrum_inverse_max": 10819.869581619067,
+            "params0": 3196.7834698818915,
+            "highest_peak_inverse_fw_0.75": 2863.675028138745,
+            "params2": 2696.6871427051115,
+            "params3": 2544.9812874467807,
+            "max_inverse_hw_0.66": 2517.526012789155,
+            "params4": 2463.472693148344,
+            "params5": 2303.1813123833854,
+            "highest_peak_inverse_hw_0.5": 2300.4159996834496,
+            "highest_peak_inverse_fw_0.66": 2200.5368528107647,
+            "max_inverse_hw_0.5": 1833.5300111839722,
+            "rms": 1574.4673652010097,
+            "params1": 1553.960827653208,
+            "highest_peak_inverse_fw_0.8": 1429.9584468421206,
+            "max_inverse_hw_0.75": 1407.2061721936684,
+            "max_inverse_fw_0.8": 1398.040286064631,
+            "highest_peak_inverse_hw_0.66": 1269.0113138811562,
+            "params6": 1206.08402427909,
+            "max_inverse_fw_0.5": 1170.9135609393852,
+            "max_inverse_fw_0.66": 1084.8419285071432,
+            "max_inverse_fw_0.75": 967.4578394402341,
+            "highest_peak_inverse_hw_0.8": 871.0997674330763,
+            "beta": 788.645006815932,
+            "highest_peak_inverse_fw_0.5": 749.8148961888771,
+            "max_inverse_hw_0.8": 715.6511093271605,
+            "highest_peak_inverse_hw_0.75": 637.3826218990173
+        }
+    }
+}
