@@ -290,3 +290,26 @@ class InverseSpecMax:
         df = pd.DataFrame(result_dict)
         df.columns = [prefix + c for c in df.columns]
         return df
+
+
+class SpecMaxThreshed:
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def fit_transform(self, X: pd.DataFrame):
+        return self.transform(X)
+
+    def transform(self, X: pd.DataFrame):
+        threshold = self.kwargs["threshold"]
+        result_dict = {"max_threshed": np.zeros(len(X))}
+
+        base_dir = Path("input/atma5/spectrum")
+        for i, row in progress_bar(X.iterrows(), total=len(X)):
+            spectrum = pd.read_csv(
+                base_dir / row.spectrum_filename, sep="\t", header=None)
+            spec_max = spectrum[1].max()
+            result_dict["max_threshed"][
+                i] = spec_max if spec_max <= threshold else threshold
+
+        df = pd.DataFrame(result_dict)
+        return df

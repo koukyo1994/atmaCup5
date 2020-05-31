@@ -80,7 +80,7 @@ pipeline:
       - configs/data_loading/atma5/spectrum_train.yml
       - configs/data_loading/atma5/spectrum_test.yml
   - features:
-      - configs/features/atma5/inverse_spec_max.yml
+      - configs/features/atma5/max_threshed.yml
   - feature_loading:
       - configs/feature_loading/atma5/load_fitting_params.yml
       - configs/feature_loading/atma5/load_parametrized_fwhm.yml

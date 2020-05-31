@@ -1,0 +1,10 @@
+input_dataframes:
+  - input/atma5/train.csv
+  - input/atma5/test.csv
+columns:
+  - spectrum_filename
+method: SpecMaxThreshed
+params:
+  threshold: 10000
+
+type: custom.atma5
