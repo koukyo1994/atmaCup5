@@ -1,0 +1,10 @@
+features:
+  - name: main
+    path: Atma5_parametrized_fwhm_main_train.ftr
+    role: train
+  - name: main
+    path: Atma5_parametrized_fwhm_main_test.ftr
+    role: test
+  - name: target
+    path: Atma5_parametrized_fwhm_main_target.npy
+    role: target

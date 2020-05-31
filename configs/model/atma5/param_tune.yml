@@ -9,7 +9,6 @@ model_params:
   colsample_bytree: 0.7
   subsample: 0.7
   subsample_freq: 1
-  max_depth: 6
   seed: 23974
   boost_from_average: False
   first_metric_only: True
