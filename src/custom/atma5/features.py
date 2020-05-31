@@ -7,7 +7,6 @@ from typing import Dict, List, Union
 from fastprogress import progress_bar
 from scipy.interpolate import UnivariateSpline
 from scipy import integrate
-from scipy.stats import kurtosis
 from tsfresh import extract_relevant_features, extract_features
 
 
@@ -76,10 +75,6 @@ class SpectrumPeakFeatures:
                 len(unique_filenames))
             features[f"highest_peak_steapness_span_{s}"] = np.zeros(
                 len(unique_filenames))
-            features[f"max_kurtosis_span_{s}"] = np.zeros(
-                len(unique_filenames))
-            features[f"highest_peak_kurtosis_span_{s}"] = np.zeros(
-                len(unique_filenames))
 
         for i, filename in enumerate(progress_bar(unique_filenames)):
             spec = X.query(f"spectrum_filename == '{filename}'")
@@ -93,7 +88,6 @@ class SpectrumPeakFeatures:
                 continue
 
             steapness_lists: Dict[int, list] = {s: [] for s in diff_spans}
-            kurtosis_lists: Dict[int, list] = {s: [] for s in diff_spans}
             peak_heights = []
             for j in range(len(roots) // 2):
                 left = roots[j * 2]
@@ -129,28 +123,19 @@ class SpectrumPeakFeatures:
 
                     steapness_lists[s].append(max(left_diff, right_diff))
 
-                    kurt = kurtosis(y[left_span_start:right_span_end + 1])
-                    kurtosis_lists[s].append(kurt)
-
             for s in diff_spans:
                 steapness = steapness_lists[s]
-                kurts = kurtosis_lists[s]
 
                 features[f"max_steapness_span_{s}"][i] = np.max(steapness)
-                features[f"max_kurtosis_span_{s}"][i] = np.max(kurts)
 
                 if len(peak_heights) == 0:
                     features[f"highest_peak_steapness_span_{s}"][
                         i] = np.random.choice(steapness)
-                    features[f"highest_peak_kurtosis_span_{s}"][
-                        i] = np.random.choice(kurts)
                 else:
                     highest_peak_height = np.max(peak_heights)
                     highest_peak_idx = peak_heights.index(highest_peak_height)
                     features[f"highest_peak_steapness_span_{s}"][
                         i] = steapness[highest_peak_idx]
-                    features[f"highest_peak_kurtosis_span_{s}"][i] = kurts[
-                        highest_peak_idx]
 
         return pd.DataFrame(features)
 
@@ -438,3 +423,25 @@ class SpecStdSkewKurt:
         df = pd.DataFrame(result_dict)
         df.columns = [prefix + c for c in df.columns]
         return df
+
+
+class SpecDistance:
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def fit_transform(self, X: pd.DataFrame):
+        return self.transform(X)
+
+    def transform(self, X: pd.DataFrame):
+        agg = X.groupby("spectrum_filename")["intensity"].agg(
+            ["min", "max", "mean", "median"])
+        features = pd.DataFrame(
+            index=agg.index,
+            columns=[
+                "spectrum_max_min", "spectrum_max_mean", "spectrum_max_median"
+            ])
+        features["spectrum_max_min"] = agg["max"] - agg["min"]
+        features["spectrum_max_mean"] = agg["max"] - agg["mean"]
+        features["spectrum_max_median"] = agg["max"] - agg["median"]
+
+        return features.reset_index(drop=True)
