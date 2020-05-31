@@ -1,0 +1,18 @@
+input_dataframes:
+  - input/atma5/train.csv
+  - input/atma5/test.csv
+columns:
+  - layout_x
+  - layout_y
+  - pos_x
+  - params0
+  - params1
+  - params2
+  - params3
+  - params4
+  - params5
+  - params6
+  - rms
+  - beta
+method: ApplyNothing
+type: common
