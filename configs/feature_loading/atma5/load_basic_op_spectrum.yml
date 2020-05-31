@@ -1,7 +1,7 @@
 features:
   - name: BasicOperationsOnSpectrum
-    path: Atma5_10_BasicOperationsOnSpectrum_train.ftr
+    path: Atma5_10_BasicOperationsOnSpectrum_spectrum_filename_train.ftr
     role: train
   - name: BasicOperationsOnSpectrum
-    path: Atma5_10_BasicOperationsOnSpectrum_test.ftr
+    path: Atma5_10_BasicOperationsOnSpectrum_spectrum_filename_test.ftr
     role: test

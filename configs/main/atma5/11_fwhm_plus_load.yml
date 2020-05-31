@@ -8,9 +8,9 @@ callbacks:
   - name: FeatureSavingCallback
     type: features
     params:
-      prefix: Atma5_10
+      prefix: Atma5_11
   - name: ConcatenateFeatureCallback
-    type: split
+    type: feature_loading
   - name: MergeFittingCallback
     type: custom.atma5
   - name: OOFAPCallback
@@ -47,7 +47,7 @@ callbacks:
   - name: PlotFeatureImportanceCallback
     type: model
     params:
-      model_name: lgbm_vsb_1st
+      model_name: lgbm_vsb_1st_tuned
       title: LightGBM
       figname: feature_importance.png
   - name: RemoveSpecifiedColumnsCallback
@@ -66,5 +66,5 @@ pipeline:
   - preprocess:
   - av: configs/adversarial/av_with_lgbm.yml
   - split: configs/split/stratified_kfold.yml
-  - model: configs/model/atma5/vsb_1st_binary.yml
+  - model: configs/model/atma5/param_tune.yml
   - prediction: configs/prediction/atma5/to_submission.yml
