@@ -1,0 +1,28 @@
+name: lgbm
+identifier: tuned
+model_params:
+  objective: binary
+  boosting: gbdt
+  learning_rate: 0.01
+  num_leaves: 31
+  min_split_gain: 0.5
+  colsample_bytree: 0.7
+  subsample: 0.7
+  subsample_freq: 1
+  seed: 23974
+  tree_learner: serial
+  boost_from_average: False
+  first_metric_only: True
+
+train_params:
+  num_boost_round: 10000
+  early_stopping_rounds: 200
+  verbose_eval: 100
+
+callbacks:
+  - name: log_evaluation
+    params:
+      logger:
+      period: 100
+
+feval: pr_auc
