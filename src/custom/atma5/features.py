@@ -445,3 +445,33 @@ class SpecDistance:
         features["spectrum_max_median"] = agg["max"] - agg["median"]
 
         return features.reset_index(drop=True)
+
+
+class WindowedMeanMax:
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def fit_transform(self, X: pd.DataFrame):
+        return self.transform(X)
+
+    def transform(self, X: pd.DataFrame):
+        unique_filenames = X["spectrum_filename"].unique()
+        features = {}
+
+        window_sizes = self.kwargs["window_size"]
+        for ws in window_sizes:
+            features[f"windowed_mean_max_ws_{ws}"] = np.zeros(
+                len(unique_filenames))
+
+        for i, filename in enumerate(progress_bar(unique_filenames)):
+            windowed_means: Dict[int, list] = {ws: [] for ws in window_sizes}
+            spec = X.query(f"spectrum_filename == '{filename}'")
+            x = spec["intensity"].values
+
+            for ws in window_sizes:
+                for j in range(len(spec) - ws + 1):
+                    windowed_means[ws].append(x[j:j + ws].mean())
+
+                features[f"windowed_mean_max_ws_{ws}"][i] = np.max(
+                    windowed_means[ws])
+        return pd.DataFrame(features)

@@ -1,0 +1,7 @@
+features:
+  - name: SpectrumPeakFeatures
+    path: Atma5_16_SpectrumPeakFeatures_train.ftr
+    role: train
+  - name: SpectrumPeakFeatures
+    path: Atma5_16_SpectrumPeakFeatures_test.ftr
+    role: test
