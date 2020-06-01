@@ -120,7 +120,7 @@ class CNN1D(nn.Module):
         architecture = model_params['architecture']
         for module in architecture:
             name = module["name"]
-            params = module["params"]
+            params = {} if module.get("params") is None else module["params"]
             if module["type"] == "torch":
                 modules.append(nn.__getattribute__(name)(**params))
             else:

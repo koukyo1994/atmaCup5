@@ -1,0 +1,2 @@
+split: configs/split/kfold.yml
+model: configs/model/atma5/av_conv1d_binary.yml
