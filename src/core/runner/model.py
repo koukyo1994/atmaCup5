@@ -43,7 +43,7 @@ class ModelRunner(SubRunner):
             valid_sets = [(X_valid, y_valid)]
             valid_names = ["valid"]
 
-            model = get_model(config, self.state.logger)
+            model = get_model(config, self.state)
 
             with utils.timer(fold_signature + " training...",
                              self.state.logger):

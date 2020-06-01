@@ -1,0 +1,24 @@
+[2020-06-02 00:19:32,416] 
+1/10 * Epoch 1 (_base): lr=0.0010 | momentum=0.9000
+1/10 * Epoch 1 (train): AUC=0.6958 | loss=0.6325
+1/10 * Epoch 1 (valid): AUC=0.5987 | loss=0.7127
+[2020-06-02 00:20:12,909] 
+2/10 * Epoch 2 (_base): lr=0.0010 | momentum=0.9000
+2/10 * Epoch 2 (train): AUC=0.8186 | loss=0.5208
+2/10 * Epoch 2 (valid): AUC=0.8357 | loss=0.5791
+[2020-06-02 00:20:53,309] 
+3/10 * Epoch 3 (_base): lr=0.0010 | momentum=0.9000
+3/10 * Epoch 3 (train): AUC=0.8685 | loss=0.4597
+3/10 * Epoch 3 (valid): AUC=0.8601 | loss=0.8255
+[2020-06-02 00:21:34,737] 
+4/10 * Epoch 4 (_base): lr=0.0010 | momentum=0.9000
+4/10 * Epoch 4 (train): AUC=0.8876 | loss=0.4226
+4/10 * Epoch 4 (valid): AUC=0.7549 | loss=1.3330
+[2020-06-02 00:22:18,485] 
+5/10 * Epoch 5 (_base): lr=0.0010 | momentum=0.9000
+5/10 * Epoch 5 (train): AUC=0.9000 | loss=0.3972
+5/10 * Epoch 5 (valid): AUC=0.7941 | loss=1.1372
+[2020-06-02 00:23:01,606] 
+6/10 * Epoch 6 (_base): lr=0.0010 | momentum=0.9000
+6/10 * Epoch 6 (train): AUC=0.9044 | loss=0.3858
+6/10 * Epoch 6 (valid): AUC=0.7982 | loss=0.9960

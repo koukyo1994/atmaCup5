@@ -77,13 +77,18 @@ model_params:
 
 train_params:
   loader:
-    batch_size: 256
-    shuffle: True
-    num_workers: 4
+    train:
+      batch_size: 256
+      shuffle: True
+      num_workers: 4
+    valid:
+      batch_size: 512
+      shuffle: True
+      num_workers: 4
   callback:
-    - name: mAPCallback
+    - name: AUCCallback
       params:
-        prefix: mAP
+        prefix: AUC
   criterion:
     name: BCELoss
     params:
@@ -94,7 +99,7 @@ train_params:
   scheduler:
     name: ReduceLROnPlateau
     params:
-      patience: 10
+      patience: 5
       verbose: True
       factor: 0.1
-  num_epochs: 100
+  num_epochs: 10

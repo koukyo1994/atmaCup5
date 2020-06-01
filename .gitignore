@@ -136,3 +136,5 @@ dmypy.json
 *.npy
 catboost_info/
 *.dat
+*.pth
+events.out*

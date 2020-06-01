@@ -10,8 +10,8 @@ from pathlib import Path
 
 from catalyst.core import Callback, CallbackOrder, State
 from catalyst.dl import SupervisedRunner
-from catalyst.util import get_device
-from sklearn.metrics import average_precision_score
+from catalyst.utils import get_device
+from sklearn.metrics import average_precision_score, roc_auc_score
 
 from .base import NNModel, Matrix
 
@@ -37,14 +37,14 @@ def get_scheduler(optimizer, scheduler_params: dict):
 
 class TabularDataset(data.Dataset):
     def __init__(self, df: Matrix, target: Optional[Matrix]):
-        self.values = df.values
+        self.values = df
         self.target = target
 
     def __len__(self):
         return len(self.values)
 
     def __getitem__(self, idx: int):
-        x = self.values[idx]
+        x = self.values[idx].astype(np.float32)
         if self.target is not None:
             return x, self.target[idx]
         else:
@@ -128,7 +128,9 @@ class CNN1D(nn.Module):
         self.seq = nn.Sequential(*modules)
 
     def forward(self, x):
-        return self.seq(x)
+        batch_size = x.size(0)
+        x = x.view(batch_size, 1, -1)
+        return self.seq(x).view(batch_size)
 
 
 class mAPCallback(Callback):
@@ -158,6 +160,33 @@ class mAPCallback(Callback):
         state.epoch_metrics[self.prefix] = score
 
 
+class AUCCallback(Callback):
+    def __init__(self, prefix: str = "auc"):
+        super().__init__(CallbackOrder.Metric)
+        self.prefix = prefix
+
+    def on_loader_start(self, state: State):
+        self.prediction: List[np.ndarray] = []
+        self.target: List[np.ndarray] = []
+
+    def on_batch_end(self, state: State):
+        targ = state.input["targets"].detach().cpu().numpy()
+        out = state.output["logits"].detach().cpu().numpy()
+
+        self.prediction.append(out)
+        self.target.append(targ)
+
+        score = roc_auc_score(targ, out)
+        score = np.nan_to_num(score)
+        state.batch_metrics[self.prefix] = score
+
+    def on_loader__end(self, state: State):
+        y_pred = np.concatenate(self.prediction, axis=0)
+        y_true = np.concatenate(self.target, axis=0)
+        score = roc_auc_score(y_true, y_pred)
+        state.epoch_metrics[self.prefix] = score
+
+
 def get_callbacks(callback_params: List[dict]):
     callbacks = []
     for params in callback_params:
@@ -171,7 +200,7 @@ class Conv1DModel(NNModel):
     def __init__(self, mode: str, log_dir: Union[str, Path]):
         super().__init__(mode)
 
-        self.log_dir = log_dir
+        self.log_dir = Path(log_dir) if isinstance(log_dir, str) else log_dir
 
     def fit(self, X_train: Matrix, Y_train: Matrix,
             valid_sets: List[Tuple[Matrix, Matrix]],
@@ -223,11 +252,15 @@ class Conv1DModel(NNModel):
 
     def predict(self, X_test: Matrix):
         self._assert_if_untrained()
+        weights_path = self.log_dir / "checkpoints/best_full.pth"
+        weights = torch.load(weights_path)
+        self.model.load_state_dict(weights["model_state_dict"])  # type: ignore
+        self.model.to(get_device())  # type: ignore
         self.model.eval()  # type: ignore
         loader_params = {"batch_size": 512, "shuffle": False, "num_workers": 4}
         loader = get_loader(loader_params, X_test, None)
 
-        predictions = np.array(len(X_test))
+        predictions = np.zeros(len(X_test))
         device = get_device()
         for i, x_batch in enumerate(loader):
             with torch.no_grad():
