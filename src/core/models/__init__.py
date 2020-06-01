@@ -1,6 +1,7 @@
 import logging
 
 from .lgbm import LGBModel, log_evaluation, pr_auc
+from .nn import Conv1DModel
 
 
 def get_model(config: dict, logger: logging.Logger):
@@ -22,5 +23,7 @@ def get_model(config: dict, logger: logging.Logger):
                 callbacks.append(globals().get(callback_name)(  # type: ignore
                     **callback_params))
         return LGBModel(mode="", callbacks=callbacks, feval=feval)
+    elif config.get("name") == "conv1d":
+        return Conv1DModel(mode="", log_dir=config["log_dir"])
     else:
         raise NotImplementedError

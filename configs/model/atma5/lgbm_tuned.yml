@@ -5,7 +5,8 @@ model_params:
   boosting: gbdt
   learning_rate: 0.01
   num_leaves: 31
-  min_split_gain: 0.5
+  reg_alpha: 0.1
+  reg_lambda: 0.1
   colsample_bytree: 0.7
   subsample: 0.7
   subsample_freq: 1
@@ -16,7 +17,7 @@ model_params:
 
 train_params:
   num_boost_round: 10000
-  early_stopping_rounds: 200
+  early_stopping_rounds: 300
   verbose_eval: 100
 
 callbacks:

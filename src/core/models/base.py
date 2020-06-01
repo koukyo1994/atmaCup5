@@ -38,3 +38,10 @@ class TreeModel(BaseModel):
     @abc.abstractmethod
     def get_feature_importance(self) -> np.ndarray:
         raise NotImplementedError
+
+
+class NNModel(BaseModel):
+    def __init__(self, mode: str):
+        self.mode = mode
+
+        self.model = None
