@@ -103,3 +103,4 @@ train_params:
       verbose: True
       factor: 0.1
   num_epochs: 10
+  seed: 71

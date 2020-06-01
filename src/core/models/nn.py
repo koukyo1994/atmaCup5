@@ -5,6 +5,8 @@ import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
 import torch.utils.data as data
 
+import src.utils as utils
+
 from typing import List, Tuple, Optional, Union
 from pathlib import Path
 
@@ -208,20 +210,24 @@ class Conv1DModel(NNModel):
             train_params: dict):
         data_loaders = {}
 
+        utils.set_seed(train_params["seed"])
+
         loader_params = train_params["loader"]
 
         data_loaders["train"] = get_loader(loader_params["train"], X_train,
-                                           Y_train)
+                                           Y_train.astype(float))
         for i, (X, y) in enumerate(valid_sets):
             if valid_names is None:
                 if i == 0:
                     name = "valid"
                 else:
                     name = f"valid_{i}"
-                data_loaders[name] = get_loader(loader_params["valid"], X, y)
+                data_loaders[name] = get_loader(loader_params["valid"], X,
+                                                y.astype(float))
             else:
                 name = valid_names[i]
-                data_loaders[name] = get_loader(loader_params["valid"], X, y)
+                data_loaders[name] = get_loader(loader_params["valid"], X,
+                                                y.astype(float))
 
         callback_params = train_params["callback"]
         callbacks = get_callbacks(callback_params)

@@ -1,0 +1,94 @@
+{
+  "best": {
+    "AUC": 0.8685980031574642,
+    "loss": 0.46169825459173003
+  },
+  "last": {
+    "AUC": 0.72069428012612,
+    "loss": 3.4418454839821115
+  },
+  "train.4": {
+    "AUC": 0.8685980031574642,
+    "loss": 0.46169825459173003
+  },
+  "epoch_0": [
+    "output/22_conv1d_load/fold4/checkpoints/train.1.pth",
+    0.7060522741437746,
+    {
+      "AUC": 0.6783013400607875,
+      "loss": 0.7060522741437746
+    }
+  ],
+  "epoch_1": [
+    "output/22_conv1d_load/fold4/checkpoints/train.2.pth",
+    0.6378273750329374,
+    {
+      "AUC": 0.8338400858588247,
+      "loss": 0.6378273750329374
+    }
+  ],
+  "epoch_2": [
+    "output/22_conv1d_load/fold4/checkpoints/train.3.pth",
+    0.5575170298189516,
+    {
+      "AUC": 0.8564059024272611,
+      "loss": 0.5575170298189516
+    }
+  ],
+  "epoch_3": [
+    "output/22_conv1d_load/fold4/checkpoints/train.4.pth",
+    0.46169825459173003,
+    {
+      "AUC": 0.8685980031574642,
+      "loss": 0.46169825459173003
+    }
+  ],
+  "epoch_4": [
+    "output/22_conv1d_load/fold4/checkpoints/train.5.pth",
+    0.5947315893655525,
+    {
+      "AUC": 0.8758924020432821,
+      "loss": 0.5947315893655525
+    }
+  ],
+  "epoch_5": [
+    "output/22_conv1d_load/fold4/checkpoints/train.6.pth",
+    1.0934859912015102,
+    {
+      "AUC": 0.8222733053958717,
+      "loss": 1.0934859912015102
+    }
+  ],
+  "epoch_6": [
+    "output/22_conv1d_load/fold4/checkpoints/train.7.pth",
+    0.9364214159566411,
+    {
+      "AUC": 0.8645151493986284,
+      "loss": 0.9364214159566411
+    }
+  ],
+  "epoch_7": [
+    "output/22_conv1d_load/fold4/checkpoints/train.8.pth",
+    1.0439440130068687,
+    {
+      "AUC": 0.8613668495267548,
+      "loss": 1.0439440130068687
+    }
+  ],
+  "epoch_8": [
+    "output/22_conv1d_load/fold4/checkpoints/train.9.pth",
+    0.7552094804896718,
+    {
+      "AUC": 0.8675993467939221,
+      "loss": 0.7552094804896718
+    }
+  ],
+  "epoch_9": [
+    "output/22_conv1d_load/fold4/checkpoints/train.10.pth",
+    3.4418454839821115,
+    {
+      "AUC": 0.72069428012612,
+      "loss": 3.4418454839821115
+    }
+  ]
+}

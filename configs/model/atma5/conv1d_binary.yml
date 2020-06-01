@@ -97,9 +97,8 @@ train_params:
     params:
       lr: 0.001
   scheduler:
-    name: ReduceLROnPlateau
+    name: CosineAnnealingLR
     params:
-      patience: 5
-      verbose: True
-      factor: 0.1
-  num_epochs: 10
+      T_max: 10
+  num_epochs: 100
+  seed: 1994
