@@ -107,3 +107,24 @@ class UnderSamplingCallback(Callback):
                 np.concatenate([new_trn_idx, y_train_1]))
             new_splits.append((new_trn_idx, val_idx))
         state.splits = new_splits
+
+
+class ColumnsToIntAndSortCallback(Callback):
+    signature = "model_train"
+    callback_order = CallbackOrder.LOWEST
+    
+    
+    def on_model_train_start(self, state: RunningState):
+        state.logger.info(
+            f"Change main DataFrame column name into Int and sort them")
+        
+        main_features = state.features["main"]
+        
+        train = main_features["train"]
+        test = main_features["test"]
+        
+        train.columns = [int(c) for c in train.columns]
+        test.columns = [int(c) for c in test.columns]
+        
+        state.features["main"]["train"] = train.sort_index(axis=1)
+        state.features["main"]["test"] = test.sort_index(axis=1)
