@@ -241,6 +241,13 @@ class Conv1DModel(NNModel):
 
         scheduler_params = train_params["scheduler"]
         scheduler = get_scheduler(optimizer, scheduler_params)
+        
+        if train_params.get("main_metric") is not None:
+            main_metric = train_params["main_metric"]
+            minimize_metric = train_params["minimize_metric"]
+        else:
+            main_metric = "loss"
+            minimize_metric = True
 
         runner = SupervisedRunner(device=get_device())
         runner.train(
@@ -252,7 +259,9 @@ class Conv1DModel(NNModel):
             logdir=self.log_dir,
             verbose=True,
             num_epochs=train_params["num_epochs"],
-            callbacks=callbacks)
+            callbacks=callbacks,
+            main_metric=main_metric,
+            minimize_metric=minimize_metric)
 
         self.model = model  # type: ignore
 
