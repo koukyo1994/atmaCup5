@@ -198,6 +198,27 @@ def get_callbacks(callback_params: List[dict]):
     return callbacks
 
 
+class RandomCrop:
+    def __init__(self, cropped_size: int = 500):
+        self.cropped_size = cropped_size
+
+    def __call__(self, x: np.ndarray):
+        original_size = len(x)
+        start = np.random.randint(0, original_size - self.cropped_size)
+        return x[start:start + self.cropped_size]
+
+
+class Flip:
+    def __init__(self, p=0.5):
+        self.p = p
+
+    def __call__(self, x: np.ndarray):
+        if np.random.rand() <= self.p:
+            return x[::-1]
+        else:
+            return x
+
+
 class Conv1DModel(NNModel):
     def __init__(self, mode: str, log_dir: Union[str, Path]):
         super().__init__(mode)
@@ -241,7 +262,7 @@ class Conv1DModel(NNModel):
 
         scheduler_params = train_params["scheduler"]
         scheduler = get_scheduler(optimizer, scheduler_params)
-        
+
         if train_params.get("main_metric") is not None:
             main_metric = train_params["main_metric"]
             minimize_metric = train_params["minimize_metric"]

@@ -482,15 +482,20 @@ class ReshapeAndScale:
         self.kwargs = kwargs
         self.overall_max = 0.0
         self.overall_min = 100000000
+        self.overall_mean = 0.0
+        self.overall_std = 0.0
 
     def fit_transform(self, X: pd.DataFrame):
-        self.overall_max = X["intensity"].max()
-        self.overall_min = X["intensity"].min()
+        if self.kwargs["scaling"] == "min_max":
+            self.overall_max = X["intensity"].max()
+            self.overall_min = X["intensity"].min()
+        elif self.kwargs["scaling"] == "normalize":
+            self.overall_mean = X["intensity"].mean()
+            self.overall_std = X["intensity"].std()
         return self.transform(X)
 
     def transform(self, X: pd.DataFrame):
         unique_filenames = X["spectrum_filename"].unique()
-
         new_array = np.zeros((len(unique_filenames), 511))
 
         head = 0
@@ -501,7 +506,10 @@ class ReshapeAndScale:
             len_f = (spectrum_filenames == filename).sum()
             x = intensity[head:head + 511]
 
-            x = x / (self.overall_max - self.overall_min)
+            if self.kwargs["scaling"] == "min_max":
+                x = x / (self.overall_max - self.overall_min)
+            elif self.kwargs["scaling"] == "normalize":
+                x = (x - self.overall_mean) / self.overall_std
             new_array[i] = x
             head = head + len_f
-        return pd.DataFrame(new_array, columns=list(map(str, range(511))))
+        return pd.DataFrame(new_array, columns=list(range(511)))
