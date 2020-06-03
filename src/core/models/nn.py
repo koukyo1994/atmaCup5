@@ -79,11 +79,12 @@ def get_loader(loader_params: dict, df: Matrix, target: Optional[Matrix]):
     dataset_type = loader_params.get("dataset_type")
     if dataset_type == "from_file":
         dataset = FileDataset(df, target, loader_params["file_dir"])
-        loader_params.pop("dataset_type")
-        loader_params.pop("file_dir")
+        params = loader_params.copy()
+        params.pop("dataset_type")
+        params.pop("file_dir")
     else:
         dataset = TabularDataset(df, target)  # type: ignore
-    return data.DataLoader(dataset, **loader_params)
+    return data.DataLoader(dataset, **params)
 
 
 class Conv1dBNReLU(nn.Module):

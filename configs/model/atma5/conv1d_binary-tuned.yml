@@ -83,7 +83,7 @@ train_params:
       num_workers: 4
     valid:
       batch_size: 512
-      shuffle: True
+      shuffle: False
       num_workers: 4
   callback:
     - name: mAPCallback
