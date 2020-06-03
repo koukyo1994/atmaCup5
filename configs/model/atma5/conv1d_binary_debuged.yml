@@ -1,0 +1,110 @@
+name: conv1d
+identifier: main
+model_params:
+  architecture:
+    - name: Conv1dBNReLU
+      type: custom
+      params:
+        in_channels: 1
+        out_channels: 32
+        kernel_size: 3
+        stride: 1
+    - name: SCse1d
+      type: custom
+      params:
+        in_channels: 32
+    - name: MaxPool1d
+      type: torch
+      params:
+        kernel_size: 2
+    - name: Conv1dBNReLU
+      type: custom
+      params:
+        in_channels: 32
+        out_channels: 64
+        kernel_size: 3
+        stride: 1
+    - name: SCse1d
+      type: custom
+      params:
+        in_channels: 64
+    - name: MaxPool1d
+      type: torch
+      params:
+        kernel_size: 2
+    - name: Conv1dBNReLU
+      type: custom
+      params:
+        in_channels: 64
+        out_channels: 128
+        kernel_size: 3
+        stride: 1
+    - name: SCse1d
+      type: custom
+      params:
+        in_channels: 128
+    - name: MaxPool1d
+      type: torch
+      params:
+        kernel_size: 2
+    - name: AdaptiveMaxPool1d
+      type: torch
+      params:
+        output_size: 1
+    - name: Flatten
+      type: torch
+      params:
+    - name: Linear
+      type: torch
+      params:
+        in_features: 128
+        out_features: 64
+    - name: ReLU
+      type: torch
+      params:
+    - name: Dropout
+      type: torch
+      params:
+        p: 0.2
+    - name: Linear
+      type: torch
+      params:
+        in_features: 64
+        out_features: 1
+    - name: Sigmoid
+      type: torch
+      params:
+
+train_params:
+  loader:
+    train:
+      batch_size: 512
+      shuffle: True
+      num_workers: 4
+      dataset_type: from_file
+      file_dir: input/atma5/spectrum
+    valid:
+      batch_size: 512
+      shuffle: True
+      num_workers: 4
+      dataset_type: from_file
+      file_dir: input/atma5/spectrum
+  callback:
+    - name: mAPCallback
+      params:
+        prefix: mAP
+  criterion:
+    name: BCELoss
+    params:
+  optimizer:
+    name: Adam
+    params:
+      lr: 0.001
+  scheduler:
+    name: CosineAnnealingLR
+    params:
+      T_max: 10
+  num_epochs: 100
+  seed: 1994
+  main_metric: loss
+  minimize_metric: True

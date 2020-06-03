@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -53,8 +54,35 @@ class TabularDataset(data.Dataset):
             return x
 
 
+class FileDataset(data.Dataset):
+    def __init__(self, df: Matrix, target: Optional[Matrix], file_dir: str):
+        self.values = df
+        self.target = target
+        self.file_dir = Path(file_dir)
+
+    def __len__(self):
+        return len(self.values)
+
+    def __getitem__(self, idx: int):
+        filename = self.values[idx][0]
+        df = pd.read_csv(self.file_dir / filename, sep="\t", header=None)
+        spectrum = df[1].values
+        spectrum = (spectrum - spectrum.mean()) / spectrum.std()
+        spectrum = spectrum[:511].astype(np.float32)
+        if self.target is not None:
+            return spectrum, self.target[idx]
+        else:
+            return spectrum
+
+
 def get_loader(loader_params: dict, df: Matrix, target: Optional[Matrix]):
-    dataset = TabularDataset(df, target)
+    dataset_type = loader_params.get("dataset_type")
+    if dataset_type == "from_file":
+        dataset = FileDataset(df, target, loader_params["file_dir"])
+        loader_params.pop("dataset_type")
+        loader_params.pop("file_dir")
+    else:
+        dataset = TabularDataset(df, target)  # type: ignore
     return data.DataLoader(dataset, **loader_params)
 
 
@@ -224,12 +252,14 @@ class Conv1DModel(NNModel):
         super().__init__(mode)
 
         self.log_dir = Path(log_dir) if isinstance(log_dir, str) else log_dir
+        self.train_params: Optional[dict] = None
 
     def fit(self, X_train: Matrix, Y_train: Matrix,
             valid_sets: List[Tuple[Matrix, Matrix]],
             valid_names: Optional[List[str]], model_params: dict,
             train_params: dict):
         data_loaders = {}
+        self.train_params = train_params
 
         utils.set_seed(train_params["seed"])
 
@@ -293,7 +323,7 @@ class Conv1DModel(NNModel):
         self.model.load_state_dict(weights["model_state_dict"])  # type: ignore
         self.model.to(get_device())  # type: ignore
         self.model.eval()  # type: ignore
-        loader_params = {"batch_size": 512, "shuffle": False, "num_workers": 4}
+        loader_params = self.train_params["loader"]["valid"]  # type: ignore
         loader = get_loader(loader_params, X_test, None)
 
         predictions = np.zeros(len(X_test))

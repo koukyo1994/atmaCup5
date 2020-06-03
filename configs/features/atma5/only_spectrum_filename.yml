@@ -1,0 +1,8 @@
+input_dataframes:
+  - input/atma5/train.csv
+  - input/atma5/test.csv
+columns:
+  - spectrum_filename
+method: ApplyNothing
+
+type: common
