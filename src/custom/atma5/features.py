@@ -140,6 +140,154 @@ class SpectrumPeakFeatures:
         return pd.DataFrame(features)
 
 
+class NormalizedPeakFeatures:
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def fit_transform(self, X: pd.DataFrame):
+        return self.transform(X)
+
+    def transform(self, X: pd.DataFrame):
+        unique_filenames = X["spectrum_filename"].unique()
+        features = {}
+        eps = 1e-7
+
+        widths = self.kwargs["widths"]
+        for w in widths:
+            features[f"max_inverse_fw_{w}"] = np.zeros(len(unique_filenames))
+            features[f"highest_peak_inverse_fw_{w}"] = np.zeros(
+                len(unique_filenames))
+            features[f"max_inverse_hw_{w}"] = np.zeros(len(unique_filenames))
+            features[f"highest_peak_inverse_hw_{w}"] = np.zeros(
+                len(unique_filenames))
+
+        diff_spans = self.kwargs["diff_span"]
+        for s in diff_spans:
+            features[f"max_steapness_span_{s}"] = np.zeros(
+                len(unique_filenames))
+            features[f"highest_peak_steapness_span_{s}"] = np.zeros(
+                len(unique_filenames))
+
+        for i, filename in enumerate(progress_bar(unique_filenames)):
+            spec = X.query(f"spectrum_filename == '{filename}'")
+
+            x = spec["wl"].values
+            y = spec["intensity"].values
+
+            y = (y - y.mean()) / y.std()
+
+            import pdb
+            pdb.set_trace()
+
+            spline = UnivariateSpline(x, y - np.max(y) * 0.4, s=0)
+            roots = spline.roots()
+            if len(roots) < 2:
+                continue
+
+            steapness_lists: Dict[int, list] = {s: [] for s in diff_spans}
+            peak_heights = []
+            for j in range(len(roots) // 2):
+                left = roots[j * 2]
+                right = roots[j * 2 + 1]
+
+                span_indices = np.logical_and(x <= right, x >= left)
+                if span_indices.mean() == 0:
+                    peak_wl = (left + right) / 2.0
+                    abs_dist = np.abs(x - peak_wl)
+                    peak_index = np.argmin(abs_dist)
+                else:
+                    peak_index_in_span = y[span_indices].argmax()
+                    peak_wl = x[span_indices][peak_index_in_span]
+                    peak_index = x.tolist().index(peak_wl)
+
+                if peak_index == 0 or peak_index == (len(x) - 1):
+                    continue
+
+                peak_heights.append(y[peak_index])
+                for s in diff_spans:
+                    left_span_start = peak_index - s
+                    if left_span_start < 0:
+                        left_span_start = 0
+
+                    right_span_end = peak_index + s
+                    if right_span_end > len(x) - 1:
+                        right_span_end = len(x) - 1
+
+                    left_diff = (y[peak_index] - y[left_span_start]) / (
+                        x[peak_index] - x[left_span_start])
+                    right_diff = (y[peak_index] - y[right_span_end]) / (
+                        x[right_span_end] - x[peak_index])
+
+                    steapness_lists[s].append(max(left_diff, right_diff))
+
+            for s in diff_spans:
+                steapness = steapness_lists[s]
+
+                features[f"max_steapness_span_{s}"][i] = np.max(steapness)
+
+                if len(peak_heights) == 0:
+                    features[f"highest_peak_steapness_span_{s}"][
+                        i] = np.random.choice(steapness)
+                else:
+                    highest_peak_height = np.max(peak_heights)
+                    highest_peak_idx = peak_heights.index(highest_peak_height)
+                    features[f"highest_peak_steapness_span_{s}"][
+                        i] = steapness[highest_peak_idx]
+
+            for w in widths:
+                spline = UnivariateSpline(x, y - np.max(y) * w, s=0)
+                roots = spline.roots()
+                if len(roots) < 2:
+                    continue
+
+                inverse_fwhms = []
+                inverse_hwhms = []
+                peak_heights = []
+                for j in range(len(roots) // 2):
+                    left = roots[j * 2]
+                    right = roots[j * 2 + 1]
+
+                    inverse_fwhms.append(1.0 / (right - left))
+
+                    span_indices = np.logical_and(x <= roots[j * 2 + 1],
+                                                  x >= roots[j * 2])
+                    if span_indices.mean() == 0.0:
+                        peak_wl = (left + right) / 2.0
+                        abs_dist = np.abs(x - peak_wl)
+                        peak_index = np.argmin(abs_dist)
+                    else:
+                        peak_index_in_span = y[span_indices].argmax()
+                        peak_wl = x[span_indices][peak_index_in_span]
+                        peak_index = x.tolist().index(peak_wl)
+                    peak_heights.append(y[peak_index])
+
+                    inverse_left_hwhm = 1.0 / (peak_wl + eps - left)
+                    inverse_right_hwhm = 1.0 / (right + eps - peak_wl)
+
+                    inverse_hwhms.append(
+                        max(inverse_left_hwhm, inverse_right_hwhm))
+
+                features[f"max_inverse_fw_{w}"][i] = np.max(inverse_fwhms)
+                features[f"max_inverse_hw_{w}"][i] = np.max(inverse_hwhms)
+
+                if len(peak_heights) == 0:
+                    features[f"highest_peak_inverse_fw_{w}"][
+                        i] = np.random.choice(inverse_fwhms)
+                    features[f"highest_peak_inverse_hw_{w}"][
+                        i] = np.random.choice(inverse_hwhms)
+                else:
+                    highest_peak_height = np.max(peak_heights)
+                    highest_peak_idx = peak_heights.index(highest_peak_height)
+                    features[f"highest_peak_inverse_fw_{w}"][
+                        i] = inverse_fwhms[highest_peak_idx]
+                    features[f"highest_peak_inverse_hw_{w}"][
+                        i] = inverse_hwhms[highest_peak_idx]
+                import pdb
+                pdb.set_trace()
+
+        return pd.DataFrame(features)
+
+
 class ParametrizedFWHM:
     def __init__(self, **kwargs):
         self.kwargs = kwargs

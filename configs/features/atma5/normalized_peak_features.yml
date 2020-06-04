@@ -1,0 +1,23 @@
+input_dataframes:
+  - input/atma5/train_spectrum.csv
+  - input/atma5/test_spectrum.csv
+columns:
+  - spectrum_filename
+  - wl
+  - intensity
+method: NormalizedPeakFeatures
+params:
+  diff_span:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+  widths:
+    - 0.33
+    - 0.5
+    - 0.66
+    - 0.75
+    - 0.8
+
+type: custom.atma5

@@ -55,10 +55,15 @@ class TabularDataset(data.Dataset):
 
 
 class FileDataset(data.Dataset):
-    def __init__(self, df: Matrix, target: Optional[Matrix], file_dir: str):
+    def __init__(self,
+                 df: Matrix,
+                 target: Optional[Matrix],
+                 file_dir: str,
+                 scale="normalize"):
         self.values = df
         self.target = target
         self.file_dir = Path(file_dir)
+        self.scale = scale
 
     def __len__(self):
         return len(self.values)
@@ -67,7 +72,11 @@ class FileDataset(data.Dataset):
         filename = self.values[idx][0]
         df = pd.read_csv(self.file_dir / filename, sep="\t", header=None)
         spectrum = df[1].values
-        spectrum = (spectrum - spectrum.mean()) / spectrum.std()
+        if self.scale == "normalize":
+            spectrum = (spectrum - spectrum.mean()) / spectrum.std()
+        else:
+            spectrum = (spectrum - spectrum.min()) / (
+                spectrum.max() - spectrum.min())
         spectrum = spectrum[:511].astype(np.float32)
         if self.target is not None:
             return spectrum, self.target[idx]
@@ -78,10 +87,14 @@ class FileDataset(data.Dataset):
 def get_loader(loader_params: dict, df: Matrix, target: Optional[Matrix]):
     dataset_type = loader_params.get("dataset_type")
     if dataset_type == "from_file":
-        dataset = FileDataset(df, target, loader_params["file_dir"])
+        scale = "normalize" if loader_params.get(
+            "scale") is None else "min_max"
+        dataset = FileDataset(df, target, loader_params["file_dir"], scale)
         params = loader_params.copy()
         params.pop("dataset_type")
         params.pop("file_dir")
+        if scale is not None:
+            params.pop("scale")
     else:
         dataset = TabularDataset(df, target)  # type: ignore
     return data.DataLoader(dataset, **params)
