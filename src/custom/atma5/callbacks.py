@@ -73,7 +73,7 @@ class CreateSubmissionCallback(Callback):
         if len(predictions.keys()) == 1:
             prediction = list(predictions.values())[0]
 
-            submission = pd.DataFrame({"target": prediction})
+            submission = pd.DataFrame({"target": prediction.astype("float32")})
             submission.to_csv(
                 self.save_dir / (self.prefix + ".csv"), index=False)
 

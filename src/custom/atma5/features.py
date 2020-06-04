@@ -174,11 +174,7 @@ class NormalizedPeakFeatures:
             x = spec["wl"].values
             y = spec["intensity"].values
 
-            y = (y - y.mean()) / y.std()
-
-            import pdb
-            pdb.set_trace()
-
+            y = (y - y.min()) / (y.max() - y.min())
             spline = UnivariateSpline(x, y - np.max(y) * 0.4, s=0)
             roots = spline.roots()
             if len(roots) < 2:
@@ -222,17 +218,19 @@ class NormalizedPeakFeatures:
 
             for s in diff_spans:
                 steapness = steapness_lists[s]
-
-                features[f"max_steapness_span_{s}"][i] = np.max(steapness)
+                if len(steapness) != 0:
+                    features[f"max_steapness_span_{s}"][i] = np.max(steapness)
 
                 if len(peak_heights) == 0:
-                    features[f"highest_peak_steapness_span_{s}"][
-                        i] = np.random.choice(steapness)
+                    if len(steapness) != 0:
+                        features[f"highest_peak_steapness_span_{s}"][
+                            i] = np.random.choice(steapness)
                 else:
                     highest_peak_height = np.max(peak_heights)
                     highest_peak_idx = peak_heights.index(highest_peak_height)
-                    features[f"highest_peak_steapness_span_{s}"][
-                        i] = steapness[highest_peak_idx]
+                    if len(steapness) != 0:
+                        features[f"highest_peak_steapness_span_{s}"][
+                            i] = steapness[highest_peak_idx]
 
             for w in widths:
                 spline = UnivariateSpline(x, y - np.max(y) * w, s=0)
