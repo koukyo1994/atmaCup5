@@ -144,7 +144,8 @@ class FittingDataset(data.Dataset):
             spectrum = spectrum[:511].astype(np.float32)
 
         if self.flip:
-            spectrum = spectrum[::-1]
+            if np.random.rand() > 0.5:
+                spectrum = np.flip(spectrum).copy()
         if self.target is not None:
             return spectrum, self.target[idx]
         else:
