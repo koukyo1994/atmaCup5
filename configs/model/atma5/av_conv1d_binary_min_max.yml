@@ -85,7 +85,7 @@ train_params:
       file_dir: input/atma5/spectrum
       scale: min_max
     valid:
-      batch_size: 512
+      batch_size: 1024
       shuffle: False
       num_workers: 4
       dataset_type: from_file

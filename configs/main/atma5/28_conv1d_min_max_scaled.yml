@@ -45,7 +45,7 @@ pipeline:
       - configs/data_loading/atma5/test.yml
   - features:
       - configs/features/atma5/only_spectrum_filename.yml
-  - av: configs/adversarial/atma5/av_with_nn_min_max.yml
+  # - av: configs/adversarial/atma5/av_with_nn_min_max.yml
   - split: configs/split/stratified_kfold.yml
   - model: configs/model/atma5/conv1d_binary_min_max.yml
   - prediction: configs/prediction/atma5/to_submission.yml
