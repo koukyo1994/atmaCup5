@@ -282,8 +282,6 @@ class NormalizedPeakFeatures:
                         i] = inverse_fwhms[highest_peak_idx]
                     features[f"highest_peak_inverse_hw_{w}"][
                         i] = inverse_hwhms[highest_peak_idx]
-                import pdb
-                pdb.set_trace()
 
         return pd.DataFrame(features)
 
@@ -661,3 +659,18 @@ class ReshapeAndScale:
             new_array[i] = x
             head = head + len_f
         return pd.DataFrame(new_array, columns=list(range(511)))
+
+
+class FittingCauchy:
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def fit_transform(self, X: pd.DataFrame):
+        return self.transform(X)
+
+    def transform(self, X: pd.DataFrame):
+        X["peak_distance"] = (X["params2"] - X["params5"]).abs()
+        X["cavity_ratio"] = X["params1"] / X["params4"]
+        X["peak_area_ratio"] = X["params1"] / X["params3"]
+
+        return X[["peak_distance", "cavity_ratio", "peak_area_ratio"]]

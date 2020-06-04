@@ -1,0 +1,32 @@
+{
+    "metrics": {
+        "lgbm_av": {
+            "Fold1 auc": 0.6313451485166708,
+            "Fold2 auc": 0.628051547064238,
+            "Fold3 auc": 0.6421586770765749,
+            "Fold4 auc": 0.6354802192622018,
+            "Fold5 auc": 0.6399052132701422,
+            "oof auc": 0.6259625385568667
+        },
+        "lgbm_vsb_1st_tuned": {
+            "Fold1 pr-auc": 0.5570979649257828,
+            "Fold2 pr-auc": 0.620640321944916,
+            "Fold3 pr-auc": 0.5467063140239202,
+            "Fold4 pr-auc": 0.5541358213925094,
+            "Fold5 pr-auc": 0.5539578952081247,
+            "oof pr-auc": 0.5609485201122907
+        }
+    },
+    "importances": {
+        "lgbm_av": {
+            "cavity_ratio": 16114.11553995032,
+            "peak_distance": 15521.968794942553,
+            "peak_area_ratio": 14210.002893889883
+        },
+        "lgbm_vsb_1st_tuned": {
+            "peak_area_ratio": 16877.313046494128,
+            "cavity_ratio": 16697.765313463657,
+            "peak_distance": 12587.54763668701
+        }
+    }
+}
