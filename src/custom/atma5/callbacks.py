@@ -112,19 +112,41 @@ class UnderSamplingCallback(Callback):
 class ColumnsToIntAndSortCallback(Callback):
     signature = "model_train"
     callback_order = CallbackOrder.LOWEST
-    
-    
+
     def on_model_train_start(self, state: RunningState):
         state.logger.info(
             f"Change main DataFrame column name into Int and sort them")
-        
+
         main_features = state.features["main"]
-        
+
         train = main_features["train"]
         test = main_features["test"]
-        
+
         train.columns = [int(c) for c in train.columns]
         test.columns = [int(c) for c in test.columns]
-        
+
         state.features["main"]["train"] = train.sort_index(axis=1)
         state.features["main"]["test"] = test.sort_index(axis=1)
+
+
+class AlignColumnsCallback(Callback):
+    signature = "model_train"
+    callback_order = CallbackOrder.LOWEST
+
+    def __init__(self, columns: list):
+        self.columns = columns
+
+    def on_model_train_start(self, state: RunningState):
+        state.logger.info(
+            f"Change main DataFrame column order in aligned order")
+
+        main_features = state.features["main"]
+
+        train = main_features["train"]
+        test = main_features["test"]
+
+        train = train[self.columns]
+        test = test[self.columns]
+
+        state.features["main"]["train"] = train
+        state.features["main"]["test"] = test

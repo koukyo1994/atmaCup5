@@ -1,0 +1,9 @@
+input_dataframes:
+  - input/atma5/train.csv
+  - input/atma5/test.csv
+columns:
+  - params2
+  - params5
+method: ApplyNothing
+
+type: common

@@ -1,0 +1,63 @@
+feature_dir: features/
+
+output_dir: output/
+
+log_dir: log
+
+callbacks:
+  - name: ConcatenateFeatureCallback
+    type: features
+
+  - name: FeatureSavingCallback
+    type: features
+    params:
+      prefix: Atma5_30
+
+  - name: MergeFittingCallback
+    type: custom.atma5
+
+  - name: OOFAPCallback
+    type: model
+
+  - name: OOFAUCCallback
+    type: model
+    group: av
+
+  - name: CreateSubmissionCallback
+    type: custom.atma5
+    params:
+      save_dir:
+      prefix: submission
+
+  - name: PrepareForStratifiedKFoldCallback
+    type: split
+
+  - name: FoldAUCCallback
+    type: train_fold
+    group: av
+
+  - name: FoldAPCallback
+    type: train_fold
+
+  - name: OutputResultsCallback
+    type: model
+
+  - name: AlignColumnsCallback
+    type: custom.atma5
+    params:
+      columns:
+        - spectrum_filename
+        - params2
+        - params5
+
+pipeline:
+  - data_loading:
+      - configs/data_loading/atma5/train.yml
+      - configs/data_loading/atma5/test.yml
+  - features:
+      - configs/features/atma5/only_spectrum_filename.yml
+      - configs/features/atma5/with_fitting.yml
+  # - av: configs/adversarial/atma5/av_with_nn_min_max.yml
+  - split: configs/split/stratified_kfold.yml
+  - model: configs/model/atma5/conv1d_binary_aug.yml
+  - prediction: configs/prediction/atma5/to_submission.yml

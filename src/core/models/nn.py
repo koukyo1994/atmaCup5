@@ -84,6 +84,73 @@ class FileDataset(data.Dataset):
             return spectrum
 
 
+class FittingDataset(data.Dataset):
+    def __init__(self,
+                 df: Matrix,
+                 target: Optional[Matrix],
+                 file_dir: str,
+                 scale="normalize",
+                 crop=False,
+                 flip=False,
+                 noise=False):
+        self.values = df
+        self.target = target
+        self.file_dir = Path(file_dir)
+        self.scale = scale
+
+        self.crop = crop
+        self.flip = flip
+        self.noise = noise
+
+    def __len__(self):
+        return len(self.values)
+
+    def __getitem__(self, idx: int):
+        filename = self.values[idx][0]
+        params2 = self.values[idx][1]
+        params5 = self.values[idx][2]
+        df = pd.read_csv(self.file_dir / filename, sep="\t", header=None)
+
+        wavelength = df[0].values
+        spectrum = df[1].values
+        if self.noise:
+            scale = np.random.randint(20, 100)
+            noise = scale * np.random.normal(len(spectrum))
+            spectrum = spectrum + noise
+
+        if self.scale == "normalize":
+            spectrum = (spectrum - spectrum.mean()) / spectrum.std()
+        else:
+            spectrum = (spectrum - spectrum.min()) / (
+                spectrum.max() - spectrum.min())
+
+        if self.crop:
+            if np.abs(params2 - params5) < 50:
+                idx = np.abs(wavelength - params2).argmin()
+            else:
+                idx_params2 = np.abs(wavelength - params2).argmin()
+                idx_params5 = np.abs(wavelength - params5).argmin()
+
+                if spectrum[idx_params2] > spectrum[idx_params5]:
+                    idx = idx_params2
+                else:
+                    idx = idx_params5
+
+            offset = np.random.randint(25, 50)
+            start = max(0, idx - offset)
+            end = start + 100
+            spectrum = spectrum[start:end].astype(np.float32)
+        else:
+            spectrum = spectrum[:511].astype(np.float32)
+
+        if self.flip:
+            spectrum = spectrum[::-1]
+        if self.target is not None:
+            return spectrum, self.target[idx]
+        else:
+            return spectrum
+
+
 def get_loader(loader_params: dict, df: Matrix, target: Optional[Matrix]):
     dataset_type = loader_params.get("dataset_type")
     if dataset_type == "from_file":
@@ -95,6 +162,28 @@ def get_loader(loader_params: dict, df: Matrix, target: Optional[Matrix]):
         params.pop("file_dir")
         if scale is not None:
             params.pop("scale")
+    elif dataset_type == "with_fitting":
+        scale = "normalize" if loader_params.get(
+            "scale") is None else "min_max"
+        crop = loader_params["crop"]
+        flip = loader_params["flip"]
+        noise = loader_params["noise"]
+        dataset = FittingDataset(  # type: ignore
+            df,
+            target,
+            loader_params["file_dir"],
+            scale,
+            crop=crop,
+            flip=flip,
+            noise=noise)
+        params = loader_params.copy()
+        params.pop("dataset_type")
+        params.pop("file_dir")
+        if scale is not None:
+            params.pop("scale")
+        params.pop("crop")
+        params.pop("flip")
+        params.pop("noise")
     else:
         dataset = TabularDataset(df, target)  # type: ignore
     return data.DataLoader(dataset, **params)
@@ -340,6 +429,8 @@ class Conv1DModel(NNModel):
         loader_params = self.train_params["loader"]["valid"]  # type: ignore
         loader = get_loader(loader_params, X_test, None)
 
+        batch_size = loader_params["batch_size"]
+
         predictions = np.zeros(len(X_test))
         device = get_device()
         for i, x_batch in enumerate(loader):
@@ -348,7 +439,8 @@ class Conv1DModel(NNModel):
                 preds = self.model(  # type: ignore
                     x_batch).detach().cpu().numpy()
 
-            predictions[i * 512:(i + 1) * 512] = preds.reshape(-1)
+            predictions[i * batch_size:(i + 1) *
+                        batch_size] = preds.reshape(-1)
         return predictions
 
     def _assert_if_untrained(self):
