@@ -139,6 +139,9 @@ class FittingDataset(data.Dataset):
             offset = np.random.randint(25, 50)
             start = max(0, idx - offset)
             end = start + 100
+            if end >= len(spectrum) - 1:
+                end = len(spectrum) - 1
+                start = end - 100
             spectrum = spectrum[start:end].astype(np.float32)
         else:
             spectrum = spectrum[:511].astype(np.float32)

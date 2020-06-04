@@ -1,6 +1,6 @@
 {
-    "line_count": 16455,
-    "size": 3075014,
+    "line_count": 14388,
+    "size": 2689004,
     "dtypes": {
         "spectrum_id": "object",
         "params0": "float32",
@@ -14,15 +14,15 @@
         "beta": "float16"
     },
     "nuniques": {
-        "spectrum_id": 16455,
-        "params0": 16451,
-        "params1": 15634,
-        "params2": 600,
-        "params3": 4197,
-        "params4": 16120,
-        "params5": 554,
-        "params6": 16438,
-        "rms": 2654,
-        "beta": 6427
+        "spectrum_id": 14388,
+        "params0": 14385,
+        "params1": 13693,
+        "params2": 595,
+        "params3": 4021,
+        "params4": 14110,
+        "params5": 551,
+        "params6": 14377,
+        "rms": 2589,
+        "beta": 6012
     }
 }

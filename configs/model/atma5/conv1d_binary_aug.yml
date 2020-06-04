@@ -85,7 +85,7 @@ train_params:
       file_dir: input/atma5/spectrum
       scale: min_max
       flip: True
-      crop: True
+      crop: False
       noise: True
     valid:
       batch_size: 1024
@@ -95,12 +95,12 @@ train_params:
       file_dir: input/atma5/spectrum
       scale: min_max
       flip: True
-      crop: True
+      crop: False
       noise: True
   callback:
-    - name: AUCCallback
+    - name: mAPCallback
       params:
-        prefix: AUC
+        prefix: mAP
   criterion:
     name: BCELoss
     params:
@@ -109,10 +109,10 @@ train_params:
     params:
       lr: 0.001
   scheduler:
-    name: ReduceLROnPlateau
+    name: CosineAnnealingLR
     params:
-      patience: 5
-      verbose: True
-      factor: 0.1
-  num_epochs: 10
-  seed: 71
+      T_max: 10
+  num_epochs: 50
+  seed: 1994
+  main_metric: loss
+  minimize_metric: True

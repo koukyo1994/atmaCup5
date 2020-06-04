@@ -1,0 +1,94 @@
+{
+  "best": {
+    "AUC": 0.7691989475908563,
+    "loss": 0.5665063261985779
+  },
+  "last": {
+    "AUC": 0.7746889895005697,
+    "loss": 0.5740371942520142
+  },
+  "train.9": {
+    "AUC": 0.7691989475908563,
+    "loss": 0.5665063261985779
+  },
+  "epoch_0": [
+    "output/28_conv1d_min_max_scaled/20200604-10:47:47/fold1/checkpoints/train.1.pth",
+    0.6900259852409363,
+    {
+      "AUC": 0.6592781877518414,
+      "loss": 0.6900259852409363
+    }
+  ],
+  "epoch_1": [
+    "output/28_conv1d_min_max_scaled/20200604-10:47:47/fold1/checkpoints/train.2.pth",
+    0.6416795253753662,
+    {
+      "AUC": 0.7289270349324981,
+      "loss": 0.6416795253753662
+    }
+  ],
+  "epoch_2": [
+    "output/28_conv1d_min_max_scaled/20200604-10:47:47/fold1/checkpoints/train.3.pth",
+    0.5909416079521179,
+    {
+      "AUC": 0.7516976407834172,
+      "loss": 0.5909416079521179
+    }
+  ],
+  "epoch_3": [
+    "output/28_conv1d_min_max_scaled/20200604-10:47:47/fold1/checkpoints/train.4.pth",
+    0.582002580165863,
+    {
+      "AUC": 0.7551490147324706,
+      "loss": 0.582002580165863
+    }
+  ],
+  "epoch_4": [
+    "output/28_conv1d_min_max_scaled/20200604-10:47:47/fold1/checkpoints/train.5.pth",
+    0.603225827217102,
+    {
+      "AUC": 0.7625599789556856,
+      "loss": 0.603225827217102
+    }
+  ],
+  "epoch_5": [
+    "output/28_conv1d_min_max_scaled/20200604-10:47:47/fold1/checkpoints/train.6.pth",
+    0.5851483345031738,
+    {
+      "AUC": 0.7662391073187502,
+      "loss": 0.5851483345031738
+    }
+  ],
+  "epoch_6": [
+    "output/28_conv1d_min_max_scaled/20200604-10:47:47/fold1/checkpoints/train.7.pth",
+    0.5688480138778687,
+    {
+      "AUC": 0.769059925522856,
+      "loss": 0.5688480138778687
+    }
+  ],
+  "epoch_7": [
+    "output/28_conv1d_min_max_scaled/20200604-10:47:47/fold1/checkpoints/train.8.pth",
+    0.5763558149337769,
+    {
+      "AUC": 0.7706237424547284,
+      "loss": 0.5763558149337769
+    }
+  ],
+  "epoch_8": [
+    "output/28_conv1d_min_max_scaled/20200604-10:47:47/fold1/checkpoints/train.9.pth",
+    0.5665063261985779,
+    {
+      "AUC": 0.7691989475908563,
+      "loss": 0.5665063261985779
+    }
+  ],
+  "epoch_9": [
+    "output/28_conv1d_min_max_scaled/20200604-10:47:47/fold1/checkpoints/train.10.pth",
+    0.5740371942520142,
+    {
+      "AUC": 0.7746889895005697,
+      "loss": 0.5740371942520142
+    }
+  ]
+}
