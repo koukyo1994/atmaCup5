@@ -143,10 +143,15 @@ class AlignColumnsCallback(Callback):
         main_features = state.features["main"]
 
         train = main_features["train"]
-        test = main_features["test"]
+        if "test" in main_features.keys():
+            test = main_features["test"]
 
         train = train[self.columns]
-        test = test[self.columns]
+        
+        if "test" in main_features.keys():
+            test = test[self.columns]
 
         state.features["main"]["train"] = train
-        state.features["main"]["test"] = test
+        
+        if "test" in main_features.keys():
+            state.features["main"]["test"] = test
