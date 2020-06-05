@@ -4,6 +4,7 @@ import pandas as pd
 from pathlib import Path
 
 from fastprogress import progress_bar, master_bar
+from scipy.stats import cauchy
 
 if __name__ == "__main__":
     mb = master_bar(["train", "test"])
@@ -33,9 +34,8 @@ if __name__ == "__main__":
             max_wv = wavelength.max()
             min_wv = wavelength.min()
 
-            x = np.linspace(min_wv, max_wv, len(wavelength))
-            y0 = A0 * w0**2 / (4 * (x - x0)**2 + w0**2)
-            y1 = A1 * w1**2 / (4 * (x - x1)**2 + w1**2)
+            y0 = A0 * cauchy.pdf(wavelength, x0, w0)
+            y1 = A1 * cauchy.pdf(wavelength, x1, w1)
             y = y0 + y1
 
             ratio = max(y) / intensity.max()
