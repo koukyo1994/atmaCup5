@@ -497,7 +497,7 @@ class Conv1DModel(NNModel):
 
         self.model = model  # type: ignore
 
-    def predict(self, X_test: Matrix):
+    def predict(self, X_test: Matrix, tta: int = 1):
         self._assert_if_untrained()
         weights_path = self.log_dir / "checkpoints/best_full.pth"
         weights = torch.load(weights_path)
@@ -511,15 +511,21 @@ class Conv1DModel(NNModel):
 
         predictions = np.zeros(len(X_test))
         device = get_device()
-        for i, x_batch in enumerate(loader):
-            with torch.no_grad():
-                x_batch = x_batch.to(device)
-                preds = self.model(  # type: ignore
-                    x_batch).detach().cpu().numpy()
 
-            predictions[i * batch_size:(i + 1) *
-                        batch_size] = preds.reshape(-1)
-        return predictions
+        tta_preds = []
+        for _ in range(tta):
+            for i, x_batch in enumerate(loader):
+                with torch.no_grad():
+                    x_batch = x_batch.to(device)
+                    preds = self.model(  # type: ignore
+                        x_batch).detach().cpu().numpy()
+
+                predictions[i * batch_size:(i + 1) *
+                            batch_size] = preds.reshape(-1)
+            tta_preds.append(predictions)
+
+        tta_prediction = np.asarray(tta_preds).mean(axis=0)
+        return tta_prediction
 
     def _assert_if_untrained(self):
         if self.model is None:
