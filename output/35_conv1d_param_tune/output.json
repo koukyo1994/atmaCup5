@@ -1,0 +1,13 @@
+{
+    "metrics": {
+        "conv1d_tune": {
+            "Fold1 pr-auc": 0.8130560335826511,
+            "Fold2 pr-auc": 0.913479340459827,
+            "Fold3 pr-auc": 0.8689496299113043,
+            "Fold4 pr-auc": 0.797542787128207,
+            "Fold5 pr-auc": 0.939272257767326,
+            "oof pr-auc": 0.8555522271722553
+        }
+    },
+    "importances": {}
+}

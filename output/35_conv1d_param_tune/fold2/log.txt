@@ -1,0 +1,200 @@
+[2020-06-05 20:26:03,070] 
+1/50 * Epoch 1 (_base): lr=0.0010 | momentum=0.9000
+1/50 * Epoch 1 (train): loss=0.2300 | mAP=0.0700
+1/50 * Epoch 1 (valid): loss=0.6101 | mAP=0.1224
+[2020-06-05 20:26:09,678] 
+2/50 * Epoch 2 (_base): lr=0.0008 | momentum=0.9000
+2/50 * Epoch 2 (train): loss=0.1223 | mAP=0.2094
+2/50 * Epoch 2 (valid): loss=0.4105 | mAP=0.1700
+[2020-06-05 20:26:16,317] 
+3/50 * Epoch 3 (_base): lr=0.0007 | momentum=0.9000
+3/50 * Epoch 3 (train): loss=0.0924 | mAP=0.4772
+3/50 * Epoch 3 (valid): loss=0.1873 | mAP=0.2128
+[2020-06-05 20:26:23,195] 
+4/50 * Epoch 4 (_base): lr=0.0005 | momentum=0.9000
+4/50 * Epoch 4 (train): loss=0.0676 | mAP=0.6797
+4/50 * Epoch 4 (valid): loss=0.1044 | mAP=0.3420
+[2020-06-05 20:26:29,926] 
+5/50 * Epoch 5 (_base): lr=0.0004 | momentum=0.9000
+5/50 * Epoch 5 (train): loss=0.0601 | mAP=0.7131
+5/50 * Epoch 5 (valid): loss=0.0857 | mAP=0.7914
+[2020-06-05 20:26:36,500] 
+6/50 * Epoch 6 (_base): lr=0.0002 | momentum=0.9000
+6/50 * Epoch 6 (train): loss=0.0538 | mAP=0.7574
+6/50 * Epoch 6 (valid): loss=0.0516 | mAP=0.7818
+[2020-06-05 20:26:42,860] 
+7/50 * Epoch 7 (_base): lr=0.0001 | momentum=0.9000
+7/50 * Epoch 7 (train): loss=0.0496 | mAP=0.7889
+7/50 * Epoch 7 (valid): loss=0.0449 | mAP=0.8430
+[2020-06-05 20:26:49,995] 
+8/50 * Epoch 8 (_base): lr=4.424e-05 | momentum=0.9000
+8/50 * Epoch 8 (train): loss=0.0470 | mAP=0.7924
+8/50 * Epoch 8 (valid): loss=0.0342 | mAP=0.9048
+[2020-06-05 20:26:56,777] 
+9/50 * Epoch 9 (_base): lr=6.271e-06 | momentum=0.9000
+9/50 * Epoch 9 (train): loss=0.0496 | mAP=0.7842
+9/50 * Epoch 9 (valid): loss=0.0400 | mAP=0.8562
+[2020-06-05 20:27:03,138] 
+10/50 * Epoch 10 (_base): lr=0.000e+00 | momentum=0.9000
+10/50 * Epoch 10 (train): loss=0.0461 | mAP=0.7986
+10/50 * Epoch 10 (valid): loss=0.0321 | mAP=0.9146
+[2020-06-05 20:27:09,600] 
+11/50 * Epoch 11 (_base): lr=4.894e-05 | momentum=0.9000
+11/50 * Epoch 11 (train): loss=0.0456 | mAP=0.8274
+11/50 * Epoch 11 (valid): loss=0.0356 | mAP=0.8749
+[2020-06-05 20:27:16,046] 
+12/50 * Epoch 12 (_base): lr=0.0004 | momentum=0.9000
+12/50 * Epoch 12 (train): loss=0.0495 | mAP=0.7725
+12/50 * Epoch 12 (valid): loss=0.0427 | mAP=0.8601
+[2020-06-05 20:27:22,604] 
+13/50 * Epoch 13 (_base): lr=0.0004 | momentum=0.9000
+13/50 * Epoch 13 (train): loss=0.0449 | mAP=0.8060
+13/50 * Epoch 13 (valid): loss=0.0363 | mAP=0.8869
+[2020-06-05 20:27:29,060] 
+14/50 * Epoch 14 (_base): lr=0.0006 | momentum=0.9000
+14/50 * Epoch 14 (train): loss=0.0432 | mAP=0.8453
+14/50 * Epoch 14 (valid): loss=0.0306 | mAP=0.9109
+[2020-06-05 20:27:35,593] 
+15/50 * Epoch 15 (_base): lr=0.0007 | momentum=0.9000
+15/50 * Epoch 15 (train): loss=0.0484 | mAP=0.8083
+15/50 * Epoch 15 (valid): loss=0.0461 | mAP=0.9085
+[2020-06-05 20:27:41,980] 
+16/50 * Epoch 16 (_base): lr=0.0009 | momentum=0.9000
+16/50 * Epoch 16 (train): loss=0.0468 | mAP=0.8161
+16/50 * Epoch 16 (valid): loss=0.0406 | mAP=0.8770
+[2020-06-05 20:27:48,387] 
+17/50 * Epoch 17 (_base): lr=0.0010 | momentum=0.9000
+17/50 * Epoch 17 (train): loss=0.0423 | mAP=0.8241
+17/50 * Epoch 17 (valid): loss=0.0427 | mAP=0.8734
+[2020-06-05 20:27:54,949] 
+18/50 * Epoch 18 (_base): lr=0.0010 | momentum=0.9000
+18/50 * Epoch 18 (train): loss=0.0403 | mAP=0.8508
+18/50 * Epoch 18 (valid): loss=0.0332 | mAP=0.9278
+[2020-06-05 20:28:01,474] 
+19/50 * Epoch 19 (_base): lr=0.0011 | momentum=0.9000
+19/50 * Epoch 19 (train): loss=0.0403 | mAP=0.8462
+19/50 * Epoch 19 (valid): loss=0.0371 | mAP=0.9208
+[2020-06-05 20:28:08,030] 
+20/50 * Epoch 20 (_base): lr=0.0010 | momentum=0.9000
+20/50 * Epoch 20 (train): loss=0.0429 | mAP=0.8388
+20/50 * Epoch 20 (valid): loss=0.1258 | mAP=0.8733
+[2020-06-05 20:28:14,555] 
+21/50 * Epoch 21 (_base): lr=0.0010 | momentum=0.9000
+21/50 * Epoch 21 (train): loss=0.0423 | mAP=0.8611
+21/50 * Epoch 21 (valid): loss=0.0327 | mAP=0.8992
+[2020-06-05 20:28:21,192] 
+22/50 * Epoch 22 (_base): lr=0.0008 | momentum=0.9000
+22/50 * Epoch 22 (train): loss=0.0392 | mAP=0.8796
+22/50 * Epoch 22 (valid): loss=0.0381 | mAP=0.9012
+[2020-06-05 20:28:27,737] 
+23/50 * Epoch 23 (_base): lr=0.0007 | momentum=0.9000
+23/50 * Epoch 23 (train): loss=0.0366 | mAP=0.8748
+23/50 * Epoch 23 (valid): loss=0.0291 | mAP=0.9225
+[2020-06-05 20:28:34,224] 
+24/50 * Epoch 24 (_base): lr=0.0005 | momentum=0.9000
+24/50 * Epoch 24 (train): loss=0.0374 | mAP=0.8704
+24/50 * Epoch 24 (valid): loss=0.0319 | mAP=0.9119
+[2020-06-05 20:28:40,773] 
+25/50 * Epoch 25 (_base): lr=0.0004 | momentum=0.9000
+25/50 * Epoch 25 (train): loss=0.0385 | mAP=0.8441
+25/50 * Epoch 25 (valid): loss=0.0325 | mAP=0.8984
+[2020-06-05 20:28:47,418] 
+26/50 * Epoch 26 (_base): lr=0.0002 | momentum=0.9000
+26/50 * Epoch 26 (train): loss=0.0404 | mAP=0.8606
+26/50 * Epoch 26 (valid): loss=0.0323 | mAP=0.8933
+[2020-06-05 20:28:53,951] 
+27/50 * Epoch 27 (_base): lr=0.0001 | momentum=0.9000
+27/50 * Epoch 27 (train): loss=0.0364 | mAP=0.8723
+27/50 * Epoch 27 (valid): loss=0.0335 | mAP=0.8901
+[2020-06-05 20:29:00,240] 
+28/50 * Epoch 28 (_base): lr=4.424e-05 | momentum=0.9000
+28/50 * Epoch 28 (train): loss=0.0366 | mAP=0.8777
+28/50 * Epoch 28 (valid): loss=0.0307 | mAP=0.9088
+[2020-06-05 20:29:06,746] 
+29/50 * Epoch 29 (_base): lr=6.271e-06 | momentum=0.9000
+29/50 * Epoch 29 (train): loss=0.0338 | mAP=0.8820
+29/50 * Epoch 29 (valid): loss=0.0372 | mAP=0.8666
+[2020-06-05 20:29:13,241] 
+30/50 * Epoch 30 (_base): lr=0.000e+00 | momentum=0.9000
+30/50 * Epoch 30 (train): loss=0.0343 | mAP=0.8944
+30/50 * Epoch 30 (valid): loss=0.0245 | mAP=0.9425
+[2020-06-05 20:29:19,662] 
+31/50 * Epoch 31 (_base): lr=4.894e-05 | momentum=0.9000
+31/50 * Epoch 31 (train): loss=0.0316 | mAP=0.8914
+31/50 * Epoch 31 (valid): loss=0.0315 | mAP=0.9036
+[2020-06-05 20:29:26,237] 
+32/50 * Epoch 32 (_base): lr=0.0004 | momentum=0.9000
+32/50 * Epoch 32 (train): loss=0.0331 | mAP=0.9014
+32/50 * Epoch 32 (valid): loss=0.0296 | mAP=0.9182
+[2020-06-05 20:29:32,914] 
+33/50 * Epoch 33 (_base): lr=0.0004 | momentum=0.9000
+33/50 * Epoch 33 (train): loss=0.0348 | mAP=0.8981
+33/50 * Epoch 33 (valid): loss=0.0294 | mAP=0.9118
+[2020-06-05 20:29:39,295] 
+34/50 * Epoch 34 (_base): lr=0.0006 | momentum=0.9000
+34/50 * Epoch 34 (train): loss=0.0342 | mAP=0.9022
+34/50 * Epoch 34 (valid): loss=0.0279 | mAP=0.9158
+[2020-06-05 20:29:45,586] 
+35/50 * Epoch 35 (_base): lr=0.0007 | momentum=0.9000
+35/50 * Epoch 35 (train): loss=0.0322 | mAP=0.9068
+35/50 * Epoch 35 (valid): loss=0.0350 | mAP=0.8922
+[2020-06-05 20:29:51,880] 
+36/50 * Epoch 36 (_base): lr=0.0009 | momentum=0.9000
+36/50 * Epoch 36 (train): loss=0.0324 | mAP=0.9050
+36/50 * Epoch 36 (valid): loss=0.0282 | mAP=0.9223
+[2020-06-05 20:29:58,231] 
+37/50 * Epoch 37 (_base): lr=0.0010 | momentum=0.9000
+37/50 * Epoch 37 (train): loss=0.0351 | mAP=0.8782
+37/50 * Epoch 37 (valid): loss=0.0366 | mAP=0.9074
+[2020-06-05 20:30:05,083] 
+38/50 * Epoch 38 (_base): lr=0.0010 | momentum=0.9000
+38/50 * Epoch 38 (train): loss=0.0345 | mAP=0.8885
+38/50 * Epoch 38 (valid): loss=0.0289 | mAP=0.9066
+[2020-06-05 20:30:11,882] 
+39/50 * Epoch 39 (_base): lr=0.0011 | momentum=0.9000
+39/50 * Epoch 39 (train): loss=0.0322 | mAP=0.8896
+39/50 * Epoch 39 (valid): loss=0.0286 | mAP=0.9250
+[2020-06-05 20:30:18,494] 
+40/50 * Epoch 40 (_base): lr=0.0010 | momentum=0.9000
+40/50 * Epoch 40 (train): loss=0.0399 | mAP=0.8615
+40/50 * Epoch 40 (valid): loss=0.0337 | mAP=0.8839
+[2020-06-05 20:30:25,232] 
+41/50 * Epoch 41 (_base): lr=0.0010 | momentum=0.9000
+41/50 * Epoch 41 (train): loss=0.0333 | mAP=0.8874
+41/50 * Epoch 41 (valid): loss=0.0312 | mAP=0.8998
+[2020-06-05 20:30:31,777] 
+42/50 * Epoch 42 (_base): lr=0.0008 | momentum=0.9000
+42/50 * Epoch 42 (train): loss=0.0359 | mAP=0.8940
+42/50 * Epoch 42 (valid): loss=0.0699 | mAP=0.8502
+[2020-06-05 20:30:38,637] 
+43/50 * Epoch 43 (_base): lr=0.0007 | momentum=0.9000
+43/50 * Epoch 43 (train): loss=0.0308 | mAP=0.9026
+43/50 * Epoch 43 (valid): loss=0.0389 | mAP=0.9163
+[2020-06-05 20:30:45,396] 
+44/50 * Epoch 44 (_base): lr=0.0005 | momentum=0.9000
+44/50 * Epoch 44 (train): loss=0.0365 | mAP=0.8776
+44/50 * Epoch 44 (valid): loss=0.0333 | mAP=0.8958
+[2020-06-05 20:30:51,902] 
+45/50 * Epoch 45 (_base): lr=0.0004 | momentum=0.9000
+45/50 * Epoch 45 (train): loss=0.0331 | mAP=0.8913
+45/50 * Epoch 45 (valid): loss=0.0266 | mAP=0.9275
+[2020-06-05 20:30:58,651] 
+46/50 * Epoch 46 (_base): lr=0.0002 | momentum=0.9000
+46/50 * Epoch 46 (train): loss=0.0293 | mAP=0.9151
+46/50 * Epoch 46 (valid): loss=0.0310 | mAP=0.9063
+[2020-06-05 20:31:05,303] 
+47/50 * Epoch 47 (_base): lr=0.0001 | momentum=0.9000
+47/50 * Epoch 47 (train): loss=0.0291 | mAP=0.9138
+47/50 * Epoch 47 (valid): loss=0.0239 | mAP=0.9519
+[2020-06-05 20:31:11,726] 
+48/50 * Epoch 48 (_base): lr=4.424e-05 | momentum=0.9000
+48/50 * Epoch 48 (train): loss=0.0277 | mAP=0.9249
+48/50 * Epoch 48 (valid): loss=0.0257 | mAP=0.9326
+[2020-06-05 20:31:18,330] 
+49/50 * Epoch 49 (_base): lr=6.271e-06 | momentum=0.9000
+49/50 * Epoch 49 (train): loss=0.0317 | mAP=0.9068
+49/50 * Epoch 49 (valid): loss=0.0292 | mAP=0.9176
+[2020-06-05 20:31:25,095] 
+50/50 * Epoch 50 (_base): lr=0.000e+00 | momentum=0.9000
+50/50 * Epoch 50 (train): loss=0.0318 | mAP=0.8861
+50/50 * Epoch 50 (valid): loss=0.0325 | mAP=0.9054

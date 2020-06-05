@@ -9,10 +9,6 @@ model_params:
         out_channels: 32
         kernel_size: 3
         stride: 1
-    - name: GAB1d
-      type: custom
-      params:
-        in_channels: 32
     - name: MaxPool1d
       type: torch
       params:
@@ -24,10 +20,6 @@ model_params:
         out_channels: 64
         kernel_size: 3
         stride: 1
-    - name: GAB1d
-      type: custom
-      params:
-        in_channels: 64
     - name: MaxPool1d
       type: torch
       params:
@@ -39,10 +31,6 @@ model_params:
         out_channels: 128
         kernel_size: 3
         stride: 1
-    - name: GAB1d
-      type: custom
-      params:
-        in_channels: 128
     - name: MaxPool1d
       type: torch
       params:

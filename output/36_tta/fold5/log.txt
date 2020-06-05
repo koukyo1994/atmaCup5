@@ -1,0 +1,200 @@
+[2020-06-05 21:05:58,113] 
+1/50 * Epoch 1 (_base): lr=0.0010 | momentum=0.9000
+1/50 * Epoch 1 (train): _timer/_fps=3630.4784 | _timer/batch_time=0.3281 | _timer/data_time=0.3193 | _timer/model_time=0.0088 | loss=0.1484 | mAP=0.1716
+1/50 * Epoch 1 (valid): _timer/_fps=29769.7707 | _timer/batch_time=1.6053 | _timer/data_time=1.5881 | _timer/model_time=0.0172 | loss=0.4859 | mAP=0.1851
+[2020-06-05 21:06:05,502] 
+2/50 * Epoch 2 (_base): lr=0.0008 | momentum=0.9000
+2/50 * Epoch 2 (train): _timer/_fps=3210.8597 | _timer/batch_time=0.3479 | _timer/data_time=0.3380 | _timer/model_time=0.0099 | loss=0.0941 | mAP=0.5186
+2/50 * Epoch 2 (valid): _timer/_fps=69192.8083 | _timer/batch_time=1.4651 | _timer/data_time=1.4564 | _timer/model_time=0.0087 | loss=0.2707 | mAP=0.2134
+[2020-06-05 21:06:12,720] 
+3/50 * Epoch 3 (_base): lr=0.0007 | momentum=0.9000
+3/50 * Epoch 3 (train): _timer/_fps=3153.9228 | _timer/batch_time=0.3331 | _timer/data_time=0.3233 | _timer/model_time=0.0098 | loss=0.0729 | mAP=0.6264
+3/50 * Epoch 3 (valid): _timer/_fps=76331.2098 | _timer/batch_time=1.4754 | _timer/data_time=1.4687 | _timer/model_time=0.0067 | loss=0.1890 | mAP=0.3734
+[2020-06-05 21:06:19,796] 
+4/50 * Epoch 4 (_base): lr=0.0005 | momentum=0.9000
+4/50 * Epoch 4 (train): _timer/_fps=4446.8974 | _timer/batch_time=0.3183 | _timer/data_time=0.3121 | _timer/model_time=0.0062 | loss=0.0545 | mAP=0.7735
+4/50 * Epoch 4 (valid): _timer/_fps=62597.8789 | _timer/batch_time=1.4852 | _timer/data_time=1.4774 | _timer/model_time=0.0078 | loss=0.1541 | mAP=0.6793
+[2020-06-05 21:06:26,778] 
+5/50 * Epoch 5 (_base): lr=0.0004 | momentum=0.9000
+5/50 * Epoch 5 (train): _timer/_fps=4309.7013 | _timer/batch_time=0.3058 | _timer/data_time=0.2982 | _timer/model_time=0.0076 | loss=0.0514 | mAP=0.7785
+5/50 * Epoch 5 (valid): _timer/_fps=30668.7187 | _timer/batch_time=1.4963 | _timer/data_time=1.4800 | _timer/model_time=0.0163 | loss=0.0717 | mAP=0.8285
+[2020-06-05 21:06:33,814] 
+6/50 * Epoch 6 (_base): lr=0.0002 | momentum=0.9000
+6/50 * Epoch 6 (train): _timer/_fps=4394.4340 | _timer/batch_time=0.2987 | _timer/data_time=0.2915 | _timer/model_time=0.0072 | loss=0.0523 | mAP=0.7798
+6/50 * Epoch 6 (valid): _timer/_fps=29438.6130 | _timer/batch_time=1.5641 | _timer/data_time=1.5488 | _timer/model_time=0.0153 | loss=0.0427 | mAP=0.8657
+[2020-06-05 21:06:41,161] 
+7/50 * Epoch 7 (_base): lr=0.0001 | momentum=0.9000
+7/50 * Epoch 7 (train): _timer/_fps=3113.1637 | _timer/batch_time=0.3411 | _timer/data_time=0.3315 | _timer/model_time=0.0096 | loss=0.0482 | mAP=0.8147
+7/50 * Epoch 7 (valid): _timer/_fps=77558.1828 | _timer/batch_time=1.4970 | _timer/data_time=1.4885 | _timer/model_time=0.0085 | loss=0.0382 | mAP=0.8587
+[2020-06-05 21:06:48,384] 
+8/50 * Epoch 8 (_base): lr=4.424e-05 | momentum=0.9000
+8/50 * Epoch 8 (train): _timer/_fps=3639.3002 | _timer/batch_time=0.3228 | _timer/data_time=0.3138 | _timer/model_time=0.0090 | loss=0.0453 | mAP=0.8328
+8/50 * Epoch 8 (valid): _timer/_fps=60455.2714 | _timer/batch_time=1.5257 | _timer/data_time=1.5179 | _timer/model_time=0.0078 | loss=0.0305 | mAP=0.9110
+[2020-06-05 21:06:55,408] 
+9/50 * Epoch 9 (_base): lr=6.271e-06 | momentum=0.9000
+9/50 * Epoch 9 (train): _timer/_fps=4474.1325 | _timer/batch_time=0.3039 | _timer/data_time=0.2965 | _timer/model_time=0.0073 | loss=0.0402 | mAP=0.8492
+9/50 * Epoch 9 (valid): _timer/_fps=29971.1078 | _timer/batch_time=1.5541 | _timer/data_time=1.5372 | _timer/model_time=0.0168 | loss=0.0293 | mAP=0.9018
+[2020-06-05 21:07:02,488] 
+10/50 * Epoch 10 (_base): lr=0.000e+00 | momentum=0.9000
+10/50 * Epoch 10 (train): _timer/_fps=5089.9886 | _timer/batch_time=0.2602 | _timer/data_time=0.2546 | _timer/model_time=0.0056 | loss=0.0455 | mAP=0.8211
+10/50 * Epoch 10 (valid): _timer/_fps=77484.3291 | _timer/batch_time=1.5095 | _timer/data_time=1.5012 | _timer/model_time=0.0083 | loss=0.0283 | mAP=0.9090
+[2020-06-05 21:07:09,740] 
+11/50 * Epoch 11 (_base): lr=4.894e-05 | momentum=0.9000
+11/50 * Epoch 11 (train): _timer/_fps=3231.6663 | _timer/batch_time=0.3402 | _timer/data_time=0.3302 | _timer/model_time=0.0101 | loss=0.0415 | mAP=0.8332
+11/50 * Epoch 11 (valid): _timer/_fps=70586.6130 | _timer/batch_time=1.4474 | _timer/data_time=1.4393 | _timer/model_time=0.0081 | loss=0.0312 | mAP=0.8888
+[2020-06-05 21:07:16,912] 
+12/50 * Epoch 12 (_base): lr=0.0004 | momentum=0.9000
+12/50 * Epoch 12 (train): _timer/_fps=3646.5644 | _timer/batch_time=0.3224 | _timer/data_time=0.3139 | _timer/model_time=0.0085 | loss=0.0403 | mAP=0.8601
+12/50 * Epoch 12 (valid): _timer/_fps=56836.6424 | _timer/batch_time=1.5076 | _timer/data_time=1.4994 | _timer/model_time=0.0081 | loss=0.0307 | mAP=0.8941
+[2020-06-05 21:07:24,034] 
+13/50 * Epoch 13 (_base): lr=0.0004 | momentum=0.9000
+13/50 * Epoch 13 (train): _timer/_fps=4422.6276 | _timer/batch_time=0.3204 | _timer/data_time=0.3135 | _timer/model_time=0.0070 | loss=0.0392 | mAP=0.8709
+13/50 * Epoch 13 (valid): _timer/_fps=34082.0741 | _timer/batch_time=1.4812 | _timer/data_time=1.4660 | _timer/model_time=0.0152 | loss=0.0298 | mAP=0.8971
+[2020-06-05 21:07:31,449] 
+14/50 * Epoch 14 (_base): lr=0.0006 | momentum=0.9000
+14/50 * Epoch 14 (train): _timer/_fps=3161.9724 | _timer/batch_time=0.3400 | _timer/data_time=0.3300 | _timer/model_time=0.0100 | loss=0.0388 | mAP=0.8618
+14/50 * Epoch 14 (valid): _timer/_fps=79401.4311 | _timer/batch_time=1.5338 | _timer/data_time=1.5260 | _timer/model_time=0.0077 | loss=0.0323 | mAP=0.8880
+[2020-06-05 21:07:38,418] 
+15/50 * Epoch 15 (_base): lr=0.0007 | momentum=0.9000
+15/50 * Epoch 15 (train): _timer/_fps=4443.6260 | _timer/batch_time=0.3059 | _timer/data_time=0.2988 | _timer/model_time=0.0071 | loss=0.0417 | mAP=0.8629
+15/50 * Epoch 15 (valid): _timer/_fps=78618.1547 | _timer/batch_time=1.4980 | _timer/data_time=1.4898 | _timer/model_time=0.0082 | loss=0.0330 | mAP=0.8942
+[2020-06-05 21:07:45,574] 
+16/50 * Epoch 16 (_base): lr=0.0009 | momentum=0.9000
+16/50 * Epoch 16 (train): _timer/_fps=3150.8505 | _timer/batch_time=0.3334 | _timer/data_time=0.3236 | _timer/model_time=0.0097 | loss=0.0460 | mAP=0.8232
+16/50 * Epoch 16 (valid): _timer/_fps=77023.1135 | _timer/batch_time=1.4552 | _timer/data_time=1.4476 | _timer/model_time=0.0076 | loss=0.0308 | mAP=0.9067
+[2020-06-05 21:07:52,868] 
+17/50 * Epoch 17 (_base): lr=0.0010 | momentum=0.9000
+17/50 * Epoch 17 (train): _timer/_fps=3577.3517 | _timer/batch_time=0.3267 | _timer/data_time=0.3180 | _timer/model_time=0.0087 | loss=0.0397 | mAP=0.8735
+17/50 * Epoch 17 (valid): _timer/_fps=79339.2819 | _timer/batch_time=1.5411 | _timer/data_time=1.5338 | _timer/model_time=0.0073 | loss=0.0321 | mAP=0.8907
+[2020-06-05 21:07:59,943] 
+18/50 * Epoch 18 (_base): lr=0.0010 | momentum=0.9000
+18/50 * Epoch 18 (train): _timer/_fps=4321.8801 | _timer/batch_time=0.3038 | _timer/data_time=0.2963 | _timer/model_time=0.0075 | loss=0.0429 | mAP=0.8477
+18/50 * Epoch 18 (valid): _timer/_fps=29797.3758 | _timer/batch_time=1.5558 | _timer/data_time=1.5405 | _timer/model_time=0.0152 | loss=0.0257 | mAP=0.9249
+[2020-06-05 21:08:07,267] 
+19/50 * Epoch 19 (_base): lr=0.0011 | momentum=0.9000
+19/50 * Epoch 19 (train): _timer/_fps=3094.3282 | _timer/batch_time=0.3357 | _timer/data_time=0.3255 | _timer/model_time=0.0103 | loss=0.0467 | mAP=0.8566
+19/50 * Epoch 19 (valid): _timer/_fps=62260.9261 | _timer/batch_time=1.5118 | _timer/data_time=1.5039 | _timer/model_time=0.0078 | loss=0.0331 | mAP=0.8874
+[2020-06-05 21:08:13,984] 
+20/50 * Epoch 20 (_base): lr=0.0010 | momentum=0.9000
+20/50 * Epoch 20 (train): _timer/_fps=4526.1147 | _timer/batch_time=0.2846 | _timer/data_time=0.2776 | _timer/model_time=0.0070 | loss=0.0352 | mAP=0.8913
+20/50 * Epoch 20 (valid): _timer/_fps=78956.1345 | _timer/batch_time=1.5124 | _timer/data_time=1.5057 | _timer/model_time=0.0066 | loss=0.0283 | mAP=0.9106
+[2020-06-05 21:08:21,036] 
+21/50 * Epoch 21 (_base): lr=0.0010 | momentum=0.9000
+21/50 * Epoch 21 (train): _timer/_fps=4111.3960 | _timer/batch_time=0.3039 | _timer/data_time=0.2963 | _timer/model_time=0.0076 | loss=0.0427 | mAP=0.8489
+21/50 * Epoch 21 (valid): _timer/_fps=29639.6909 | _timer/batch_time=1.5435 | _timer/data_time=1.5261 | _timer/model_time=0.0173 | loss=0.0283 | mAP=0.9205
+[2020-06-05 21:08:28,763] 
+22/50 * Epoch 22 (_base): lr=0.0008 | momentum=0.9000
+22/50 * Epoch 22 (train): _timer/_fps=3136.5362 | _timer/batch_time=0.3707 | _timer/data_time=0.3606 | _timer/model_time=0.0101 | loss=0.0410 | mAP=0.8695
+22/50 * Epoch 22 (valid): _timer/_fps=29470.1808 | _timer/batch_time=1.5200 | _timer/data_time=1.5031 | _timer/model_time=0.0168 | loss=0.0299 | mAP=0.9099
+[2020-06-05 21:08:36,079] 
+23/50 * Epoch 23 (_base): lr=0.0007 | momentum=0.9000
+23/50 * Epoch 23 (train): _timer/_fps=3144.0837 | _timer/batch_time=0.3493 | _timer/data_time=0.3401 | _timer/model_time=0.0093 | loss=0.0351 | mAP=0.8632
+23/50 * Epoch 23 (valid): _timer/_fps=79150.6603 | _timer/batch_time=1.4356 | _timer/data_time=1.4282 | _timer/model_time=0.0074 | loss=0.0276 | mAP=0.9207
+[2020-06-05 21:08:43,346] 
+24/50 * Epoch 24 (_base): lr=0.0005 | momentum=0.9000
+24/50 * Epoch 24 (train): _timer/_fps=3128.3997 | _timer/batch_time=0.3431 | _timer/data_time=0.3331 | _timer/model_time=0.0099 | loss=0.0423 | mAP=0.8436
+24/50 * Epoch 24 (valid): _timer/_fps=76167.5279 | _timer/batch_time=1.4472 | _timer/data_time=1.4400 | _timer/model_time=0.0072 | loss=0.0289 | mAP=0.9278
+[2020-06-05 21:08:50,557] 
+25/50 * Epoch 25 (_base): lr=0.0004 | momentum=0.9000
+25/50 * Epoch 25 (train): _timer/_fps=3456.6787 | _timer/batch_time=0.3278 | _timer/data_time=0.3183 | _timer/model_time=0.0095 | loss=0.0357 | mAP=0.8688
+25/50 * Epoch 25 (valid): _timer/_fps=66526.1112 | _timer/batch_time=1.5100 | _timer/data_time=1.5023 | _timer/model_time=0.0077 | loss=0.0271 | mAP=0.9149
+[2020-06-05 21:08:57,520] 
+26/50 * Epoch 26 (_base): lr=0.0002 | momentum=0.9000
+26/50 * Epoch 26 (train): _timer/_fps=4456.1442 | _timer/batch_time=0.3010 | _timer/data_time=0.2943 | _timer/model_time=0.0067 | loss=0.0359 | mAP=0.8757
+26/50 * Epoch 26 (valid): _timer/_fps=76432.9082 | _timer/batch_time=1.5081 | _timer/data_time=1.5014 | _timer/model_time=0.0067 | loss=0.0261 | mAP=0.9189
+[2020-06-05 21:09:04,555] 
+27/50 * Epoch 27 (_base): lr=0.0001 | momentum=0.9000
+27/50 * Epoch 27 (train): _timer/_fps=4325.5483 | _timer/batch_time=0.3038 | _timer/data_time=0.2966 | _timer/model_time=0.0072 | loss=0.0326 | mAP=0.9051
+27/50 * Epoch 27 (valid): _timer/_fps=29172.8735 | _timer/batch_time=1.5388 | _timer/data_time=1.5203 | _timer/model_time=0.0184 | loss=0.0241 | mAP=0.9368
+[2020-06-05 21:09:11,699] 
+28/50 * Epoch 28 (_base): lr=4.424e-05 | momentum=0.9000
+28/50 * Epoch 28 (train): _timer/_fps=4124.4667 | _timer/batch_time=0.3075 | _timer/data_time=0.3000 | _timer/model_time=0.0075 | loss=0.0335 | mAP=0.8908
+28/50 * Epoch 28 (valid): _timer/_fps=29602.9040 | _timer/batch_time=1.5625 | _timer/data_time=1.5452 | _timer/model_time=0.0173 | loss=0.0253 | mAP=0.9281
+[2020-06-05 21:09:19,010] 
+29/50 * Epoch 29 (_base): lr=6.271e-06 | momentum=0.9000
+29/50 * Epoch 29 (train): _timer/_fps=3116.5081 | _timer/batch_time=0.3384 | _timer/data_time=0.3291 | _timer/model_time=0.0093 | loss=0.0305 | mAP=0.9085
+29/50 * Epoch 29 (valid): _timer/_fps=35036.2850 | _timer/batch_time=1.4982 | _timer/data_time=1.4822 | _timer/model_time=0.0160 | loss=0.0255 | mAP=0.9277
+[2020-06-05 21:09:26,274] 
+30/50 * Epoch 30 (_base): lr=0.000e+00 | momentum=0.9000
+30/50 * Epoch 30 (train): _timer/_fps=3111.4687 | _timer/batch_time=0.3375 | _timer/data_time=0.3280 | _timer/model_time=0.0095 | loss=0.0308 | mAP=0.8975
+30/50 * Epoch 30 (valid): _timer/_fps=78383.7797 | _timer/batch_time=1.4744 | _timer/data_time=1.4669 | _timer/model_time=0.0075 | loss=0.0249 | mAP=0.9317
+[2020-06-05 21:09:34,117] 
+31/50 * Epoch 31 (_base): lr=4.894e-05 | momentum=0.9000
+31/50 * Epoch 31 (train): _timer/_fps=4409.2014 | _timer/batch_time=0.3170 | _timer/data_time=0.3105 | _timer/model_time=0.0065 | loss=0.0306 | mAP=0.9034
+31/50 * Epoch 31 (valid): _timer/_fps=67035.4229 | _timer/batch_time=1.8914 | _timer/data_time=1.8831 | _timer/model_time=0.0083 | loss=0.0239 | mAP=0.9270
+[2020-06-05 21:09:41,759] 
+32/50 * Epoch 32 (_base): lr=0.0004 | momentum=0.9000
+32/50 * Epoch 32 (train): _timer/_fps=3311.9041 | _timer/batch_time=0.3373 | _timer/data_time=0.3278 | _timer/model_time=0.0095 | loss=0.0313 | mAP=0.8989
+32/50 * Epoch 32 (valid): _timer/_fps=65585.9263 | _timer/batch_time=1.5124 | _timer/data_time=1.5048 | _timer/model_time=0.0076 | loss=0.0234 | mAP=0.9394
+[2020-06-05 21:09:48,969] 
+33/50 * Epoch 33 (_base): lr=0.0004 | momentum=0.9000
+33/50 * Epoch 33 (train): _timer/_fps=4284.4870 | _timer/batch_time=0.3176 | _timer/data_time=0.3098 | _timer/model_time=0.0077 | loss=0.0293 | mAP=0.9110
+33/50 * Epoch 33 (valid): _timer/_fps=30507.6070 | _timer/batch_time=1.5343 | _timer/data_time=1.5167 | _timer/model_time=0.0176 | loss=0.0225 | mAP=0.9313
+[2020-06-05 21:09:56,066] 
+34/50 * Epoch 34 (_base): lr=0.0006 | momentum=0.9000
+34/50 * Epoch 34 (train): _timer/_fps=4202.3387 | _timer/batch_time=0.3040 | _timer/data_time=0.2966 | _timer/model_time=0.0074 | loss=0.0314 | mAP=0.9017
+34/50 * Epoch 34 (valid): _timer/_fps=34474.2907 | _timer/batch_time=1.5688 | _timer/data_time=1.5533 | _timer/model_time=0.0156 | loss=0.0247 | mAP=0.9333
+[2020-06-05 21:10:03,384] 
+35/50 * Epoch 35 (_base): lr=0.0007 | momentum=0.9000
+35/50 * Epoch 35 (train): _timer/_fps=3065.4748 | _timer/batch_time=0.3354 | _timer/data_time=0.3251 | _timer/model_time=0.0103 | loss=0.0316 | mAP=0.8961
+35/50 * Epoch 35 (valid): _timer/_fps=61485.2688 | _timer/batch_time=1.5200 | _timer/data_time=1.5114 | _timer/model_time=0.0086 | loss=0.0247 | mAP=0.9301
+[2020-06-05 21:10:10,706] 
+36/50 * Epoch 36 (_base): lr=0.0009 | momentum=0.9000
+36/50 * Epoch 36 (train): _timer/_fps=3425.9655 | _timer/batch_time=0.3310 | _timer/data_time=0.3216 | _timer/model_time=0.0093 | loss=0.0394 | mAP=0.8635
+36/50 * Epoch 36 (valid): _timer/_fps=80844.2961 | _timer/batch_time=1.5414 | _timer/data_time=1.5343 | _timer/model_time=0.0071 | loss=0.0264 | mAP=0.9331
+[2020-06-05 21:10:18,156] 
+37/50 * Epoch 37 (_base): lr=0.0010 | momentum=0.9000
+37/50 * Epoch 37 (train): _timer/_fps=3204.5288 | _timer/batch_time=0.3407 | _timer/data_time=0.3304 | _timer/model_time=0.0102 | loss=0.0341 | mAP=0.8860
+37/50 * Epoch 37 (valid): _timer/_fps=69810.6388 | _timer/batch_time=1.5432 | _timer/data_time=1.5359 | _timer/model_time=0.0073 | loss=0.0220 | mAP=0.9418
+[2020-06-05 21:10:25,486] 
+38/50 * Epoch 38 (_base): lr=0.0010 | momentum=0.9000
+38/50 * Epoch 38 (train): _timer/_fps=3138.6109 | _timer/batch_time=0.3420 | _timer/data_time=0.3328 | _timer/model_time=0.0093 | loss=0.0358 | mAP=0.8911
+38/50 * Epoch 38 (valid): _timer/_fps=78974.2352 | _timer/batch_time=1.4806 | _timer/data_time=1.4729 | _timer/model_time=0.0077 | loss=0.0310 | mAP=0.9143
+[2020-06-05 21:10:32,602] 
+39/50 * Epoch 39 (_base): lr=0.0011 | momentum=0.9000
+39/50 * Epoch 39 (train): _timer/_fps=4169.7585 | _timer/batch_time=0.3053 | _timer/data_time=0.2971 | _timer/model_time=0.0081 | loss=0.0344 | mAP=0.8802
+39/50 * Epoch 39 (valid): _timer/_fps=29818.7458 | _timer/batch_time=1.5861 | _timer/data_time=1.5710 | _timer/model_time=0.0151 | loss=0.0248 | mAP=0.9423
+[2020-06-05 21:10:39,579] 
+40/50 * Epoch 40 (_base): lr=0.0010 | momentum=0.9000
+40/50 * Epoch 40 (train): _timer/_fps=4219.4756 | _timer/batch_time=0.3055 | _timer/data_time=0.2981 | _timer/model_time=0.0074 | loss=0.0366 | mAP=0.8835
+40/50 * Epoch 40 (valid): _timer/_fps=33950.0804 | _timer/batch_time=1.4971 | _timer/data_time=1.4816 | _timer/model_time=0.0155 | loss=0.0269 | mAP=0.9179
+[2020-06-05 21:10:46,950] 
+41/50 * Epoch 41 (_base): lr=0.0010 | momentum=0.9000
+41/50 * Epoch 41 (train): _timer/_fps=3134.8981 | _timer/batch_time=0.3396 | _timer/data_time=0.3301 | _timer/model_time=0.0095 | loss=0.0332 | mAP=0.9070
+41/50 * Epoch 41 (valid): _timer/_fps=30374.8617 | _timer/batch_time=1.5079 | _timer/data_time=1.4907 | _timer/model_time=0.0172 | loss=0.0248 | mAP=0.9343
+[2020-06-05 21:10:54,325] 
+42/50 * Epoch 42 (_base): lr=0.0008 | momentum=0.9000
+42/50 * Epoch 42 (train): _timer/_fps=4425.6209 | _timer/batch_time=0.3386 | _timer/data_time=0.3313 | _timer/model_time=0.0073 | loss=0.0315 | mAP=0.8966
+42/50 * Epoch 42 (valid): _timer/_fps=75863.3279 | _timer/batch_time=1.5295 | _timer/data_time=1.5221 | _timer/model_time=0.0074 | loss=0.0279 | mAP=0.9173
+[2020-06-05 21:11:01,163] 
+43/50 * Epoch 43 (_base): lr=0.0007 | momentum=0.9000
+43/50 * Epoch 43 (train): _timer/_fps=4421.2675 | _timer/batch_time=0.2976 | _timer/data_time=0.2903 | _timer/model_time=0.0073 | loss=0.0328 | mAP=0.8886
+43/50 * Epoch 43 (valid): _timer/_fps=34495.7945 | _timer/batch_time=1.4745 | _timer/data_time=1.4573 | _timer/model_time=0.0172 | loss=0.0256 | mAP=0.9284
+[2020-06-05 21:11:08,342] 
+44/50 * Epoch 44 (_base): lr=0.0005 | momentum=0.9000
+44/50 * Epoch 44 (train): _timer/_fps=3809.3732 | _timer/batch_time=0.3168 | _timer/data_time=0.3083 | _timer/model_time=0.0085 | loss=0.0290 | mAP=0.8962
+44/50 * Epoch 44 (valid): _timer/_fps=29539.7323 | _timer/batch_time=1.5287 | _timer/data_time=1.5116 | _timer/model_time=0.0172 | loss=0.0210 | mAP=0.9413
+[2020-06-05 21:11:15,680] 
+45/50 * Epoch 45 (_base): lr=0.0004 | momentum=0.9000
+45/50 * Epoch 45 (train): _timer/_fps=3223.6089 | _timer/batch_time=0.3372 | _timer/data_time=0.3273 | _timer/model_time=0.0099 | loss=0.0319 | mAP=0.9018
+45/50 * Epoch 45 (valid): _timer/_fps=68775.7480 | _timer/batch_time=1.5058 | _timer/data_time=1.4982 | _timer/model_time=0.0076 | loss=0.0219 | mAP=0.9461
+[2020-06-05 21:11:22,965] 
+46/50 * Epoch 46 (_base): lr=0.0002 | momentum=0.9000
+46/50 * Epoch 46 (train): _timer/_fps=3132.8474 | _timer/batch_time=0.3301 | _timer/data_time=0.3207 | _timer/model_time=0.0095 | loss=0.0313 | mAP=0.9060
+46/50 * Epoch 46 (valid): _timer/_fps=69444.6987 | _timer/batch_time=1.5203 | _timer/data_time=1.5132 | _timer/model_time=0.0071 | loss=0.0218 | mAP=0.9423
+[2020-06-05 21:11:29,758] 
+47/50 * Epoch 47 (_base): lr=0.0001 | momentum=0.9000
+47/50 * Epoch 47 (train): _timer/_fps=4463.6617 | _timer/batch_time=0.2990 | _timer/data_time=0.2920 | _timer/model_time=0.0070 | loss=0.0282 | mAP=0.9301
+47/50 * Epoch 47 (valid): _timer/_fps=80247.1085 | _timer/batch_time=1.4754 | _timer/data_time=1.4677 | _timer/model_time=0.0077 | loss=0.0305 | mAP=0.9293
+[2020-06-05 21:11:37,196] 
+48/50 * Epoch 48 (_base): lr=4.424e-05 | momentum=0.9000
+48/50 * Epoch 48 (train): _timer/_fps=3144.1795 | _timer/batch_time=0.3359 | _timer/data_time=0.3260 | _timer/model_time=0.0099 | loss=0.0306 | mAP=0.9041
+48/50 * Epoch 48 (valid): _timer/_fps=61435.2572 | _timer/batch_time=1.5617 | _timer/data_time=1.5539 | _timer/model_time=0.0078 | loss=0.0222 | mAP=0.9442
+[2020-06-05 21:11:44,336] 
+49/50 * Epoch 49 (_base): lr=6.271e-06 | momentum=0.9000
+49/50 * Epoch 49 (train): _timer/_fps=4348.3029 | _timer/batch_time=0.3074 | _timer/data_time=0.2999 | _timer/model_time=0.0074 | loss=0.0301 | mAP=0.9126
+49/50 * Epoch 49 (valid): _timer/_fps=33702.3945 | _timer/batch_time=1.5617 | _timer/data_time=1.5459 | _timer/model_time=0.0158 | loss=0.0241 | mAP=0.9345
+[2020-06-05 21:11:51,326] 
+50/50 * Epoch 50 (_base): lr=0.000e+00 | momentum=0.9000
+50/50 * Epoch 50 (train): _timer/_fps=3913.1928 | _timer/batch_time=0.3107 | _timer/data_time=0.3022 | _timer/model_time=0.0085 | loss=0.0241 | mAP=0.9430
+50/50 * Epoch 50 (valid): _timer/_fps=29602.8744 | _timer/batch_time=1.4631 | _timer/data_time=1.4473 | _timer/model_time=0.0158 | loss=0.0219 | mAP=0.9423
