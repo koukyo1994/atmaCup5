@@ -118,33 +118,17 @@ class FittingDataset(data.Dataset):
             noise = scale * np.random.normal(len(spectrum))
             spectrum = spectrum + noise
 
+        if self.crop:
+            start = np.random.randint(0, 111)
+            spectrum = spectrum[start:start+400].astype(np.float32)
+        else:
+            spectrum = spectrum[:511].astype(np.float32)
+            
         if self.scale == "normalize":
             spectrum = (spectrum - spectrum.mean()) / spectrum.std()
         else:
             spectrum = (spectrum - spectrum.min()) / (
                 spectrum.max() - spectrum.min())
-
-        if self.crop:
-            if np.abs(params2 - params5) < 50:
-                idx = np.abs(wavelength - params2).argmin()
-            else:
-                idx_params2 = np.abs(wavelength - params2).argmin()
-                idx_params5 = np.abs(wavelength - params5).argmin()
-
-                if spectrum[idx_params2] > spectrum[idx_params5]:
-                    idx = idx_params2
-                else:
-                    idx = idx_params5
-
-            offset = np.random.randint(25, 50)
-            start = max(0, idx - offset)
-            end = start + 100
-            if end >= len(spectrum) - 1:
-                end = len(spectrum) - 1
-                start = end - 100
-            spectrum = spectrum[start:end].astype(np.float32)
-        else:
-            spectrum = spectrum[:511].astype(np.float32)
 
         if self.flip:
             if np.random.rand() > 0.5:
