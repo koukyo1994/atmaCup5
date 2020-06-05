@@ -513,7 +513,8 @@ class Conv1DModel(NNModel):
         device = get_device()
 
         tta_preds = []
-        for _ in range(tta):
+        for seed in range(tta):
+            utils.set_seed(seed)
             for i, x_batch in enumerate(loader):
                 with torch.no_grad():
                     x_batch = x_batch.to(device)
