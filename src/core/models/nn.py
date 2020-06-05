@@ -84,6 +84,74 @@ class FileDataset(data.Dataset):
             return spectrum
 
 
+class RawFittingDataset(data.Dataset):
+    def __init__(self,
+                 df: Matrix,
+                 target: Optional[Matrix],
+                 file_dir: str,
+                 fitting_file_dir: str,
+                 scale="normalize",
+                 crop=False,
+                 flip=False,
+                 noise=False):
+        self.values = df
+        self.target = target
+        self.file_dir = Path(file_dir)
+        self.fitting_file_dir = Path(fitting_file_dir)
+        self.scale = scale
+
+        self.crop = crop
+        self.flip = flip
+        self.noise = noise
+
+    def __len__(self):
+        return len(self.values)
+
+    def __getitem__(self, idx: int):
+        filename = self.values[idx][0]
+        df = pd.read_csv(self.file_dir / filename, sep="\t", header=None)
+        fitting = pd.read_csv(
+            self.fitting_file_dir / filename, sep="\t", header=None)
+
+        spectrum = df[1].values
+        spectrum_fitting = fitting[1].values
+        if self.noise:
+            scale = np.random.randint(20, 100)
+            noise = scale * np.random.normal(len(spectrum))
+            spectrum = spectrum + noise
+
+        if self.crop:
+            start = np.random.randint(0, 111)
+            spectrum = spectrum[start:start + 400].astype(np.float32)
+            spectrum_fitting = spectrum_fitting[start:start + 400].astype(
+                np.float32)
+        else:
+            spectrum = spectrum[:511].astype(np.float32)
+            spectrum_fitting = spectrum_fitting[:511].astype(np.float32)
+
+        if self.scale == "normalize":
+            spectrum = (spectrum - spectrum.mean()) / spectrum.std()
+            spectrum_fitting = (spectrum_fitting - spectrum_fitting.mean()
+                                ) / spectrum_fitting.std()
+        else:
+            spectrum = (spectrum - spectrum.min()) / (
+                spectrum.max() - spectrum.min())
+            spectrum_fitting = (
+                spectrum_fitting - spectrum_fitting.min() /
+                (spectrum_fitting.max() - spectrum_fitting.min()))
+
+        if self.flip:
+            if np.random.rand() > 0.5:
+                spectrum = np.flip(spectrum).copy()
+                spectrum_fitting = np.flip(spectrum_fitting).copy()
+
+        x = np.asarray([spectrum, spectrum_fitting]).astype(np.float32)
+        if self.target is not None:
+            return x, self.target[idx]
+        else:
+            return x
+
+
 class FittingDataset(data.Dataset):
     def __init__(self,
                  df: Matrix,
@@ -107,11 +175,8 @@ class FittingDataset(data.Dataset):
 
     def __getitem__(self, idx: int):
         filename = self.values[idx][0]
-        params2 = self.values[idx][1]
-        params5 = self.values[idx][2]
         df = pd.read_csv(self.file_dir / filename, sep="\t", header=None)
 
-        wavelength = df[0].values
         spectrum = df[1].values
         if self.noise:
             scale = np.random.randint(20, 100)
@@ -120,10 +185,10 @@ class FittingDataset(data.Dataset):
 
         if self.crop:
             start = np.random.randint(0, 111)
-            spectrum = spectrum[start:start+400].astype(np.float32)
+            spectrum = spectrum[start:start + 400].astype(np.float32)
         else:
             spectrum = spectrum[:511].astype(np.float32)
-            
+
         if self.scale == "normalize":
             spectrum = (spectrum - spectrum.mean()) / spectrum.std()
         else:
@@ -167,6 +232,30 @@ def get_loader(loader_params: dict, df: Matrix, target: Optional[Matrix]):
         params = loader_params.copy()
         params.pop("dataset_type")
         params.pop("file_dir")
+        if scale is not None:
+            params.pop("scale")
+        params.pop("crop")
+        params.pop("flip")
+        params.pop("noise")
+    elif dataset_type == "raw_and_fitting":
+        scale = "normalize" if loader_params.get(
+            "scale") is None else "min_max"
+        crop = loader_params["crop"]
+        flip = loader_params["flip"]
+        noise = loader_params["noise"]
+        dataset = RawFittingDataset(  # type: ignore
+            df,
+            target,
+            loader_params["file_dir"],
+            loader_params["fitting_file_dir"],
+            scale,
+            crop=crop,
+            flip=flip,
+            noise=noise)
+        params = loader_params.copy()
+        params.pop("dataset_type")
+        params.pop("file_dir")
+        params.pop("fitting_file_dir")
         if scale is not None:
             params.pop("scale")
         params.pop("crop")
@@ -250,7 +339,8 @@ class CNN1D(nn.Module):
 
     def forward(self, x):
         batch_size = x.size(0)
-        x = x.view(batch_size, 1, -1)
+        if x.ndim == 2:
+            x = x.view(batch_size, 1, -1)
         return self.seq(x).view(batch_size)
 
 
