@@ -31,7 +31,8 @@ class PredictionRunner(SubRunner):
                              self.state.logger):
                 for model_keys in self.state.models.keys():
                     model = self.state.models[model_keys][fold_signature]
-                    self.state.predictions[model_keys] += model.predict(
-                        X) / len(self.state.splits)
+                    for _ in range(self.config["tta"]):
+                        self.state.predictions[model_keys] += model.predict(
+                            X) / (len(self.state.splits) * self.config["tta"])
 
         self._run_callbacks(phase="end")
