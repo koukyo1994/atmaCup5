@@ -1,0 +1,74 @@
+feature_dir: features/
+
+output_dir: output/
+
+log_dir: log
+
+callbacks:
+  - name: ConcatenateFeatureCallback
+    type: features
+
+  - name: FeatureSavingCallback
+    type: features
+    params:
+      prefix: Atma5_42
+
+  - name: MergeFittingCallback
+    type: custom.atma5
+
+  - name: OOFAPCallback
+    type: model
+
+  - name: OOFAUCCallback
+    type: model
+    group: av
+
+  - name: CreateEnsembleCallback
+    type: custom.atma5
+    params:
+      save_dir:
+      prefix: submission
+      weights:
+        conv1d_no_crop: 0.25
+        conv1d_crop: 0.25
+        conv1d_peak: 0.25
+        conv1d_kernel3: 0.25
+
+  - name: PrepareForStratifiedKFoldCallback
+    type: split
+
+  - name: FoldAUCCallback
+    type: train_fold
+    group: av
+
+  - name: FoldAPCallback
+    type: train_fold
+
+  - name: OutputResultsCallback
+    type: model
+
+  - name: AlignColumnsCallback
+    type: custom.atma5
+    params:
+      columns:
+        - spectrum_filename
+        - params2
+        - params5
+
+pipeline:
+  - data_loading:
+      - configs/data_loading/atma5/train.yml
+      - configs/data_loading/atma5/test.yml
+      - configs/data_loading/atma5/fitting.yml
+  - features:
+      - configs/features/atma5/only_spectrum_filename.yml
+      - configs/features/atma5/with_fitting.yml
+  - split: configs/split/atma5/strat1.yml
+  - model: configs/model/atma5/conv1d_no_crop.yml
+  - split: configs/split/atma5/strat2.yml
+  - model: configs/model/atma5/conv1d_crop.yml
+  - split: configs/split/atma5/strat3.yml
+  - model: configs/model/atma5/conv1d_peak.yml
+  - split: configs/split/atma5/strat4.yml
+  - model: configs/model/atma5/conv1d_kernel3.yml
+  - prediction: configs/prediction/atma5/tta.yml

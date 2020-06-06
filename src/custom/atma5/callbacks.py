@@ -78,6 +78,40 @@ class CreateSubmissionCallback(Callback):
                 self.save_dir / (self.prefix + ".csv"), index=False)
 
 
+class CreateEnsembleCallback(Callback):
+    signature = "model_inference"
+    callback_order = CallbackOrder.LOWER
+
+    def __init__(self, save_dir: Optional[str], prefix: str, weights: dict):
+        if save_dir is not None:
+            self.save_dir = Path(save_dir)
+        else:
+            self.save_dir = None  # type: ignore
+
+        self.prefix = prefix
+        self.weights = weights
+
+    def on_model_inference_end(self, state: RunningState):
+        predictions = state.predictions
+        if self.save_dir is None:
+            self.save_dir = state.output_dir
+
+        if len(predictions.keys()) == 1:
+            prediction = list(predictions.values())[0]
+
+            submission = pd.DataFrame({"target": prediction.astype("float32")})
+            submission.to_csv(
+                self.save_dir / (self.prefix + ".csv"), index=False)
+        else:
+            prediction = np.zeros_like(list(predictions.values())[0])
+            for key, value in predictions.items():
+                prediction += self.weights[key] * value
+
+            submission = pd.DataFrame({"target": prediction.astype("float32")})
+            submission.to_csv(
+                self.save_dir / (self.prefix + ".csv"), index=False)
+
+
 class UnderSamplingCallback(Callback):
     signature = "model_train"
     callback = CallbackOrder.LOWEST
@@ -147,11 +181,11 @@ class AlignColumnsCallback(Callback):
             test = main_features["test"]
 
         train = train[self.columns]
-        
+
         if "test" in main_features.keys():
             test = test[self.columns]
 
         state.features["main"]["train"] = train
-        
+
         if "test" in main_features.keys():
             state.features["main"]["test"] = test

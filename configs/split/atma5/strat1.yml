@@ -1,0 +1,6 @@
+how: stratified_kfold
+callbacks:
+params:
+  random_state: 1111
+  n_splits: 5
+  shuffle: True
