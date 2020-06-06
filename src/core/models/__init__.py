@@ -25,6 +25,9 @@ def get_model(config: dict, state: RunningState):
         return LGBModel(mode="", callbacks=callbacks, feval=feval)
     elif config.get("name") == "conv1d":
         fold_signature = f"fold{state.misc['current_fold_id'] + 1}"
-        return Conv1DModel(mode="", log_dir=state.output_dir / fold_signature)
+        return Conv1DModel(
+            mode="",
+            log_dir=state.output_dir / state / config["identifier"] /
+            fold_signature)
     else:
         raise NotImplementedError
