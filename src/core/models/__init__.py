@@ -27,7 +27,7 @@ def get_model(config: dict, state: RunningState):
         fold_signature = f"fold{state.misc['current_fold_id'] + 1}"
         return Conv1DModel(
             mode="",
-            log_dir=state.output_dir / state / config["identifier"] /
+            log_dir=state.output_dir / state.config["identifier"] /
             fold_signature)
     else:
         raise NotImplementedError
