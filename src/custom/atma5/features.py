@@ -140,6 +140,77 @@ class SpectrumPeakFeatures:
         return pd.DataFrame(features)
 
 
+class FittingBasedPeakFeatures:
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def fit_transform(self, X: pd.DataFrame):
+        return self.transform(X)
+
+    def transform(self, X: pd.DataFrame):
+        unique_filenames = X["spectrum_filename"].unique()
+        params2_values = X["params2"].values
+        features = {}
+
+        widths = self.kwargs["widths"]
+        for w in widths:
+            features[f"fitting_peak_inverse_fw_{w}"] = np.zeros(
+                len(unique_filenames))
+
+        diff_spans = self.kwargs["diff_span"]
+        for s in diff_spans:
+            features[f"fitting_peak_steapness_span_{s}"] = np.zeros(
+                len(unique_filenames))
+
+        file_dir = Path(self.kwargs["file_dir"])
+        for i, filename in enumerate(progress_bar(unique_filenames)):
+            spec = pd.read_csv(file_dir / filename, sep="\t", header=None)
+
+            x = spec[0].values
+            y = spec[1].values
+            y = (y - y.min()) / (y.max() - y.min())
+            params2 = params2_values[i]
+            peak_idx = np.abs(x - params2).argmin()
+
+            spline = UnivariateSpline(x, y - np.max(y) * 0.4, s=0)
+            roots = spline.roots()
+            if len(roots) < 2:
+                continue
+
+            for j in range(len(roots) // 2):
+                left = roots[j * 2]
+                right = roots[j * 2 + 1]
+
+                if left <= params2 <= right:
+                    for s in diff_spans:
+                        left_span_start = max(0, peak_idx - s)
+                        right_span_end = min(peak_idx + s, len(x) - 1)
+
+                        left_diff = (y[peak_idx] - y[left_span_start]) / (
+                            x[peak_idx] - x[left_span_start])
+                        right_diff = (y[peak_idx] - y[right_span_end]) / (
+                            x[right_span_end] - x[peak_idx])
+
+                        features[f"fitting_peak_steapness_span_{s}"][i] = max(
+                            left_diff, right_diff)
+
+            for w in widths:
+                spline = UnivariateSpline(x, y - np.max(y) * w, s=0)
+                roots = spline.roots()
+                if len(roots) < 2:
+                    continue
+
+                for j in range(len(roots) // 2):
+                    left = roots[j * 2]
+                    right = roots[j * 2 + 1]
+
+                    if left <= params2 <= right:
+                        features[f"fitting_peak_inverse_fw_{w}"][i] = 1.0 / (
+                            right - left)
+
+        return pd.DataFrame(features)
+
+
 class NormalizedPeakFeatures:
     def __init__(self, **kwargs):
         self.kwargs = kwargs

@@ -1,0 +1,92 @@
+feature_dir: features/
+
+output_dir: output/
+
+log_dir: log
+
+callbacks:
+  - name: FeatureSavingCallback
+    type: features
+    params:
+      prefix: Atma5_43
+
+  - name: ConcatenateFeatureCallback
+    type: feature_loading
+
+  - name: MergeFittingCallback
+    type: custom.atma5
+
+  - name: OOFAPCallback
+    type: model
+
+  - name: OOFAUCCallback
+    type: model
+    group: av
+
+  - name: CreateSubmissionCallback
+    type: custom.atma5
+    params:
+      save_dir:
+      prefix: submission
+
+  - name: PrepareForStratifiedKFoldCallback
+    type: split
+
+  - name: FoldAUCCallback
+    type: train_fold
+    group: av
+
+  - name: FoldAPCallback
+    type: train_fold
+
+  - name: OutputResultsCallback
+    type: model
+
+  - name: StoreFeatureImportanceCallback
+    type: model
+    group: av
+
+  - name: StoreFeatureImportanceCallback
+    type: model
+
+  - name: PlotFeatureImportanceCallback
+    type: model
+    group: av
+    params:
+      model_name: lgbm_av
+      title: Adversarial Validation
+      figname: feature_importance_av.png
+
+  - name: PlotFeatureImportanceCallback
+    type: model
+    params:
+      model_name: lgbm_tuned
+      title: LightGBM
+      figname: feature_importance.png
+
+  - name: RemoveSpecifiedColumnsCallback
+    type: preprocess
+    params:
+      columns:
+        - spectrum_mean
+        - spectrum_nunique
+        - highest_peak_positions
+
+pipeline:
+  - data_loading:
+      - configs/data_loading/atma5/train.yml
+      - configs/data_loading/atma5/test.yml
+      - configs/data_loading/atma5/fitting.yml
+  - features:
+      - configs/features/atma5/fitting_based_peak_features.yml
+  - feature_loading:
+      - configs/feature_loading/atma5/load_fitting_params.yml
+      - configs/feature_loading/atma5/parametrized_fwhm_13.yml
+      - configs/feature_loading/atma5/peak_features_16.yml
+      - configs/feature_loading/atma5/spec_std_skew_kurt_13.yml
+      - configs/feature_loading/atma5/spec_max_threshed_12.yml
+  - preprocess:
+  - av: configs/adversarial/av_with_lgbm.yml
+  - split: configs/split/stratified_kfold.yml
+  - model: configs/model/atma5/lgbm_tuned.yml
+  - prediction: configs/prediction/atma5/to_submission.yml
