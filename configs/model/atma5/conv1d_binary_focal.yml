@@ -85,9 +85,9 @@ train_params:
       file_dir: input/atma5/spectrum
       scale: min_max
       flip: True
-      crop: False
+      crop: True
       noise: True
-      peak: True
+      peak: False
     valid:
       batch_size: 1024
       shuffle: False
@@ -96,9 +96,9 @@ train_params:
       file_dir: input/atma5/spectrum
       scale: min_max
       flip: True
-      crop: False
+      crop: True
       noise: True
-      peak: False
+      peak: True
   callback:
     - name: mAPCallback
       params:

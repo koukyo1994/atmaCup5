@@ -29,10 +29,9 @@ callbacks:
       save_dir:
       prefix: submission
       weights:
-        conv1d_no_crop: 0.25
-        conv1d_crop: 0.25
-        conv1d_peak: 0.25
-        conv1d_kernel3: 0.25
+        conv1d_no_crop: 0.34
+        conv1d_crop: 0.33
+        conv1d_peak: 0.33
 
   - name: PrepareForStratifiedKFoldCallback
     type: split
@@ -69,6 +68,4 @@ pipeline:
   - model: configs/model/atma5/conv1d_crop.yml
   - split: configs/split/atma5/strat3.yml
   - model: configs/model/atma5/conv1d_peak.yml
-  - split: configs/split/atma5/strat4.yml
-  - model: configs/model/atma5/conv1d_kernel3.yml
   - prediction: configs/prediction/atma5/tta.yml
