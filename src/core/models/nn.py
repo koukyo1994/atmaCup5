@@ -14,6 +14,7 @@ from pathlib import Path
 from catalyst.core import Callback, CallbackOrder, State
 from catalyst.dl import SupervisedRunner
 from catalyst.utils import get_device
+from scipy.stats import cauchy
 from sklearn.metrics import average_precision_score, roc_auc_score
 
 from .base import NNModel, Matrix
@@ -93,7 +94,8 @@ class RawFittingDataset(data.Dataset):
                  scale="normalize",
                  crop=False,
                  flip=False,
-                 noise=False):
+                 noise=False,
+                 peak=False):
         self.values = df
         self.target = target
         self.file_dir = Path(file_dir)
@@ -103,6 +105,7 @@ class RawFittingDataset(data.Dataset):
         self.crop = crop
         self.flip = flip
         self.noise = noise
+        self.peak = peak
 
     def __len__(self):
         return len(self.values)
@@ -116,9 +119,23 @@ class RawFittingDataset(data.Dataset):
         spectrum = df[1].values
         spectrum_fitting = fitting[1].values
         if self.noise:
-            scale = np.random.randint(20, 100)
+            scale = np.random.randint(50, 200)
             noise = scale * np.random.normal(len(spectrum))
             spectrum = spectrum + noise
+
+        if self.peak:
+            idxmax = fitting[0].values.argmax()
+            sign = 1 if np.random.rand() > 0.5 else -1
+            peak_pos = fitting[0].values[idxmax] + np.random.randint(
+                50, 150) * sign
+            scale = np.abs(np.random.normal() * 40)
+
+            false_peak = cauchy.pdf(df[0].values, peak_pos, scale)
+            ratio = df[1].max() / false_peak.max()
+
+            false_peak = false_peak * ratio * min(np.random.rand(), 0.8)
+
+            spectrum = spectrum + false_peak
 
         if self.crop:
             start = np.random.randint(0, 111)
@@ -160,7 +177,8 @@ class FittingDataset(data.Dataset):
                  scale="normalize",
                  crop=False,
                  flip=False,
-                 noise=False):
+                 noise=False,
+                 peak=False):
         self.values = df
         self.target = target
         self.file_dir = Path(file_dir)
@@ -169,19 +187,33 @@ class FittingDataset(data.Dataset):
         self.crop = crop
         self.flip = flip
         self.noise = noise
+        self.peak = peak
 
     def __len__(self):
         return len(self.values)
 
     def __getitem__(self, idx: int):
         filename = self.values[idx][0]
+        params2 = self.values[idx][1]
         df = pd.read_csv(self.file_dir / filename, sep="\t", header=None)
 
         spectrum = df[1].values
         if self.noise:
-            scale = np.random.randint(20, 100)
+            scale = np.random.randint(50, 200)
             noise = scale * np.random.normal(len(spectrum))
             spectrum = spectrum + noise
+
+        if self.peak:
+            sign = 1 if np.random.rand() > 0.5 else -1
+            peak_pos = params2 + np.random.randint(50, 150) * sign
+            scale = np.abs(np.random.normal() * 40)
+
+            false_peak = cauchy.pdf(df[0].values, peak_pos, scale)
+            ratio = df[1].max() / false_peak.max()
+
+            false_peak = false_peak * ratio * min(np.random.rand(), 0.8)
+
+            spectrum = spectrum + false_peak
 
         if self.crop:
             start = np.random.randint(0, 111)
@@ -221,6 +253,9 @@ def get_loader(loader_params: dict, df: Matrix, target: Optional[Matrix]):
         crop = loader_params["crop"]
         flip = loader_params["flip"]
         noise = loader_params["noise"]
+        peak = loader_params.get("peak")
+        if peak is None:
+            peak = False
         dataset = FittingDataset(  # type: ignore
             df,
             target,
@@ -228,7 +263,8 @@ def get_loader(loader_params: dict, df: Matrix, target: Optional[Matrix]):
             scale,
             crop=crop,
             flip=flip,
-            noise=noise)
+            noise=noise,
+            peak=peak)
         params = loader_params.copy()
         params.pop("dataset_type")
         params.pop("file_dir")
@@ -237,6 +273,8 @@ def get_loader(loader_params: dict, df: Matrix, target: Optional[Matrix]):
         params.pop("crop")
         params.pop("flip")
         params.pop("noise")
+        if params.get("peak") is not None:
+            params.pop("peak")
     elif dataset_type == "raw_and_fitting":
         scale = "normalize" if loader_params.get(
             "scale") is None else "min_max"
