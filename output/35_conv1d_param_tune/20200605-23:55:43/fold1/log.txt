@@ -1,0 +1,8 @@
+[2020-06-05 23:55:57,263] 
+1/50 * Epoch 1 (_base): lr=0.0010 | momentum=0.9000
+1/50 * Epoch 1 (train): loss=0.1953 | mAP=0.0576
+1/50 * Epoch 1 (valid): loss=0.4615 | mAP=0.0533
+[2020-06-05 23:56:04,829] 
+2/50 * Epoch 2 (_base): lr=0.0008 | momentum=0.9000
+2/50 * Epoch 2 (train): loss=0.1091 | mAP=0.2322
+2/50 * Epoch 2 (valid): loss=0.1873 | mAP=0.0764

@@ -7,8 +7,12 @@ model_params:
       params:
         in_channels: 1
         out_channels: 32
-        kernel_size: 3
+        kernel_size: 5
         stride: 1
+    - name: SCse1d
+      type: custom
+      params:
+        in_channels: 32
     - name: MaxPool1d
       type: torch
       params:
@@ -18,8 +22,12 @@ model_params:
       params:
         in_channels: 32
         out_channels: 64
-        kernel_size: 3
+        kernel_size: 5
         stride: 1
+    - name: SCse1d
+      type: custom
+      params:
+        in_channels: 64
     - name: MaxPool1d
       type: torch
       params:
@@ -29,8 +37,12 @@ model_params:
       params:
         in_channels: 64
         out_channels: 128
-        kernel_size: 3
+        kernel_size: 5
         stride: 1
+    - name: SCse1d
+      type: custom
+      params:
+        in_channels: 128
     - name: MaxPool1d
       type: torch
       params:
@@ -100,7 +112,7 @@ train_params:
     name: CosineAnnealingLR
     params:
       T_max: 10
-  num_epochs: 50
+  num_epochs: 90
   seed: 1994
   main_metric: loss
   minimize_metric: True
