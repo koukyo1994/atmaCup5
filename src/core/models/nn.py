@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
 import torch.utils.data as data
@@ -20,11 +21,37 @@ from sklearn.metrics import average_precision_score, roc_auc_score
 from .base import NNModel, Matrix
 
 
+class FocalLoss(nn.Module):
+    def __init__(self, alpha=1, gamma=2, logits=False, reduce=True):
+        super(FocalLoss, self).__init__()
+        self.alpha = alpha
+        self.gamma = gamma
+        self.logits = logits
+        self.reduce = reduce
+
+    def forward(self, inputs, targets):
+        if self.logits:
+            BCE_loss = F.binary_cross_entropy_with_logits(
+                inputs, targets, reduce=False)
+        else:
+            BCE_loss = F.binary_cross_entropy(inputs, targets, reduce=False)
+        pt = torch.exp(-BCE_loss)
+        F_loss = self.alpha * (1 - pt)**self.gamma * BCE_loss
+
+        if self.reduce:
+            return torch.mean(F_loss)
+        else:
+            return F_loss
+
+
 def get_criterion(criterion_params: dict):
     name = criterion_params["name"]
     params = {} if criterion_params.get(
         "params") is None else criterion_params["params"]
-    return nn.__getattribute__(name)(**params)
+    if name == "FocalLoss":
+        return FocalLoss(**params)
+    else:
+        return nn.__getattribute__(name)(**params)
 
 
 def get_optimizer(model, optimizer_params: dict):
