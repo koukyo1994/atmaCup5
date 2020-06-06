@@ -1,0 +1,414 @@
+{
+  "best": {
+    "mAP": 0.9193795126547795,
+    "loss": 0.02604053358133399
+  },
+  "last": {
+    "mAP": 0.9199737326865819,
+    "loss": 0.02648418803061105
+  },
+  "train.47": {
+    "mAP": 0.9193795126547795,
+    "loss": 0.02604053358133399
+  },
+  "epoch_0": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.1.pth",
+    0.5325345652730336,
+    {
+      "mAP": 0.16387038038984544,
+      "loss": 0.5325345652730336
+    }
+  ],
+  "epoch_1": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.2.pth",
+    0.28428689539232105,
+    {
+      "mAP": 0.2879734813358249,
+      "loss": 0.28428689539232105
+    }
+  ],
+  "epoch_2": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.3.pth",
+    0.15373618865702565,
+    {
+      "mAP": 0.4314577682242366,
+      "loss": 0.15373618865702565
+    }
+  ],
+  "epoch_3": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.4.pth",
+    0.09389761141886548,
+    {
+      "mAP": 0.610543022603322,
+      "loss": 0.09389761141886548
+    }
+  ],
+  "epoch_4": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.5.pth",
+    0.05812747032953415,
+    {
+      "mAP": 0.8157756464102804,
+      "loss": 0.05812747032953415
+    }
+  ],
+  "epoch_5": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.6.pth",
+    0.059374983434358056,
+    {
+      "mAP": 0.783648905813393,
+      "loss": 0.059374983434358056
+    }
+  ],
+  "epoch_6": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.7.pth",
+    0.0410903850501427,
+    {
+      "mAP": 0.85446183170119,
+      "loss": 0.0410903850501427
+    }
+  ],
+  "epoch_7": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.8.pth",
+    0.038601658827479284,
+    {
+      "mAP": 0.8672976887003849,
+      "loss": 0.038601658827479284
+    }
+  ],
+  "epoch_8": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.9.pth",
+    0.03985302957938514,
+    {
+      "mAP": 0.864263777609565,
+      "loss": 0.03985302957938514
+    }
+  ],
+  "epoch_9": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.10.pth",
+    0.03863912365363601,
+    {
+      "mAP": 0.8658068877901943,
+      "loss": 0.03863912365363601
+    }
+  ],
+  "epoch_10": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.11.pth",
+    0.03692681575350579,
+    {
+      "mAP": 0.8767940398839856,
+      "loss": 0.03692681575350579
+    }
+  ],
+  "epoch_11": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.12.pth",
+    0.03352070030854625,
+    {
+      "mAP": 0.8943012562434605,
+      "loss": 0.03352070030854625
+    }
+  ],
+  "epoch_12": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.13.pth",
+    0.035606403986058466,
+    {
+      "mAP": 0.8839664247618081,
+      "loss": 0.035606403986058466
+    }
+  ],
+  "epoch_13": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.14.pth",
+    0.03565734673464306,
+    {
+      "mAP": 0.8889309552892508,
+      "loss": 0.03565734673464306
+    }
+  ],
+  "epoch_14": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.15.pth",
+    0.03517991332706783,
+    {
+      "mAP": 0.8922623337750087,
+      "loss": 0.03517991332706783
+    }
+  ],
+  "epoch_15": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.16.pth",
+    0.03707809244716576,
+    {
+      "mAP": 0.8919260989450206,
+      "loss": 0.03707809244716576
+    }
+  ],
+  "epoch_16": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.17.pth",
+    0.034359420681649114,
+    {
+      "mAP": 0.8912813481288823,
+      "loss": 0.034359420681649114
+    }
+  ],
+  "epoch_17": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.18.pth",
+    0.038166787863659554,
+    {
+      "mAP": 0.9137035761033434,
+      "loss": 0.038166787863659554
+    }
+  ],
+  "epoch_18": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.19.pth",
+    0.040937450770150915,
+    {
+      "mAP": 0.877049595040209,
+      "loss": 0.040937450770150915
+    }
+  ],
+  "epoch_19": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.20.pth",
+    0.028384123811725007,
+    {
+      "mAP": 0.9254190953375153,
+      "loss": 0.028384123811725007
+    }
+  ],
+  "epoch_20": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.21.pth",
+    0.03567145544491964,
+    {
+      "mAP": 0.9087911775172033,
+      "loss": 0.03567145544491964
+    }
+  ],
+  "epoch_21": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.22.pth",
+    0.032321300931279905,
+    {
+      "mAP": 0.9056205098544504,
+      "loss": 0.032321300931279905
+    }
+  ],
+  "epoch_22": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.23.pth",
+    0.02942057973413998,
+    {
+      "mAP": 0.9117027025265956,
+      "loss": 0.02942057973413998
+    }
+  ],
+  "epoch_23": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.24.pth",
+    0.027516513259952392,
+    {
+      "mAP": 0.9290292614267365,
+      "loss": 0.027516513259952392
+    }
+  ],
+  "epoch_24": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.25.pth",
+    0.03236709358001525,
+    {
+      "mAP": 0.9100095467088893,
+      "loss": 0.03236709358001525
+    }
+  ],
+  "epoch_25": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.26.pth",
+    0.029621080227982863,
+    {
+      "mAP": 0.9139085634651949,
+      "loss": 0.029621080227982863
+    }
+  ],
+  "epoch_26": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.27.pth",
+    0.0295279681602419,
+    {
+      "mAP": 0.9266369253227464,
+      "loss": 0.0295279681602419
+    }
+  ],
+  "epoch_27": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.28.pth",
+    0.027477699343839104,
+    {
+      "mAP": 0.9274099136787916,
+      "loss": 0.027477699343839104
+    }
+  ],
+  "epoch_28": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.29.pth",
+    0.02962094707453339,
+    {
+      "mAP": 0.9234351754621191,
+      "loss": 0.02962094707453339
+    }
+  ],
+  "epoch_29": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.30.pth",
+    0.029193493704829508,
+    {
+      "mAP": 0.9168613009340173,
+      "loss": 0.029193493704829508
+    }
+  ],
+  "epoch_30": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.31.pth",
+    0.027117529569573265,
+    {
+      "mAP": 0.9226320670200232,
+      "loss": 0.027117529569573265
+    }
+  ],
+  "epoch_31": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.32.pth",
+    0.02762354424607858,
+    {
+      "mAP": 0.9170961438474627,
+      "loss": 0.02762354424607858
+    }
+  ],
+  "epoch_32": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.33.pth",
+    0.026840215908374734,
+    {
+      "mAP": 0.9247278164472325,
+      "loss": 0.026840215908374734
+    }
+  ],
+  "epoch_33": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.34.pth",
+    0.026829770983528112,
+    {
+      "mAP": 0.9307553408576431,
+      "loss": 0.026829770983528112
+    }
+  ],
+  "epoch_34": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.35.pth",
+    0.03357269992724953,
+    {
+      "mAP": 0.9101563195981607,
+      "loss": 0.03357269992724953
+    }
+  ],
+  "epoch_35": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.36.pth",
+    0.028112794444836782,
+    {
+      "mAP": 0.9231803114240208,
+      "loss": 0.028112794444836782
+    }
+  ],
+  "epoch_36": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.37.pth",
+    0.051815368092312616,
+    {
+      "mAP": 0.9228650630571921,
+      "loss": 0.051815368092312616
+    }
+  ],
+  "epoch_37": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.38.pth",
+    0.030077546258740723,
+    {
+      "mAP": 0.9310659401544592,
+      "loss": 0.030077546258740723
+    }
+  ],
+  "epoch_38": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.39.pth",
+    0.026843995973217304,
+    {
+      "mAP": 0.9192958843874635,
+      "loss": 0.026843995973217304
+    }
+  ],
+  "epoch_39": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.40.pth",
+    0.032734194744150354,
+    {
+      "mAP": 0.8906556035790052,
+      "loss": 0.032734194744150354
+    }
+  ],
+  "epoch_40": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.41.pth",
+    0.04005922249592866,
+    {
+      "mAP": 0.9007615123051609,
+      "loss": 0.04005922249592866
+    }
+  ],
+  "epoch_41": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.42.pth",
+    0.027418828076446865,
+    {
+      "mAP": 0.9215970950861864,
+      "loss": 0.027418828076446865
+    }
+  ],
+  "epoch_42": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.43.pth",
+    0.02812207437971533,
+    {
+      "mAP": 0.9175357399198508,
+      "loss": 0.02812207437971533
+    }
+  ],
+  "epoch_43": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.44.pth",
+    0.029588268204230786,
+    {
+      "mAP": 0.9130060503720736,
+      "loss": 0.029588268204230786
+    }
+  ],
+  "epoch_44": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.45.pth",
+    0.04233023962450653,
+    {
+      "mAP": 0.9163611320970485,
+      "loss": 0.04233023962450653
+    }
+  ],
+  "epoch_45": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.46.pth",
+    0.027903106885322725,
+    {
+      "mAP": 0.9150584755936348,
+      "loss": 0.027903106885322725
+    }
+  ],
+  "epoch_46": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.47.pth",
+    0.02604053358133399,
+    {
+      "mAP": 0.9193795126547795,
+      "loss": 0.02604053358133399
+    }
+  ],
+  "epoch_47": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.48.pth",
+    0.03253577761076486,
+    {
+      "mAP": 0.9064993534345233,
+      "loss": 0.03253577761076486
+    }
+  ],
+  "epoch_48": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.49.pth",
+    0.028654957547152533,
+    {
+      "mAP": 0.9148215327052844,
+      "loss": 0.028654957547152533
+    }
+  ],
+  "epoch_49": [
+    "output/42_nn_model_ensemble/kernel3/fold2/checkpoints/train.50.pth",
+    0.02648418803061105,
+    {
+      "mAP": 0.9199737326865819,
+      "loss": 0.02648418803061105
+    }
+  ]
+}

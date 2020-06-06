@@ -98,7 +98,7 @@ train_params:
       flip: True
       crop: False
       noise: True
-      peak: True
+      peak: False
   callback:
     - name: mAPCallback
       params:
